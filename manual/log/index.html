@@ -1,0 +1,382 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li class="selected"><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>ログ出力</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">ログ出力の準備</a></li>
+                        <li><a href="#2">ログの出力</a></li>
+                        <li><a href="#3">出力フォーマットの指定</a></li>
+                        <li><a href="#4">ログのローテート</a></li>
+              </ul>
+
+	      <h3 id="1">ログ出力の準備</h3>
+    		<p class="exp">
+CurryではLoggerクラスを利用することでログの出力が容易に行えます。<br />
+Loggerクラスのメソッドは全て静的メソッドであるため、出力ロジックの記述位置を選ばず、手軽にログ出力が可能です。<br />
+<br />
+デフォルトでログ出力されるようになっています。<br />
+出力先のディレクトリは標準ではシステムのルートディレクトリ直下のlogsディレクトリで、出力ファイルはsystem.logです。<br />
+<br />
+ファイル名を変更したい場合はcurry.iniまたはInitializerで設定します。
+</p>
+				<div class="file_name">
+curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[logger]
+;--If you want to output log, set log file name.
+system_log = &quot;custom.log&quot;
+
+;--If you want to output query log, set log file name.
+query_log = &quot;query.log&quot;
+</pre>
+</div></div>
+				<div class="file_name">
+index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="class">Logger</span>::setLogName(<span class="reteral">'custom.log'</span>)
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+curry.iniでは、システムログとクエリログのファイル名指定が可能です。<br />
+システムログは、Logger::info等のログ出力メソッドにより出力されるログファイルです。<br />
+クエリログは、ModelやSqlAbstractを継承したクラスを使用して実行されたSQLが全て出力されるログファイルです。
+</p>
+				<p class="exp">
+setLogNameメソッドで設定する場合は実行する場所はどこでもかまいません。<br />
+システム全体で一つのログファイルに出力するならばInitializerで設定してしまうのが良いでしょう。例えばコントローラーごとに出力するファイルを別にする場合は、それぞれのコントローラークラスのpreProcessメソッドなどで定義すればよいし、コントローラーのサブディレクトリ単位にファイルを別にする場合はPluginのpreProcessに記述すればよいでしょう。
+</p>
+				
+	      <h3 id="2">ログの出力</h3>
+    		<p class="exp">
+setLogNameメソッドさえ通せば、後は好きな場所でログ出力メソッドを呼び出すだけです。<br />
+ログにはログレベルという概念が存在し、出力するログの種類により、使い分けることで、ログファイルを読み取りやすくすることが出来ます。<br />
+<br />
+ログレベルには以下の5つが存在します。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>ログレベル</th><th>メソッド</th><th>意味</th></tr>
+<tr>
+<td>デバッグ</td>
+<td>debug</td>
+<td>開発時のデバッグ目的や運用時の検証などに利用する。特定のポイントの変数の内容を知りたいなど、一時的に意図的に埋め込む。</td>
+</tr>
+<tr>
+<td>情報</td>
+<td>info</td>
+<td>通常の通知レベルのログ。処理の経過などの意味合い。</td>
+</tr>
+<tr>
+<td>警告</td>
+<td>warn</td>
+<td>致命的ではないが、注意が必要な処理が行われた場合などのログに利用。</td>
+</tr>
+<tr>
+<td>エラー</td>
+<td>error</td>
+<td>想定される不正処理やcatchブロック内で利用。</td>
+</tr>
+<tr>
+<td>例外</td>
+<td>except</td>
+<td>catchブロックでの利用を想定。引数に例外のインスタンスを渡すことで例外の内容を出力してくれる。</td>
+</tr>
+</table>
+</p>
+				<p class="exp">
+実際のところ、exceptメソッドを除いて、ログの中に[INFO]や[ERROR]などの文字列が含まれるだけで、それ以外の違いは在りません。ログファイルを参照した時に、例えばエラーのログだけを探したい場合のインデックス的な役割をするだけのものです。<br />
+except以外のメソッドは引数には出力したいメッセージを指定するだけです。exceptは例外のインスタンスを指定します。exceptは出力されるログレベルの表示はerrorメソッドと同じ、[ERROR]になります。<br />
+<br />
+利用頻度が高いのはinfoやerrorでしょう。infoは処理経過をロギング、想定されたエラー処理時にerrorで記録を残す、というところです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">Logger</span>::info(<span class="reteral">'処理を開始しました。'</span>);
+<span class="class">Logger</span>::warn(<span class="reteral">'存在しないアクションへアクセスがありました。'</span>);
+<span class="class">Logger</span>::error(<span class="reteral">'処理が異常終了しました。'</span>);
+<span class="class">Logger</span>::debug($var);
+<span class="reserved">try</span> {
+    <span class="reserved">throw</span> <span class="reserved">new</span> <span class="class">Exception</span>(<span class="reteral">'例外です'</span>);
+} <span class="reserved">catch</span> (<span class="class">Exception</span> $e)
+    <span class="class">Logger</span>::except($e);
+}
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+[2011-01-01 00:00:00] [INFO ] 処理を開始しました。
+[2011-01-01 00:00:00] [WARN ] 存在しないアクションへアクセスがありました。
+[2011-01-01 00:00:00] [ERROR] 処理が異常終了しました。
+[2011-01-01 00:00:00] [DEBUG] hogehoge。
+[2011-01-01 00:00:00] [ERROR] FILE:/home/・・・/controllers/index_controller.php LINE:18 例外です。
+#0 D:\public_html\curry\dispatcher.php(188): IndexController-&gt;index()
+#1 D:\public_html\curryfw\htdocs\index.php(41): Dispatcher-&gt;dispatch()
+#2 {main}
+</pre>
+</div></div>
+				<h4>出力レベルの制限</h4>
+<p class="exp">
+例えば開発環境では全てのログを出力し、<br />
+公開環境ではdebugレベルのログ出力は行わないといったような指定をしたい場合があります。<br />
+<br />
+Loggerは実際にログファイルに出力するログのレベルの下限を設定することが出来ます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">Logger</span>::setOutputLevel(<span class="class">LogLevel</span>::INFO);
+</pre>
+</div></div>
+				<p class="exp">
+setOutputLevelメソッドで出力するログレベルの下限を設定しますが、レベルはLogLevelクラスのクラス定数で指定します。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>ログレベル</th><th>LogLevelクラスの定数</th></tr>
+<tr>
+<td>デバッグ</td>
+<td>LogLevel::DEBUG</td>
+</tr>
+<tr>
+<td>情報</td>
+<td>LogLevel::INFO</td>
+</tr>
+<tr>
+<td>警告</td>
+<td>LogLevel::WARN</td>
+</tr>
+<tr>
+<td>エラー</td>
+<td>LogLevel::ERROR</td>
+</tr>
+<tr>
+<td>例外</td>
+<td>LogLevel::EXCEPT</td>
+</tr>
+<tr>
+<td>一切出力なし</td>
+<td>LogLevel::NO_OUTPUT</td>
+</tr>
+</table>
+</p>
+				<p class="exp">
+例えばLogLevel::INFOを設定した場合、INFOレベル以上のログ出力しか行いません。<br />
+つまり、Logger::debugメソッドによるログ出力は無視されます。<br />
+<br />
+ちなみにこの設定はcurry.iniでの初期設定でも可能です。
+</p>
+				<div class="file_name">
+curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[logger]
+;--if you want to set numeric min level of log output.
+;--set value as string &quot;debug&quot; or &quot;info&quot; or &quot;warn&quot; or &quot;error&quot; or &quot;except&quot; or &quot;no_output&quot;
+output_level = &quot;info&quot;
+</pre>
+</div></div>
+				<p class="exp">
+出力レベルの初期値はDEBUGで、すべてのレベルのログが出力されます。
+</p>
+				
+	      <h3 id="3">出力フォーマットの指定</h3>
+    		<h4>ログのフォーマット</h4>
+<p class="exp">
+デフォルトではログの出力フォーマットは以下のようになっています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+[時間] [ログレベル] メッセージ
+</pre>
+</div></div>
+				<p class="exp">
+これは任意に指定することが出来ます。指定にはsetLogFormatメソッドを利用します。<br />
+デフォルトのフォーマット指定は以下のような感じです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+[%time%] [%level%] %message%
+</pre>
+</div></div>
+				<p class="exp">
+%time%の位置に、出力される瞬間の時刻、<br />
+%level%の位置にログレベルの表示、<br />
+%message%の位置にログメッセージが出力されます。<br />
+<br />
+例えば、
+</p>
+				<div class="sample_code"><div>
+<pre>
+Logger::setLogFormat(<span class="reteral">'%time% %message%(%level%)'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+とした場合、
+</p>
+				<div class="sample_code"><div>
+<pre>
+2011-01-01 00:00:00 処理を開始しました。(INFO)
+</pre>
+</div></div>
+				<p class="exp">
+のように出力されます。
+</p>
+				<h4>時間のフォーマット</h4>
+<p class="exp">
+%time%の位置に自動的に時間が出力されますが、デフォルトのフォーマットは、yyyy-MM-dd HH:mm:ssという感じになっており、PHPの時間指定フォーマットで表現すると"Y-m-d H:i:s"です。setLogFormatメソッドでは時間の出力位置は指定できますが、時間自体のフォーマットが指定できません。これは、setTimeFormatメソッドにより指定が可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">Logger</span>::setTimeFormat(<span class="reteral">'Y/n/j H:i:s'</span>);
+<span class="class">Logger</span>::info(<span class="reteral">'処理を開始しました。'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+とした場合、
+</p>
+				<div class="sample_code"><div>
+<pre>
+[2011/1/1 00:00:00] [INFO ] 処理を開始しました。
+</pre>
+</div></div>
+				<p class="exp">
+のように出力されます。<br />
+指定するフォーマットはdate関数に指定するのと同じ、PHPの時刻指定フォーマットです。
+</p>
+				
+	      <h3 id="4">ログのローテート</h3>
+    		<p class="exp">
+Loggerはローテートの仕組みを持っています。<br />
+ローテートとはログファイルの世代保存の仕組みで、1ファイルの行数が規定に達したら旧世代のファイルとしてリネームして退避します。<br />
+Loggerでは、この保存世代数の最大値と、1ファイルの最大行数の設定が行えます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 1ファイルの最大出力行数を設定
+</span><span class="class">Logger</span>::setMaxLine(1000);
+<span class="comment">// ログファイルの保存世代最大数を設定
+</span><span class="class">Logger</span>::setGeneration(5);
+</pre>
+</div></div>
+				<p class="exp">
+この設定はInitializerなどで行うとよいでしょう。<br />
+またはcurry.iniでの設定も可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+[logger]
+;--if you want to set max output lines.
+max_line = &quot;1000&quot;
+
+;--if you want to set max output lines.
+max_generation = &quot;5&quot;
+</pre>
+</div></div>
+				<p class="exp">
+この例では1ファイルが1000行に達したらそのファイルはファイル名の末尾に世代番号を付加して退避します。<br />
+そして世代番号なしの最新ログを含めたファイル数が5ということになります。<br />
+最大世代数まで退避されている状態で新たな世代に入る場合は、最古の物が削除されます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟logs/
+        ∟system.log
+        ∟system.log.1
+        ∟system.log.2
+        ∟system.log.3
+        ∟system.log.4
+</pre>
+</div></div>
+				<p class="exp">
+最大世代数に達している状態時はこのような感じになり、<br />
+世代数5の場合は".4"のログファイルが最古になります。<br />
+この状態で世代交代が発生すると".4"が削除され、各世代の世代番号が1つずつ加算され、新たに世代番号なしのファイルが作成されます。<br />
+<br />
+最大行数の初期値は100000行、最大世代数の初期値は3です。
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

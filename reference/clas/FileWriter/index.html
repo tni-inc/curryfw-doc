@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li class="selected"><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>FileWriter</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">FileWriterはファイルにテキストを書き込むための機能を提供します。</div>
+    
+        <h3>Curry対応バージョン</h3>
+    <div class="version">バージョン 1.2.0 以降</div>
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/utility/file_writer.php</div>
+
+    
+    <h3>フィールド</h3>
+        <div class="explanation">公開されるフィールドはありません。</div>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FileWriter/__construct">__construct</a></td>
+        <td>public</td>
+        <td>
+		            コンストラクタです。<br />
+openメソッドも同時に実行されるため、インスタンス生成時には既にファイルが開いた状態になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FileWriter/open">open</a></td>
+        <td>public</td>
+        <td>
+		            書き込みのためにファイルを開きます。<br />
+インスタンス生成時には既に開いている状態のため、通常はこのメソッドを実行することはありません。<br />
+closeメソッドで明示的に閉じた後、同一インスタンスで再度書き込みを行う場合にこのメソッドを利用します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FileWriter/close">close</a></td>
+        <td>public</td>
+        <td>
+		            ファイルを閉じます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FileWriter/write">write</a></td>
+        <td>public</td>
+        <td>
+		            ファイルにテキストを書き込みます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FileWriter/writeLine">writeLine</a></td>
+        <td>public</td>
+        <td>
+		            ファイルにテキストを書き込み、最後に改行をコードを付加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FileWriter/writeLines">writeLines</a></td>
+        <td>public</td>
+        <td>
+		            複数行のテキストを一度に書き込みます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FileWriter/writeCsv">writeCsv</a></td>
+        <td>public</td>
+        <td>
+		            2次元配列のデータをCSV形式で書き込みます。
+                  </td>
+      </tr>
+        </table>
+	
+    
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li class="selected"><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>モデル</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">モデルの概念</a></li>
+                        <li><a href="#2">モデルの利用</a></li>
+                        <li><a href="#3">モデルクラスの定義</a></li>
+                        <li><a href="#4">データアクセス</a></li>
+                        <li><a href="#5">空想モデルクラス</a></li>
+                        <li><a href="#6">データベースコネクションの考え方</a></li>
+              </ul>
+
+	      <h3 id="1">モデルの概念</h3>
+    		<p class="exp">
+モデルはMVCの中でシステムのメインロジックを担当するべき部分です。ただしCurryではモデルの利用は必須ではありません。コントローラーから利用する処理ライブラリ的な感覚での利用と考えても構いません。<br />
+<br />
+ただ一般的にモデルはデータ処理、メインロジックを担当する層だと位置付けられます。<br />
+基本的にシステムの根幹を成すロジックはコントローラーに記述せず、モデルに記述することを勧めします。<br />
+<br />
+ひとつの考え方として、モデルとデータベーステーブルを密接に関連付け、モデルクラスとテーブルが1：1となるような設計も一般的です。<br />
+CurryではModelというクラスを継承することにより、それにならう事ができます。<br />
+この章ではModelクラスの継承を前提として説明しています。
+</p>
+				
+	      <h3 id="2">モデルの利用</h3>
+    		<p class="exp">
+モデルクラスはapp/modelsディレクトリ内に配置します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟models/
+            ∟cart.php
+</pre>
+</div></div>
+				<p class="exp">
+モデルはコントローラーから呼び出して利用しますが、呼び出し方にはいくつかの方法があります。
+</p>
+				<h4>コントローラーのmodelメソッドを利用する</h4>
+<p class="exp">
+コントローラーのmodelメソッドの引数にモデルクラス名を指定することで、モデルクラスのインスタンスを得ることができます。モデルクラスのファイルが所定の位置に正しい名前規則で配置されていれば、このメソッドを利用するのが最もシンプルかつ効率的です。<br />
+この場合、コンストラクタの引数なしでインスタンス生成するため、引数を要求する場合は利用できません。
+</p>
+				<div class="file_name">
+app/controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> list()
+    {
+        $model = $this-&gt;model(<span class="reteral">'Cart'</span>);
+    }
+}
+</pre>
+</div></div>
+				<h4>インクルードした上でnew</h4>
+<p class="exp">
+require_onceなどにより事前にクラスファイルを読み込んだ上でnewによるインスタンス生成という、PHPとして最も標準的な手順を踏むことは当然可能です。この場合、モデルクラスのコンストラクタの引数を自由に使えると言うメリットがあります。
+</p>
+				<div class="file_name">
+app/controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+require_once <span class="class">PathManager</span>::getModelDirectory() . <span class="reteral">'/cart.php'</span>;
+
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> list()
+    {
+        $model = <span class="reserved">new</span> <span class="class">Cart</span>();
+    }
+}
+</pre>
+</div></div>
+				<h4>オートロードを利用してnew</h4>
+<p class="exp">
+PHPの特殊関数である__autoload関数を利用し、LoaderクラスのloadModelメソッドを利用する方法です。LoaderクラスのloadModelメソッドは、クラス名をもとにモデルクラスのphpファイルを読み込んでくれます。そしてコントローラーではnewするだけです。いちいちrequire_onceする必要がない上にモデルのコンストラクタの引数を自由に使えるというメリットがあります。
+</p>
+				<div class="file_name">
+htdocs/index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">function</span> __autoload($className)
+{
+    <span class="class">Loader</span>::loadModel($className);
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> list()
+    {
+        $model = <span class="reserved">new</span> <span class="class">Cart</span>();
+    }
+}
+</pre>
+</div></div>
+				
+	      <h3 id="3">モデルクラスの定義</h3>
+    		<p class="exp">
+モデルクラスをデータベーステーブルと関連付ける場合、一定のルールに従います。<br />
+Curryではテーブル名規則はスネークケース、クラス名はパスカルケースと規定されているため、それに従ってテーブルを作成し、クラスも作成します。<br />
+そしてモデルクラスは必ずフレームワークの"Model"クラスを継承します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+CREATE TABLE cart
+(
+    cart_id int primary key auto_increment,
+    user_id int not null,
+    create_time varchar(14) not null,
+    update_time varchar(14) not null
+)
+</pre>
+</div></div>
+				<div class="file_name">
+app/models/cart.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Cart</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+
+}
+</pre>
+</div></div>
+				
+	      <h3 id="4">データアクセス</h3>
+    		<h4>SELECT</h4>
+<p class="exp">
+Modelを継承したクラスではテーブルへのデータアクセスが簡単に行えます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Cart</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> getCartList()
+    {
+        $sel = $this-&gt;select();
+        $sel-&gt;order(<span class="reteral">'create_time DESC'</span>);
+        $rows = $sel-&gt;fetchAll();
+        <span class="reserved">return</span> $rows;
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> getUserCart($userId)
+    {
+        $sel = $this-&gt;select();
+        $sel-&gt;where(<span class="reteral">'user_id'</span>, $userId);
+        $row = $sel-&gt;fetchRow();
+        <span class="reserved">return</span> $row;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+SELECT文によるデータ取得の例です。モデルクラスのselectメソッドは、SELECTオブジェクトを返します。このSELECTオブジェクトに対してWHERE条件を設定したり、ORDER BYを設定したりして、最後にfetchAllなどの実行メソッドにより、データを取得します。<br />
+fetchAllは複数レコードを取得し、fetchRowは単一レコードを取得します。<br />
+<br />
+そしてモデルクラスのメソッドをコントローラーから利用するような形にします。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $cart = $this-&gt;model(<span class="reteral">'Cart'</span>);
+        $cartInfo = $cart-&gt;getUserCart($this-&gt;params[<span class="reteral">'user_id'</span>]);
+        $this-&gt;view-&gt;cart_info = $cartInfo;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+データ取得にはfindというメソッドもあります。selectメソッドが条件を指定していろいろなデータの取得の方法があるのに対し、findはテーブルのキー項目の値を直接引数で指定するだけで単一行を得られるメソッドです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $cart= $this-&gt;model(<span class="reteral">'Cart'</span>);
+        $cartInfo = $cart-&gt;find($this-&gt;params[<span class="reteral">'cart_id'</span>]);
+        $this-&gt;view-&gt;cart_info = $cartInfo;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+先ほどの例では、キー項目ではないuser_idを指定で取得するために、selectメソッドを利用してWHERE条件を指定して、という一連の処理があります。この一連の処理をコントローラーに記述すると多少ごちゃつくので、モデル内に一連の処理をまとめてメソッドとし、コントローラーから呼び出すような形にしています。<br />
+<br />
+それに対してfindメソッドでは引数としてそのテーブルのキー項目を指定するという決まりがあり、findメソッドの戻り値が結果の単一レコードになるため、直接コントローラーから利用するのに向いています。例ではテーブルのキー項目がcart_idという1フィールドでキーとなっている場合はfindの引数も一つになりますが、複数のフィールドでキーをなす複合キーの場合は、その数の分、引数の数も増やしていくということになります。<br />
+<br />
+以下のような2つの列でキーを成す複合キーテーブルがあった場合の例を示します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+CREATE TABLE cart_product
+(
+    cart_id int not null primary key,
+    product_id int not null primary key,
+    create_time varchar(14) not null,
+    update_time varchar(14) not null
+)
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $cartPrd = $this-&gt;model(<span class="reteral">'CartProduct'</span>);
+        $productInfo= $cartPrd-&gt;find($this-&gt;params[<span class="reteral">'cart_id'</span>], $this-&gt;params[<span class="reteral">'product_id'</span>]);
+        $this-&gt;view-&gt;product_info = $productInfo;
+    }
+}
+</pre>
+</div></div>
+				<h4>INSERT・UPDATE・DELETE</h4>
+<p class="exp">
+更新系のクエリも同様に行えます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Cart</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> updateDate($cartId)
+    {
+        <span class="comment">// UPDATE
+</span>        $upd = $this-&gt;update();
+        $upd-&gt;values(<span class="reteral">'update_time'</span>, date(<span class="reteral">'YmdHis'</span>));
+        $upd-&gt;where(<span class="reteral">'cart_id'</span>, $cartId);
+        $res = $upd-&gt;execute();
+        <span class="reserved">return</span> $res;
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> createCart($userId)
+    {
+        <span class="comment">// INSERT
+</span>        $ins = $this-&gt;insert();
+        $ins-&gt;values(<span class="reteral">'user_id'</span>, $userId);
+        $ins-&gt;values(<span class="reteral">'create_time'</span>, date(<span class="reteral">'YmdHis'</span>));
+        $ins-&gt;values(<span class="reteral">'update_time'</span>, date(<span class="reteral">'YmdHis'</span>));
+        $res = $ins-&gt;execute();
+        <span class="reserved">return</span> $res;
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> deleteCart($cartId)
+    {
+        <span class="comment">// DELETE
+</span>        $del = $this-&gt;delete();
+        $del-&gt;where(<span class="reteral">'cart_id'</span>, $cartId);
+        $res = $del-&gt;execute();
+        <span class="reserved">return</span> $res;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+データアクセスについてはもっといろいろな機能が用意されています。詳しくは<a href="/manual/data">データアクセス</a>のところで詳しく解説していますのでそちらを参照してください。
+</p>
+				
+	      <h3 id="5">空想モデルクラス</h3>
+    		<p class="exp">
+基本的にはコントローラーのmodelメソッドは、引数で指定したモデルクラスのインスタンスを返すものです。当然、モデルディレクトリにそのモデルクラスが存在する前提のメソッドです。しかし実はモデルクラスが存在しなくても、modelメソッドで指定する引数に対して正しい名前規則のテーブルが存在する場合、そのモデルクラスが存在するように見立ててインスタンスを返してくれます。基本的にはちゃんとモデルクラスを定義するべきですが、ごく単純なアクセスしか行わず、独自にメソッドを持たせる必要も無いような場合、敢えてモデルクラスを作らずとも良いようになっています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟controllers/
+            ∟cart_controller.php
+        ∟models/
+              (※cart.phpは存在しない)
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        <span class="comment">// Cartクラスは実際には存在しないが、cartテーブルオブジェクトとしてのインスタンスが返る
+</span>        $cart = $this-&gt;model(<span class="reteral">'Cart'</span>);
+        $cartInfo = $cart-&gt;find($this-&gt;params[<span class="reteral">'cart_id'</span>]);
+        $this-&gt;view-&gt;cart_info = $cartInfo;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+この仕組みを利用するとモデルクラスなんて一切必要ないという考えに至るかもしれません。しかしそうすると本来モデルクラスに記述すべきロジックが全てコントローラーに書かれることになるため、好ましくありません。本当に必要ないと思われる場合以外はモデルクラスをちゃんと定義することをお勧めします。
+</p>
+				
+	      <h3 id="6">データベースコネクションの考え方</h3>
+    		<p class="exp">
+Modelクラスを継承したモデルでデータアクセスを行う場合、データベース接続に関しては裏で行われているため、一切意識しません。<br />
+実は、モデルクラスのインスタンスを生成する時にデータベースへの接続が確立され、モデルクラスの裏側でその接続オブジェクトを保持しています。そのため、複数のモデルのインスタンスを生成した場合、それぞれ別々の接続オブジェクトとなり、お互いに別々に接続が確立されていることになります。しかし、例えばトランザクション処理を行う場合など、複数のテーブルに対して同一の接続であって欲しい場合はあります。これを実現するにはいくつかの方法があります。
+</p>
+				<h4>コネクションを共有する</h4>
+<p class="exp">
+モデルのインスタンスには接続オブジェクトを取得するメソッドと設定するメソッドがあります。これを利用し、あるモデルから接続を取得し、別のモデルにその接続を設定することで、複数のモデル間で接続を共有できることになります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $cart = $this-&gt;model(<span class="reteral">'Cart'</span>);
+        $db = $cart-&gt;getConnection();
+        $cartPrd = $this-&gt;model(<span class="reteral">'CartProduct'</span>);
+        $cartPrd-&gt;setConnection($db);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+簡単な方法ですが、実は例のCartProductの方は、インスタンス生成時に一旦独自の接続を確立し、それを閉じて別な接続を利用するような形になるため、多少効率は悪くなります。
+</p>
+				<h4>デフォルトの接続インスタンスを設定する</h4>
+<p class="exp">
+Modelクラスの静的メソッド、setDefaultConnectionにPDOインスタンスを設定することで、モデルクラスのインスタンス生成時に利用する接続のデフォルトとすることができ、全てのモデルインスタンスで同一の接続を利用することができます。<br />
+この仕組を利用する場合、index.phpなどで設定を行うとよいでしょう。<br />
+<br />
+仮に、ある処理だけ敢えて別接続で処理したいというような場合、Db::factoryメソッドで新たにコネクションを確立し、返り値であるPDOインスタンスをモデルのsetConnectionメソッドで設定することで可能です。
+</p>
+				<div class="file_name">
+app/initializer.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        $db = <span class="class">Db</span>::factory();
+        <span class="class">Model</span>::setDefaultConnection($db);
+    }
+}
+</pre>
+</div></div>
+				<h4>Dbクラスをシングルトン的に利用する</h4>
+<p class="exp">
+シングルトンとはクラス設計パターンの一つで、どこからインスタンスを取得しても必ず同一インスタンスを返すような仕組みです。CurryのDB接続を表現するクラスではこのシングルトンに対応しています。これを利用すると、Db::factoryによって得られるインスタンスは必ず同一インスタンスになり、全てのモデルクラスが同一の接続を利用するようになるので、トランザクション処理なども容易に対応できるし、コネクション数の節約となるため、データベースサーバーの負担が軽く出来ます。<br />
+シングルトンを利用するにはindex.phpに以下の一行を加えます。
+</p>
+				<div class="file_name">
+app/initializer.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="class">Db</span>::setIsSingleton(<span class="reserved">true</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+またはcurry.iniでの初期設定でも対応可能です。
+</p>
+				<div class="file_name">
+curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[database]
+;--If you want to use singleton db connection, set this flag &quot;1&quot;.
+is_singleton = 1
+</pre>
+</div></div>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

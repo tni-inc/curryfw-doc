@@ -1,0 +1,1068 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li class="selected"><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>コントローラー</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">コントローラークラス</a></li>
+                        <li><a href="#2">アクション</a></li>
+                        <li><a href="#3">デフォルトアクション</a></li>
+                        <li><a href="#4">デフォルトコントローラー</a></li>
+                        <li><a href="#5">非アクションメソッド</a></li>
+                        <li><a href="#6">共通処理メソッド</a></li>
+                        <li><a href="#7">他のアクション・コントローラーへの処理委譲</a></li>
+                        <li><a href="#8">サブディレクトリによるコントローラーの階層管理</a></li>
+                        <li><a href="#9">リクエスト処理</a></li>
+                        <li><a href="#10">セッションの利用</a></li>
+                        <li><a href="#11">URLパラメーター</a></li>
+                        <li><a href="#13">プラグイン（コントローラー共通処理）</a></li>
+                        <li><a href="#14">URLルーティングの設定</a></li>
+              </ul>
+
+	      <h3 id="1">コントローラークラス</h3>
+    		<p class="exp">
+CurryはMVCアーキテクチャを基本として設計されており、コントローラーとはこのMVCのCに当たるものです。MVCの中でのコントローラーの役割は、リクエスト情報を処理し、モデルやビューを制御することにあります。そしてURLと直接関連し、いわばWebリクエストの入口です。<br />
+<br />
+コントローラーはクラスで表現します。コントローラークラスはかならずCurryのクラスである"Controller"を継承します。<br />
+そしてコントローラークラスのクラス名は必ず末尾に"Controller"が付加されなければなりません。<br />
+<br />
+実際のクラス定義はこんな感じになります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+}
+</pre>
+</div></div>
+				
+	      <h3 id="2">アクション</h3>
+    		<p class="exp">
+コントローラーはアクションと呼ばれる処理単位の概念を持ちます。<br />
+これはメソッドで表現されます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        echo &quot;Hello World!&quot;;
+        <span class="reserved">exit</span>;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+そしてこの"コントローラー"と"アクション"が直接URLになります。<br />
+上の例では"Hello"コントローラーに"world"アクションを定義しました。<br />
+このメソッドを呼び出したい場合、<br />
+<br />
+http://www.xxxx.com/hello/world<br />
+<br />
+でアクセスすることが可能です。<br />
+実際にブラウザからアクセスしてみてください。
+</p>
+				<div class="sample_result">
+<pre>
+Hello World!
+</pre>
+</div>
+				<p class="exp">
+ブラウザに表示されましたか？
+</p>
+				
+	      <h3 id="3">デフォルトアクション</h3>
+    		<p class="exp">
+通常はURLで指定されたアクションメソッドが呼び出されますが、アクションを指定しなかった場合のデフォルトのアクションを定義することができます。それはindexアクションです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        echo &quot;This is index&quot;;
+        <span class="reserved">exit</span>;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+indexという名前のアクションメソッドはそのコントローラーのデフォルトのアクションとして扱われます。<br />
+URLとしては、<br />
+<br />
+http://www.xxxx.com/hello/index<br />
+<br />
+でのアクセスは当然可能ですが、<br />
+<br />
+http://www.xxxx.com/hello<br />
+<br />
+というようにアクションを省略した場合はindexが呼ばれます。
+</p>
+				
+	      <h3 id="4">デフォルトコントローラー</h3>
+    		<p class="exp">
+コントローラーもアクションと同じくindexがデフォルトのコントローラーです。<br />
+つまりIndexControllerならば、それがサイト全体のデフォルトコントローラーとなります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+このように、indexコントローラーのindexアクションが存在する場合、<br />
+<br />
+http://www.xxxx.com/<br />
+<br />
+という、サイトのルートURLでのアクセスが可能です。<br />
+このようなURLは通例ではトップページが表示されるように、indexコントローラーのindexアクションはサイトのトップページとして利用するのが良いでしょう。
+</p>
+				
+	      <h3 id="5">非アクションメソッド</h3>
+    		<h4>privateメソッドとして定義する方法</h4>
+<p class="exp">
+コントローラーはURLと関連付きますので、コーディング上、明示的に「メソッドを呼び出す」ということはありません。その意味では特殊なクラスだといえます。<br />
+しかし、コントローラー内での内部処理的なメソッドを作りたい場合はあるでしょう。<br />
+例えばコントローラー内の複数メソッドで同じ処理が発生するような場合に別メソッドとして切り出したい場合などです。<br />
+<br />
+コントローラーもただのクラスなので適当な名前でメソッドを作ればいいわけですが、内部処理用のメソッドの場合、URLから直接アクセスされたくはありません。<br />
+この場合、単純にアクセス修飾子をprivateにするだけでOKです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        $this-&gt;_echoText(<span class="reteral">'Hello World!'</span>);
+    }
+
+    <span class="reserved">private</span> <span class="reserved">function</span> _echoText($text)
+    {
+        echo $text;
+        <span class="reserved">exit</span>;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+このコントローラークラスで、<br />
+<br />
+http://www.xxxx.com/hello/world<br />
+<br />
+でアクセスした場合、
+</p>
+				<div class="sample_result">
+<pre>
+Hello World!
+</pre>
+</div>
+				<p class="exp">
+と表示されますが、<br />
+<br />
+http://www.xxxx.com/hello/_echo_text<br />
+<br />
+にアクセスしても"404 NOT FOUND"エラーとなります。<br />
+<br />
+ただprivateにするだけではアクションメソッドとの見分けがつきにくいので、privateメソッドの場合は例のように頭に"_"をつけるなどすることをおすすめします。
+</p>
+				<h4>アクションメソッドの名前規則として接尾語を設定する方法</h4>
+<p class="exp">
+privateメソッドとする以外にもう一つの方法があります。<br />
+デフォルトではアクションのメソッド名はURLで指定されたアクションそのままのメソッド名ですが、コントローラークラス名には"Controller"というお決まりの接尾語をつけるように、アクションメソッド名にもお決まりの接尾語を設定することが出来ます。<br />
+<br />
+例えば接尾語として"Action"を設定するには、curry.iniで設定を行うか、Initializerを利用します。
+</p>
+				<div class="file_name">
+configs/curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[dispatch]
+;--If you want to modify suffix of action method name, set this value.
+action_suffix = &quot;Action&quot;
+</pre>
+</div></div>
+				<div class="file_name">
+app/initializer.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="class">NameManager</span>::setActionSuffix(<span class="reteral">'Action'</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+どちらの方法でも構いません。<br />
+このように設定した場合、コントローラーは以下のようになります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> worldAction()
+    {
+        <span class="comment">// http://www.xxxx.com/hello/world　でのアクセスが可能
+</span>        $this-&gt;_echoText(<span class="reteral">'Hello World!'</span>);
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        <span class="comment">// このメソッドにはURLからの直接のアクセスは出来ない
+</span>    }
+
+    <span class="reserved">private</span> <span class="reserved">function</span> _echoText($text)
+    {
+        <span class="comment">// このメソッドももちろん外部からのアクセスは出来ない
+</span>    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+アクションの接尾語として"Action"を設定しているため、単に"world"というメソッドをpublicで定義しても、URLからのアクセスは不可能になります。<br />
+ただこの場合でも、可読性の観点からも非アクションメソッドはprivateとして、頭に"_"などをつけるようにするべきです。<br />
+<br />
+ちなみにコントローラーの設備しも同様に設定が可能です。デフォルトは"Controller"です。
+</p>
+				
+	      <h3 id="6">共通処理メソッド</h3>
+    		<p class="exp">
+コントローラー中の全てのアクションに共通した処理が行いたい場合、非アクションメソッドとして定義し、全アクションメソッドから呼び出すという方法が考えられますが、もっとスマートな方法があります。
+</p>
+				<p class="exp">
+メソッド名をpreProcessまたはpostProcessとして定義すると、アクションに関わらず、そのコントローラーでは必ず呼び出されます。<br />
+preProcessはアクションメソッドの直前のタイミング、<br />
+postProcessはアクションメソッドの直後のタイミングに呼び出されます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+        echo &quot;preProcess called.&quot;;
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> postProcess()
+    {
+        echo &quot;postProcess called.&quot;;
+        <span class="reserved">exit</span>;
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        echo &quot;Hello World!&quot;;
+    }
+}
+
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+preProcess called.
+Hello World!
+postProcess called.
+</pre>
+</div>
+				
+	      <h3 id="7">他のアクション・コントローラーへの処理委譲</h3>
+    		<p class="exp">
+あるアクションへアクセスがあった場合に、URL上はアクセスしたURLのまま、処理は別のアクションやコントローラーで定義された処理を行うことが可能です。<br />
+それにはtransferメソッドを利用します。
+</p>
+				<h4>同コントローラー内の別アクションへの委譲</h4>
+<p class="exp">
+transferメソッドの第一引数に委譲先アクションを指定することで、処理を別のアクションのアクションを委譲することが出来ます。アクションメソッドより手前でtransferを呼び出した場合、アクションメソッドは実行されません。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $this-&gt;transfer(<span class="reteral">'world'</span>);
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        echo &quot;Hello World!&quot;;
+        <span class="reserved">exit</span>;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+この場合、<br />
+<br />
+http://www.xxxx.com/hello/world<br />
+と、<br />
+http://www.xxxx.com/hello<br />
+のアクセスは同じ結果となります。<br />
+<br />
+デフォルトの処理をindex以外のアクションとして定義したい場合にこの例のような方法で実現が可能です。<br />
+ここで注意することは、あくまでURLで指定するのと同様のアクション名であって、メソッド名を直接指定するのではないということです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $this-&gt;transfer(<span class="reteral">'helloWorld'</span>);  <span class="comment">// これは間違い
+</span>        $this-&gt;transfer(<span class="reteral">'hello_world'</span>);  <span class="comment">// これが正しい
+</span>    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> helloWorld()
+    {
+        echo &quot;Hello World!&quot;;
+        <span class="reserved">exit</span>;
+    }
+</pre>
+</div></div>
+				<h4>別コントローラーのアクションへの委譲</h4>
+<p class="exp">
+別のコントローラークラスのアクションへの委譲も可能です。<br />
+それには第二引数にそのコントローラー名を指定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Hello2Controller</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $this-&gt;transfer(<span class="reteral">'world'</span>, <span class="reteral">'hello'</span>);
+    }
+}
+
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        echo &quot;Hello World!&quot;;
+        <span class="reserved">exit</span>;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+例のような二つのコントローラーが存在する状態で、<br />
+<br />
+http://www.xxxx.com/hello2<br />
+<br />
+へアクセスすると、
+</p>
+				<div class="sample_result">
+<pre>
+Hello World!
+</pre>
+</div>
+				<p class="exp">
+となります。<br />
+<br />
+前述のとおり、URLで呼び出される予定のアクションの実行前にtransferが行われると、アクションメソッドは実行されません。移譲先のアクションの実行をもってアクションの実行完了とみなすからです。<br />
+以下の例ではpreProcessでworldアクションへtransferしているため、このコントローラーではworld以外のアクションメソッドは意味を成しません。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+        $this-&gt;transfer(<span class="reteral">'world'</span>);
+
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> japan()
+    {
+        <span class="comment">// URLが/hello/japanでもこのメソッドが実行されることはない
+</span>    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        <span class="comment">// preProcessメソッドのtransferによりこのメソッドが実行される
+</span>    }
+}
+</pre>
+</div></div>
+				
+	      <h3 id="8">サブディレクトリによるコントローラーの階層管理</h3>
+    		<p class="exp">
+コントローラークラスの格納ディレクトリには、サブディレクトリを作成してコントローラークラスを階層管理することが可能です。<br />
+<br />
+デフォルトではサブディレクトリが有効になっています。<br />
+しかし、サブディレクトリを使用しない事がわかっている場合にはこの機能を無効にすることもできます。無効にしても大きな意味はありませんが、わずかにパフォーマンス的に有利になります。本当に必要ない場合は無効にするとよいでしょう。<br />
+<br />
+無効にするにはcurry.iniで設定をします。
+</p>
+				<div class="file_name">
+configs/curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[dispatch]
+
+;--If you want to use controller sub directory, set this flag &quot;1&quot;.
+sub_controller_enabled = 0
+</pre>
+</div></div>
+				<p class="exp">
+または、Initializer::initializeでの設定でも対応可能です。
+</p>
+				<div class="file_name">
+app/initializer.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        $this-&gt;router-&gt;enableSubController(<span class="reserved">false</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+例えばサイト管理者用の管理機能をまとめる"admin"というサブディレクトリを作成した場合のディレクトリ構成の例です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site
+    ∟app
+        ∟controllers
+            ∟admin
+                ∟index_controller.php
+                ∟user_controller.php
+            ∟test_controller.php
+</pre>
+</div></div>
+				<p class="exp">
+サブディレクトリを作成して、一つ深い階層が出来上がります。<br />
+階層の深さに制限はありません。<br />
+このサブディレクトリ内のコントローラーにアクセスする場合、通常のURL形式とは少し異なり、
+</p>
+				<div class="sample_code"><div>
+<pre>
+http://www.xxxx.com/(サブディレクトリ名)/(コントローラー)/（アクション）
+</pre>
+</div></div>
+				<p class="exp">
+のようにサブディレクトリがURLのパスのトップセグメントになります。<br />
+例えば上記のディレクトリ構成の、user_controller.phpにアクセスする場合は、
+</p>
+				<div class="sample_code"><div>
+<pre>
+http://www.xxxx.com/admin/user/edit
+</pre>
+</div></div>
+				<p class="exp">
+というようになります。<br />
+この例はadminディレクトリ内のuserコントローラーのeditという名前のアクションを呼び出しています。<br />
+<br />
+サブディレクトリのコントローラーのクラス名は基本的に通常と何も変わりませんが、クラス名の頭に、クラスの名前規則に従う形でサブディレクトリ名を付加しても動作します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// http://www.xxxx.com/admin/userでアクセス可能
+</span><span class="reserved">class</span> <span class="class">UserController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+
+}
+
+<span class="comment">// こちらのクラス名でもhttp://www.xxxx.com/admin/userでアクセス可能
+</span><span class="reserved">class</span> <span class="class">AdminUserController</span>  <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+
+}
+</pre>
+</div></div>
+				<p class="exp">
+クラス名はどちらでもかまいませんが、異なるディレクトリで同じコントローラー名のクラスを作成し、しかも同時に両方のクラスが呼び出されることがあるとしたら、クラス名が同じだと定義済みエラーが発生してしまいます。これを回避したい場合はサブディレクトリ名を頭に付加します。
+</p>
+				
+	      <h3 id="9">リクエスト処理</h3>
+    		<p class="exp">
+コントローラーの基本的な役割の一つとして$_GETや$_POSTなどのリクエスト情報を直接扱うというものがあります。Curryではこれらのスーパーグローバル変数の直接の参照は推奨されません。かわりにこれらに簡単にアクセスする仕組が用意されています。<br />
+<br />
+リクエスト情報はリクエストオブジェクトに集約され、コントローラークラスのフィールドとして保持しています。そのため、$this->requestでリクエストオブジェクトが取得でき、このリクエストオブジェクトより各種リクエスト情報を取得します。<br />
+<br />
+リクエストオブジェクトより取得できる情報は、
+</p>
+				<ul class="kajo">
+    <li>コントローラー名</li>
+    <li>アクション名</li>
+    <li>コントローラーサブディレクトリ</li>
+    <li>POST</li>
+    <li>GET</li>
+    <li>URLパラメーター</li>
+</ul>
+				<p class="exp">
+などです。<br />
+これらの実際の取得方法を見てみましょう。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        <span class="comment">// リクエストオブジェクト
+</span>        $req = $this-&gt;request;
+
+        <span class="comment">// コントローラー名
+</span>        $controller = $req-&gt;getController();
+        <span class="comment">// アクション名
+</span>        $action = $req-&gt;getAction();
+        <span class="comment">// コントローラーサブディレクトリ
+</span>        $subdir = $req-&gt;getControllerSubDirectory();
+        <span class="comment">// POST
+</span>        $post = $req-&gt;getPost();
+        <span class="comment">// GET
+</span>        $query= $req-&gt;getQuery();
+        <span class="comment">// URLパラメーター
+</span>        $params= $req-&gt;getparams();
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+更に、POST、GET、URLパラメーターに関してはもっと簡単な取得方法もあります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        <span class="comment">// $this-&gt;postは$this-&gt;getRequest()-&gt;getPost()と同じ
+</span>        $postVar = $this-&gt;post[<span class="reteral">'post_var'</span>];
+
+        <span class="comment">// $this-&gt;queryは$this-&gt;getRequest()-&gt;getQuery()と同じ
+</span>        $getVar= $this-&gt;query[<span class="reteral">'get_var'</span>];
+
+        <span class="comment">// $this-&gt;paramsは$this-&gt;getRequest()-&gt;getParams()と同じ
+</span>        $paramVar= $this-&gt;params[<span class="reteral">'param_var'</span>];
+    }
+}
+</pre>
+</div></div>
+				<h4>オートトリミング</h4>
+<p class="exp">
+POSTやGETの値に対して自動的にトリミングを実行することが可能です。<br />
+デフォルトでは無効になっているので、有効にするにはcurry.iniで設定するか、Initializer::initializeメソッドなどでRequestクラスの静的メソッド、setAutoTrimにtrueを指定します。
+</p>
+				<div class="file_name">
+configs/curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[request]
+;If you want to trim the request parameters(POST or GET) automatically, set this flag &quot;1&quot;.
+auto_trim = 1
+</pre>
+</div></div>
+				<div class="file_name">
+app/initializer.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="class">Request</span>::setAutoTrim(<span class="reserved">true</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+これでRequestクラスを利用してPOSTやGETの値を取得すると、取得値にトリミングが行われた状態での値が取得されるようになります。
+</p>
+				
+	      <h3 id="10">セッションの利用</h3>
+    		<p class="exp">
+セッションもリクエスト情報と同じくスーパーグローバル変数（$_SESSION）の直接の参照は推奨されません。代わりにSessionクラスを利用します。Sessionクラスを利用する場合、明示的にsession_start()関数を呼び出す必要はありません。<br />
+<br />
+Sessionクラスは名前空間という概念を持ち、コンストラクタで引数として指定します。ここで指定した名前空間のセッションならば、別のインスタンスでも同じ値を共有することが出来ます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">AuthController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> login()
+    {
+        $sess = <span class="reserved">new</span> <span class="class">Session</span>(<span class="reteral">'auth'</span>);
+        $sess-&gt;user_id = <span class="reteral">'tarou'</span>;
+        $this-&gt;redirect(<span class="reteral">'/cart'</span>);
+    }
+}
+
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $sess = <span class="reserved">new</span> <span class="class">Session</span>(<span class="reteral">'auth'</span>);
+        <span class="comment">// 「tarou」を出力します
+</span>        echo $sess-&gt;user_id;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+例のように明示的にSessionクラスのインスタンスを生成して利用するのが通常の手続きです。<br />
+<br />
+もう一つ別の利用方法もあります。<br />
+コントローラークラスには$sessionというフィールドが存在します。これはSessionクラスのインスタンスで、そのコントローラー内でのみ有効なセッションとして利用することができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">HelloController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        $this-&gt;session-&gt;message = <span class="reteral">'Hello world!'</span>;
+        $this-&gt;redirect(<span class="reteral">'/hello/msg'</span>);
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> msg()
+    {
+        <span class="comment">// 「Hello world!」を出力します。
+</span>        echo $this-&gt;session-&gt;message;
+    }
+}
+
+<span class="reserved">class</span> <span class="class">Hello2Controller</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> world()
+    {
+        <span class="comment">// 何も出力されません
+</span>        echo $this-&gt;session-&gt;message;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+例えば認証情報など、コントローラーに関わらずサイト全体で利用するセッションの場合は前者の方法になるでしょう。<br />
+しかし例えば入力フォーム→確認表示→登録と言ったような一連の流れをセッションを利用して実現するような場合で、この一連の流れが同じコントローラー内で完結する場合には後者の方法が楽でしょう。
+</p>
+				
+	      <h3 id="11">URLパラメーター</h3>
+    		<p class="exp">
+URLがコントローラーとアクションで構成される事は前述の通りです。コントローラーとアクションを表すだけであればURLのパスは第2セグメントまでしか使用しないことになりますが、実際は第３セグメント以降はリクエストパラメータとして利用できます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+http://www.xxxx.com/cart/list/tarou/10
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $userId= $this-&gt;params[0];
+        $limit = $this-&gt;params[1];
+
+        <span class="comment">// &quot;tarou&quot;が出力されます
+</span>        echo $userId;
+        <span class="comment">// &quot;10&quot;が出力されます
+</span>        echo $limit;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+URLのアクションセグメント以降は前から順番に0,1,2・・・というように数値インデックスをキーとしたパラメータとして取得が可能です。<br />
+<br />
+しかしキーが数値インデックスではソースコードの可読性が落ちるので、名前付きパラメータにも対応しています。それにはいくつか方法があります。一つはURLにキーと値の組み合わせを含める方法です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+http://www.xxxx.com/cart/products/uid=tarou/lmt=10
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $userId= $this-&gt;params[<span class="reteral">'uid'</span>];
+        $limit = $this-&gt;params[<span class="reteral">'lmt'</span>];
+
+        <span class="comment">// &quot;tarou&quot;が出力されます
+</span>        echo $userId;
+        <span class="comment">// &quot;10&quot;が出力されます
+</span>        echo $limit;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+手軽に名前付きパラメータが利用できますが、クエリ文字列と似ていてあまり綺麗とはいえないかもしれません。URLだけで対応するには上記前者の数値インデックスか後者の方法での名前付きパラメータのどちらかになります。<br />
+<br />
+URLだけでは対応できませんが、綺麗なURLで名前付きパラメータを実現する方法があります。それはパラメータの位置とキーを関連付ける情報を設定ファイルによって設定する方法です。それにはURLルーティング設定ファイル"routing.ini"を利用します。<br />
+routing.iniを利用すると、URLの各セグメント位置に対するパラメーターのキーを設定可能です。<br />
+routing.iniの詳細は下で別途解説しているのでそちらを参照してください。<br />
+<br />
+一つの設定例を以下に示します。
+</p>
+				<div class="file_name">
+setting/routing.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[routing1]
+request = cart/products/*/*
+route = controller/action/user_id/limit
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+http://www.xxxx.com/cart/products/tarou/10
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $userId= $this-&gt;params[<span class="reteral">'user_id'</span>];
+        $limit = $this-&gt;params[<span class="reteral">'limit'</span>];
+
+        <span class="comment">// &quot;tarou&quot;が出力されます
+</span>        echo $userId;
+        <span class="comment">// &quot;10&quot;が出力されます
+</span>        echo $limit;
+    }
+}
+</pre>
+</div></div>
+				
+	      <h3 id="13">プラグイン（コントローラー共通処理）</h3>
+    		<p class="exp">
+特定コントローラー内の全てのアクションに対して同じ処理を行いたい場合はpreProcessメソッドなどを利用することで実現が可能ですが、サイト内の全コントローラー共通の処理を行いたい場合というのはあるはずです。<br />
+例えば認証処理だとか、カウンターを回す処理などです。コントローラーはそれぞれ独立したクラスのため、これを実現するには全てのコントローラーのpreProcessに同じ処理を記述する必要があるように思われますが、全コントローラー共通処理を実現するプラグインという仕組みがあります。<br />
+<br />
+一般的なフレームワークの場合、コントローラーの共通処理を必要とする場合、<br />
+共通の基礎クラスとして、フレームワークのコントローラークラスを継承した基礎コントローラーを定義し、各末端のコントローラーはそれを更に継承するという形をとる事が多くなります。<br />
+Curryのプラグインはこのような方法を必要とせずに共通処理を実現する仕組みです。<br />
+<br />
+<br />
+プラグインはデフォルトで有効になっています。<br />
+しかしプラグインの仕組みを利用しない事がわかっている場合は、無効にすることによってわずかですがパフォーマンス的に有利になります。利用しない場合は無効にするとよいでしょう。<br />
+<br />
+無効にするにはcurry.iniで設定するか、Initializerを利用します。
+</p>
+				<div class="file_name">
+app/initializer.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        $this-&gt;dispatcher-&gt;enablePlugin(<span class="reserved">false</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+Pluginクラスを定義します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Plugin</span> <span class="reserved">extends</span> <span class="class">PluginAbstract</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+        echo <span class="reteral">'共通前処理'</span>;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+プラグインはクラスですが、動作させるにはルールがあります。<br />
+まず、必ずPluginAbstractクラスを継承します。そしてクラス名は必ず"Plugin"でなければなりません。これをどう利用するかと言うと、コントローラーディレクトリ内に配置するだけです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site
+    ∟app
+        ∟controllers
+            ∟cart_controller.php
+            ∟index_controller.php
+            ∟plugin.php
+</pre>
+</div></div>
+				<p class="exp">
+こうすることで、コントローラーディレクトリ内の全てのコントローラーに関連付き、自動的にPluginクラスのメソッドが実行されます。<br />
+Pluginクラスの中でも自動的に実行されるメソッドは決まっています。基本的にはpreProcessとpostProcessですが、コントローラーの同名メソッドとは別のメソッドです。実行されるタイミングは以下の順になります。
+</p>
+				<p class="exp">
+1、 プラグインのpreProcess()<br />
+2、 コントローラーのpreProcess()<br />
+3、 コントローラーのアクションメソッド<br />
+4、 コントローラーのpostProcess()<br />
+5、 プラグインのpostProcess()
+</p>
+				<p class="exp">
+Pluginクラスはいくつかのコントローラーと同様のメソッドとフィールドを持ちます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Plugin</span> <span class="reserved">extends</span> <span class="class">PluginAbstract</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+        <span class="comment">// コントローラーと同一インスタンスのビューオブジェクト
+</span>        $view = $this-&gt;view;
+
+        <span class="comment">// コントローラーと同一インスタンスのリクエストオブジェクト
+</span>        $req = $this-&gt;request;
+
+        <span class="comment">// コントローラーのものと全く同じ動作
+</span>        $model = $this-&gt;model(<span class="reteral">'ModelName'</span>);
+
+        <span class="comment">// コントローラーのものと全く同じ動作
+</span>        $this-&gt;redirect(<span class="reteral">'/'</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+コントローラーにサブディレクトリが存在する場合、Pluginはサブディレクトリ内のコントローラーに対しても働きます。Pluginの影響範囲はPluginの存在するディレクトリを含め、下層全体です。しかし、もしサブディレクトリ内にもPluginが定義されている場合、サブディレクトリ内のコントローラーに対してはそちらが優先されます。下層のPluginが上層のコントローラーに対して働くことはありません。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟controllers/
+            ∟admin/
+                ∟index_controller.php
+                ∟plugin.php
+            ∟my/
+                ∟index_controller.php
+            ∟cart_controller.php
+            ∟index_controller.php
+            ∟plugin.php
+
+</pre>
+</div></div>
+				<p class="exp">
+例えば上記のディレクトリ構成の場合、controllers直下のindex_controllerに対してはcontrollers直下のpluginが働きます。<br />
+admin/index_controllerに対してはadmin/pluginが働きます。<br />
+my/index_controllerに対してはcontrollers直下のpluginが働きます。
+</p>
+				<h4>呼び出し型メソッドの作成</h4>
+<p class="exp">
+コントローラークラスはpluginのインスタンスを保持しています。<br />
+Pluginクラスで任意のメソッドを定義し、すべてのコントローラークラスから共通で利用できるメソッドとして利用することが可能です。
+</p>
+				<div class="file_name">
+app/controllers/plugin.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Plugin</span> <span class="reserved">extends</span> <span class="class">PluginAbstract</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> logout()
+    {
+        
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+Pluginクラスに任意のメソッドを作成します。<br />
+ここでは共通のログアウト処理としてlogoutというメソッドを定義しました。
+</p>
+				<div class="file_name">
+app/controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> logout()
+    {
+        $this-&gt;plugin-&gt;logout();
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+Pluginクラスのインスタンスはコントローラーから$this->pluginとしてアクセス可能です。<br />
+Pluginに定義したメソッドは、このインスタンスを通して実行が可能です。
+</p>
+				
+	      <h3 id="14">URLルーティングの設定</h3>
+    		<p class="exp">
+configsディレクトリにrouting.iniファイルを配置することで、URLからコントローラー・アクションへ導くルールを設定することができます。また、パラメーターに対して任意のキーを設定することも可能です。
+</p>
+				<div class="file_name">
+config.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+#http://www.xxxx.com/products/cartというリクエストの場合に、
+#cartをコントローラー、productsをアクションとして処理したい場合。
+[routeing0]
+request = products/cart
+route = action/controller
+
+#http://www.xxxx.com/cart/tarou/productsというリクエストの場合に、
+#cartをコントローラー、productsをアクションとし、第2セグメントをuser_idというキーでパラメーター取得する場合。
+[routeing1]
+request = cart/*/products
+route = controller/user_id/action
+
+#特定のコントローラーのデフォルトアクションを設定したい場合は以下のようにする。
+[routing2]
+request = cart
+default_action = products
+
+#以下のようにするとサイトのトップページがcartコントローラーのproductsアクションとなる
+[routing3]
+request = *
+default_controller = cart
+default_action = products
+
+#強制的に特定のコントローラーとして処理したい場合は以下のように設定。
+#以下の例はURLでパス未指定の場合、つまりトップページをcartコントローラーとする設定。
+[routing4]
+request = 
+controller = cart
+
+#requestはカンマ区切りで復数指定可能
+[routeing5]
+request = cart/*/products, user/*/view
+route = controller/user_id/action
+
+#実際にはadmin/editは第3セグメントをパラメータとして取得するが、
+未指定の場合のデフォルトを設定しておき、第3セグメント省略でもアクセス可能にする設定
+[routeing6]
+request = admin/edit
+route = controller/action
+edit_controller=product
+
+---------------------------------------------------------
+
+#以下の設定はデフォルトであり、何も設定しないのと同じ事になる。
+request = *
+route = controller/action
+default_controller = index
+default_action = index
+</pre>
+</div></div>
+				<h4>設定の基本</h4>
+<p class="exp">
+例では[routing0]などととしていますが、セクション名は何でもかまいません。動作にはまったく影響ありません。人間が見て分かりやすいネーミングにするのが良いでしょう。<br />
+設定はrequestとrouteというキーで行います。requestの設定値に対して、リクエストされたURLが前方一致する場合のみ、そのURLの各セグメントはrouteで設定された順番でキーが指定されているものとして処理します。<br />
+<br />
+例えばrouting1の例では第1セグメントがcart、第3セグメントがproductsの場合のみ、第1セグメントをコントローラー、第3セグメントをアクションとして処理します。つまりCartControllerのproductsメソッドが呼び出されるわけです。そしてその場合に第2セクションはuser_idというキーでパラメーターとして処理されます。requestの「*」は、その位置には何が来てもいいという意味で、パラメーターの位置には基本的に「*」を指定します。<br />
+<br />
+requestの設定はカンマ区切りで復数指定することも可能です（バージョン1.4.6以降）。
+</p>
+				<h4>デフォルトコントローラー・アクションの設定</h4>
+<p class="exp">
+通常はデフォルトのコントローラーとアクションはindexですが、default_controllerやdefault_actionを設定すると、requestの条件に合致する場合のコントローラーやアクションのデフォルトを設定することが出来ます。<br />
+これは、routeの設定に対してリクエストが欠損している場合に有効となる設定です。例えばrouteの設定が"controller/action"の場合、上の例のようにURLリクエストがコントローラーのみの指定の場合に適用されます。URLでアクションが指定される場合は適用されません。<br />
+サイト全体のデフォルトコントローラーやデフォルトアクションを設定するには、DispatcherクラスのsetDefaultControllerメソッドやsetDefaultActionメソッドでも可能ですが、routing.iniによる設定は、Dispatcherクラスでの設定よりも優先されます。Dispatcherクラスでの設定はあくまでもrouting.iniで指定されない場合のデフォルトの設定と考えてください。
+</p>
+				<h4>強制転送コントローラー、アクション（ver.1.4.6以降）</h4>
+<p class="exp">
+controllerまたはactionというキーに対して任意のコントローラーやアクションを設定すると、URLがrequestに合致した場合に強制的にコントローラーやアクションを置き換えることが可能です。
+</p>
+				<h4>設定の優先度</h4>
+<p class="exp">
+また、routing.iniに複数の設定を記述した場合、上から順番にrequestの設定とURLの比較を行います。そして最初に合致した設定にしたがってルーティングが行われ、以降の設定は無視されます。複数の設定に合致するリクエストでも、より上に記述された物が優先されるということです。
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

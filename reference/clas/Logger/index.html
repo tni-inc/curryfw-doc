@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li class="selected"><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>Logger</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">ログ出力の機能を提供します。このクラスにより、ログの出力が容易に行えます。ログの出力先ディレクトリはCurry標準のディレクトリ構成に従います。<br />
+Loggerクラスのメソッドは全て静的メソッドです。そのため、スクリプト中のどこの位置からでも手軽に出力が可能です。またログ出力のメソッドは全て、メッセージの末尾に改行コードを自動的に付加しますので、改行コードを敢えてつける必要はありません。</div>
+    
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/utility/logger.php</div>
+
+    
+    <h3>フィールド</h3>
+        <div class="explanation">公開されるフィールドはありません。</div>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/info">info</a></td>
+        <td>public</td>
+        <td>
+		            情報レベルのログとしてログ出力を行います。<br />
+setLogNameメソッドでファイル名に対して設定したログキーを指定することで、ログキーに関連付けられたファイルへ出力を仕分ける事ができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/warn">warn</a></td>
+        <td>public</td>
+        <td>
+		            警告レベルのログとしてログ出力を行います。<br />
+setLogNameメソッドでファイル名に対して設定したログキーを指定することで、ログキーに関連付けられたファイルへ出力を仕分ける事ができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/error">error</a></td>
+        <td>public</td>
+        <td>
+		            エラーレベルのログとしてログ出力を行います。<br />
+setLogNameメソッドでファイル名に対して設定したログキーを指定することで、ログキーに関連付けられたファイルへ出力を仕分ける事ができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/except">except</a></td>
+        <td>public</td>
+        <td>
+		            例外の情報をログ出力します。<br />
+setLogNameメソッドでファイル名に対して設定したログキーを指定することで、ログキーに関連付けられたファイルへ出力を仕分ける事ができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/debug">debug</a></td>
+        <td>public</td>
+        <td>
+		            デバッグ目的でログに文字列を出力したい場合にこのメソッドを利用します。<br />
+setLogNameメソッドでファイル名に対して設定したログキーを指定することで、ログキーに関連付けられたファイルへ出力を仕分ける事ができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/write">write</a></td>
+        <td>public</td>
+        <td>
+		            ログ出力を直接的に行うメソッドです。この他の各出力メソッドは最終的にこのメソッドを呼びだしています。そのため、通常はこのメソッドを直接利用することはありません。<br />
+<br />
+setLogNameメソッドでファイル名に対して設定したログキーを指定することで、ログキーに関連付けられたファイルへ出力を仕分ける事ができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/setLogName">setLogName</a></td>
+        <td>public</td>
+        <td>
+		            ログ出力先のファイル名を指定します。<br />
+指定するのはディレクトリパスを含まないファイル名です。出力先ディレクトリはCurryの標準のログ出力先ディレクトリになります。<br />
+<br />
+第二引数でログキーを設定可能です。ログキーとはファイル名に対する別名です。infoやerror等のログ出力実行メソッドの第2引数でこのキーを指定することで、キーに関連付けられたファイルへ出力される仕組みです。システム中で用途別に出力先のログファイルを複数用意する場合はこのログキーの指定が必要になります。<br />
+システムを通して1種類のログファイルにしか出力しない場合はログキーの指定は必要ありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/getLogName">getLogName</a></td>
+        <td>public</td>
+        <td>
+		            設定されているログ出力先のファイル名を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/setLogFormat">setLogFormat</a></td>
+        <td>public</td>
+        <td>
+		            ログ出力フォーマットを指定します。<br />
+デフォルトでは以下のようなフォーマットになっています。<br />
+<br />
+[時間] [ログレベル] メッセージ<br />
+<br />
+このフォーマットは以下のような指定になり、デフォルトで設定されています。<br />
+<br />
+[%time%] [%level%] %message%<br />
+<br />
+フォーマット指定は"time"と"level"と"message"という3つのキーを適切な文字列に置き換えて出力します。<br />
+%time%は出力の瞬間の時間に置き換えられます。<br />
+%level%はログレベルのキー、例えばinfoメソッドによる出力の場合は"INFO "に置き換えられます。<br />
+%message%は文字通りユーザーが指定したメッセージに置き換えられます。<br />
+<br />
+つまりこれらのキーを含めることでログ出力のフォーマットを自由に変更できます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/setTimeFormat">setTimeFormat</a></td>
+        <td>public</td>
+        <td>
+		            出力ログに含まれる時間のフォーマットを指定することができます。<br />
+デフォルトでは"Y-m-d H:i:s"に設定されており、"2010-01-01 23:59:59"のような形式で出力されます。<br />
+指定方法はPHPの標準の時間指定フォーマットに従います。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/setDir">setDir</a></td>
+        <td>public</td>
+        <td>
+		            ログ出力ディレクトリを指定します。<br />
+Curryの標準のディレクトリ構成に従う場合は指定の必要はありませんが、特に指定したい場合はこのメソッドにより設定が可能です。<br />
+このメソッドはPathManager::setLogDirectoryを間接的に呼び出しますので、直接これを実行するのと全く同じ結果となります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/setGeneration">setGeneration</a></td>
+        <td>public</td>
+        <td>
+		            ログの自動ローテーションの世代数を設定します。<br />
+ログファイルはsetMaxLineメソッドで設定した行数を超えると自動的に数値拡張子をファイル名の末尾に付加した名前にリネームします。その世代が増えるたびに一つずつ拡張子の数値を＋していきますが、その最大世代数を設定します。<br />
+<br />
+例えばログファイル名を"log"とし、世代数を3に設定したすると、最大で"log"、"log.1"、"log.2"の３ファイルが残る事になります。この状態で"log"が最大行数に達すると、"log.2"が削除され、"log.1"が"log.2"にリネームされ、"log"が"log.1"にリネームされ、"log"が新規作成されることになります。<br />
+<br />
+世代数の初期値は2に設定されていますので、このメソッドにより世代数の設定を行わない場合は2個までしか世代保存されません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Logger/setMaxLine">setMaxLine</a></td>
+        <td>public</td>
+        <td>
+		            １つのログファイルに出力される最大行数を設定します。<br />
+ここで設定した行数を超えた状態のログファイルにログを出力しようとすると、自動ローテーション機能が働きます。自動ローテーションについてはsetGenerationメソッドの説明を参照してください。<br />
+<br />
+尚、このメソッドにより設定された行数を絶対に超えない訳ではありません。<br />
+ログ出力処理１回ごとに行数判定を行うので、例えば最大1000行に設定している状態で999行存在するログファイルに対して、改行コードを複数含む文字列をログ出力メソッドにより出力した場合、1000を超えてしまいます。<br />
+<br />
+最大出力行数の初期値は100000に設定されているため、このメソッドを実行しない場合は100000行まで出力されます。
+                  </td>
+      </tr>
+        </table>
+	
+    
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

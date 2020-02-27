@@ -1,0 +1,487 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li class="selected"><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>カスタマイズ</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">規定のディレクトリ構成を変更する</a></li>
+                        <li><a href="#2">命名規則を変更する</a></li>
+                        <li><a href="#3">ビュー関連の設定</a></li>
+                        <li><a href="#4">ディスパッチ関連設定</a></li>
+                        <li><a href="#5">データアクセス関連</a></li>
+              </ul>
+
+	      <h3 id="1">規定のディレクトリ構成を変更する</h3>
+    		<p class="exp">
+Curryではコントローラーやモデル、ビューその他のディレクトリ構成は、あらかじめ規定されているため、それに従うだけで迷うことなくWebアプリケーションを構築できるようになっています。しかし、場合によってはこれを変更したい、または変更しなければならないという場合もあるでしょう。そこでCurryではあらゆるディレクトリのパスを個別に設定できるようになっています。
+</p>
+				<h4>PathManagerクラス</h4>
+<p class="exp">
+Curryで規定されるディレクトリ構成はPathManagerクラスによって管理されています。そしてこのクラスにはあらゆるパスを設定するメソッドが用意されています。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>ディレクトリ</th><th>規定</th><th>設定メソッド</th></tr>
+<tr>
+<td class="title">サイトルート</td>
+<td></td>
+<td>PathManager::setSystemRoot（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">アプリケーション</td>
+<td>サイトルート/app</td>
+<td>PathManager::setAppDirectory（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">コントローラー</td>
+<td>サイトルート/app/controllers</td>
+<td>PathManager::setControllerDirectory（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">モデル</td>
+<td>サイトルート/app/models</td>
+<td>PathManager::setModelDirectory（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">ビュー</td>
+<td>サイトルート/app/views</td>
+<td>PathManager::setViewDirectory（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">サービス</td>
+<td>サイトルート/app/services</td>
+<td>PathManager::setServiceDirectory（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">ライブラリ</td>
+<td>サイトルート/library</td>
+<td>PathManager::setLibraryDirectory（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">ドキュメントルート</td>
+<td>サイトルート/htdocs</td>
+<td>PathManager::setHtdocsDirectory（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">設定ファイル</td>
+<td>サイトルート/configs</td>
+<td>PathManager::setConfigDirectory（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">ログ出力</td>
+<td>サイトルート/logs</td>
+<td>PathManager::setLogDirectory（静的メソッド）</td>
+</tr>
+</table>
+</p>
+				<p class="exp">
+メソッドは全て静的メソッドです。<br />
+この中でsetSystemRootはサイトのルートディレクトリを設定するメソッドで、index.phpで必ず実行する必要があります。これを行わないとフレームワークが動作しません。<br />
+その他のディレクトリはsetSystemRootメソッドの実行時に自動的に設定されます。<br />
+その上で、各ディレクトリのパスを変更したい場合は、例えば以下のようにします。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">PathManager</span>::setControllerDirectory(<span class="reteral">'/var/www/public_html/site/controllers'</span>);
+</pre>
+</div></div>
+				
+	      <h3 id="2">命名規則を変更する</h3>
+    		<p class="exp">
+Curryではクラス名やメソッド名、ファイル名など、あらゆる命名対象の命名規則を以下の三つのどれかに当てはめています。
+</p>
+				<ul class="kajo">
+    <li>パスカルケース　- 先頭文字が大文字で単語の区切りの先頭も大文字（例：IndexController）</li>
+    <li>キャメルケース　- 先頭文字が小文字で単語の区切りの先頭は大文字（例：indexController）</li>
+    <li>スネークケース　- 全て小文字で単語の区切りに&quot;_&quot;を挟む（例：index_controller）</li>
+</ul>
+				<h4>NameManager</h4>
+<p class="exp">
+Curryは規定の命名規則にしたがって全ての定義を行って初めて正しく動作しますが、命名規則等を管理しているのがNameManagerクラスです。このクラスを利用することにより、規定の命名規則を変更することが可能です。<br />
+NameManagerのメソッドは全て静的メソッドです。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th></tr>
+<tr>
+<td class="title">クラス名</td>
+<td>NameCase::PASCAL</td>
+<td>NameManager::setClassCase（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">メソッド名</td>
+<td>NameCase::CAMEL</td>
+<td>NameManager::setMethodCase（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">ファイル名</td>
+<td>NameCase::SNAKE</td>
+<td>NameManager::setFileCase（静的メソッド）</td>
+</tr>
+<tr>
+<td class="title">DBテーブル名</td>
+<td>NameCase::SNAKE</td>
+<td>NameManager::setTableCase（静的メソッド）</td>
+</tr>
+</table>
+</p>
+				<p class="exp">
+設定メソッドの引数にはNameCaseクラスのクラス定数を指定します。例えばクラス名をスネークケースに変更したい場合は以下のようにします。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">NameManager</span>::setClassCase(<span class="class">NameCase</span>::SNAKE);
+</pre>
+</div></div>
+				<p class="exp">
+またNameManagerクラスでは、コントローラークラス名の接尾語とアクションメソッドの接尾語を設定することができます。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">コントローラークラス名接尾語</td>
+<td>Controller</td>
+<td>NameManager::setControllerSuffix</td>
+<td>[dispatch]controller_suffix</td>
+</tr>
+<tr>
+<td class="title">アクションメソッド名接尾語</td>
+<td>なし</td>
+<td>NameManager::setActionSuffix</td>
+<td>[dispatch]action_suffix</td>
+</tr>
+</table>
+</p>
+				<p class="exp">
+また、phpファイルの拡張子の規定を変更することも出来ます。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th></tr>
+<tr>
+<td class="title">PHPファイル拡張子</td>
+<td>php</td>
+<td>NameManager::setPhpExtension</td>
+</tr>
+</table>
+</p>
+				
+	      <h3 id="3">ビュー関連の設定</h3>
+    		<h4>テンプレート拡張子</h4>
+<p class="exp">
+ビューテンプレートの拡張子を変更することができます。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>ViewStandard<br />の規定</th><th>ViewSmarty<br />の規定</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">テンプレート拡張子</td>
+<td>php</td>
+<td>tpl</td>
+<td>NameManager::setTemplateExtension</td>
+<td>[view]template_extension</td>
+</tr>
+</table>
+</p>
+				<h4>レイアウトの利用</h4>
+<p class="exp">
+ビューレイアウトは標準で利用できる状態になっていますが、利用したくない場合はOFFにすることも出来ます。<br />
+設定はtrueまたはfalseで指定します。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">レイアウトの利用</td>
+<td>true(1)</td>
+<td>ViewAbstract::setDefaultLayoutEnabled（静的メソッド）</td>
+<td>[view]layout_enabled</td>
+</tr>
+</table>
+</p>
+				<h4>Smartyのコンパイル・キャッシュ出力先</h4>
+<p class="exp">
+ViewにSmartyを利用する場合、Smartyのコンパイル済みテンプレート出力ディレクトリと、テンプレートキャッシュを出力するディレクトリが必要になりますが、ViewSmartyクラスにはこれらの出力先ディレクトリを設定するメソッドがあります。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>ディレクトリ</th><th>規定</th><th>設定メソッド</th></tr>
+<tr>
+<td class="title">コンパイル出力先</td>
+<td>サイトルート/views/compile</td>
+<td>ViewSmarty->setCompileDirectory</td>
+</tr>
+<tr>
+<td class="title">キャッシュ出力先</td>
+<td>サイトルート/views/cache</td>
+<td>ViewSmarty->setCacheDirectory</td>
+</tr>
+</table>
+</p>
+				<h4>ビュークラス（標準 OR Smarty）</h4>
+<p class="exp">
+ビュークラスはphpファイルを利用した標準のViewSmartyクラスとSmarty連携用のViewSmartyがあります。これを指定する事ができます。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th></tr>
+<tr>
+<td class="title">ビュークラス</td>
+<td>ViewStandard</td>
+<td>Dispatcher->setViewClass（インスタンスメソッド）</td>
+</tr>
+</table>
+</p>
+				
+	      <h3 id="4">ディスパッチ関連設定</h3>
+    		<h4>デフォルトのコントローラー・アクションの設定</h4>
+<p class="exp">
+コントローラーやアクションが未指定のURLの場合、デフォルトは"index"になりますが、このデフォルトのコントローラーやアクションを任意に指定することが可能です。<br />
+通常はcurry.iniで設定しますが、Initializer->initialize内でRouterのメソッドを直接実行することでも指定可能です。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>既定値</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">デフォルトコントローラー</td>
+<td>index</td>
+<td>Router->setDefaultController</td>
+<td>[dispatch]default_controller</td>
+</tr>
+<tr>
+<td class="title">デフォルトアクション</td>
+<td>index</td>
+<td>Router->setDefaultAction</td>
+<td>[dispatch]default_action</td>
+</tr>
+</table>
+</p>
+				<h4>URLアクセスモード</h4>
+<p class="exp">
+apacheのmod_rewriteを利用したアクセスなのか否かを設定できます。<br />
+詳しくは<a href="/manual/url">URL</a>の章を参照してください<br />
+通常はcurry.iniで設定しますが、Initializer->initialize内でRouterのメソッドを直接実行することでも指定可能です。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定値</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">URLアクセスモード</td>
+<td>true（1）</td>
+<td>Router->isRewrite</td>
+<td>[dispatch]is_rewrite</td>
+</tr>
+</table>
+</p>
+				<h4>コントローラーサブディレクトリの利用可否</h4>
+<p class="exp">
+コントローラーディレクトリにはサブディレクトリを配置してコントローラーを階層化することが出来ますが、これの可否を設定することができます。使用しない方が、わずかですがパフォーマンス的に有利になります。<br />
+通常はcurry.iniで設定しますが、Initializer->initialize内でRouterのメソッドを直接実行することでも指定可能です。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定値</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">コントローラーサブディレクトリ可否</td>
+<td>true(1)</td>
+<td>Router->enableSubController</td>
+<td>[dispatch]sub_controller_enabled</td>
+</tr>
+</table>
+</p>
+				<h4>プラグインの利用可否</h4>
+<p class="exp">
+全てのコントローラーに対して共通処理を付加することが出来るプラグインという仕組みが存在しますが、この利用の可否を設定することが出来ます。使用しない場合、わずかにパフォーマンス的に有利になります。<br />
+プラグインの詳細については<a href="/manual/controller">コントローラー</a>の章を参照してください。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定値</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">プラグイン可否</td>
+<td>true(1)</td>
+<td>Dispatcher->enablePlugin</td>
+<td>[dispatch]plugin_enabled</td>
+</tr>
+</table>
+</p>
+				<h4>mod_rewriteを使用しない場合のクエリキー</h4>
+<p class="exp">
+mod_rewriteを使用しない場合、コントローラーとアクションをクエリ文字列で指定する必要がありますが、このコントローラーとアクションのクエリキーを指定することが出来ます。<br />
+通常はcurry.iniで設定しますが、Initializer->initialize内でRouterのメソッドを直接実行することでも指定可能です。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">コントローラークエリキー</td>
+<td>c</td>
+<td>Router->setControllerQueryKey</td>
+<td>[dispatch]controller_query_key</td>
+</tr>
+<tr>
+<td class="title">アクションクエリキー</td>
+<td>a</td>
+<td>Router->setActionQueryKey</td>
+<td>[dispatch]action_query_key</td>
+</tr>
+</table>
+</p>
+				<h4>ルーティング失敗時のレスポンスステータス</h4>
+<p class="exp">
+URLからコントローラーへのルーィング失敗時、つまりサイト上に存在しないURLがリクエストされた場合、HTTPレスポンスのステータスコードとして404を返すのが標準になっていますが、これを通常通り200を返すようにしたい場合もあるかもしれません。<br />
+この設定により、404を返すか否かを指定できます。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">ルーティング失敗時の404送信設定</td>
+<td>true(1)</td>
+<td>Dispatcher->isSend404</td>
+<td>[dispatch]is_send_404</td>
+</tr>
+</table>
+</p>
+				
+	      <h3 id="5">データアクセス関連</h3>
+    		<h4>SQL発行履歴出力設定</h4>
+<p class="exp">
+DbクラスやModelクラスを利用してSQLを実行した場合、そのSQL文をログに記録する事が可能です。この機能はLoggerクラスを利用して出力を行うため、事前にLogger::setLogNameメソッドで出力先ファイル名を指定しておく必要があります。<br />
+その上で、Db::enableLoggingメソッドを引数なしで実行した場合はLogger::setLogNameの第2引数無しで指定したファイルへSQL出力を行います。<br />
+Logger::setLogNameで第2引数に任意のキーを指定した場合は、それと同じキーをDb::enableLoggingの引数で指定することで、対応するファイルへ出力します。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">SQLのログ出力</td>
+<td>false(0)</td>
+<td>Db::enableLogging</td>
+<td>[db]log_key</td>
+</tr>
+</table>
+</p>
+				<h4>シングルトンコネクション</h4>
+<p class="exp">
+Dbクラスのfactoryメソッドで得られるpdoインスタンスは、factoryメソッドの実行都度、新たなインスタンスを生成するため、次々にDBへのコネクションを複数確立することになります。それを避けたい場合、Dbクラスをシングルトンクラス扱いとし、factoryメソッドで得られるpdoインスタンスが常に同一インスタンスとなるようにすることが可能です。<br />
+指定は、trueかfalse（curry.iniでは1か0）で行います。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th><th>curry.iniの[セクション]キー</th></tr>
+<tr>
+<td class="title">シングルトンコネクション</td>
+<td>false(0)</td>
+<td>Db::setIsSingleton</td>
+<td>[db]is_singleton</td>
+</tr>
+</table>
+</p>
+				<h4>データベース接続</h4>
+<p class="exp">
+Modelクラスで利用するデータベース接続インスタンスをあらかじめ生成しておき、Modelクラスに指定することができます。<br />
+この指定を行うと、Modelクラスでは基本的にデータベース接続は指定された物を使用するようになるので、常に一つの接続インスタンスを使いまわすことができるようになります。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th></tr>
+<tr>
+<td class="title">シングルトンコネクション</td>
+<td>なし</td>
+<td>Model::setDefaultConnection</td>
+</tr>
+</table>
+</p>
+				<h4>空想モデルクラスの利用可否</h4>
+<p class="exp">
+モデルクラスは基本的にModelを継承し、テーブルとの関連性を持たせた命名規則に従ったクラス名のクラスを作り、モデルディレクトリに格納することが前提になっています。<br />
+しかしコントローラーやサービスのmodelメソッドなどでモデルのインスタンスを得る場合、<br />
+Modelクラスを継承したクラスが存在しなくても、モデルインスタンスが得られる仕組になっています。<br />
+この機能を有効とするか否かを設定することができます。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>事象</th><th>規定</th><th>設定メソッド</th></tr>
+<tr>
+<td class="title">空想モデルクラスの利用可否</td>
+<td>true</td>
+<td>Model::isAllowVirtual</td>
+</tr>
+</table>
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

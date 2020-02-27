@@ -1,0 +1,632 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li class="selected"><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>ページング処理</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">表示データのページング</a></li>
+                        <li><a href="#2">Pagerクラス</a></li>
+                        <li><a href="#3">ページナビゲータのカスタマイズ</a></li>
+                        <li><a href="#4">ページナビゲータのタグを自作する</a></li>
+                        <li><a href="#5">ページ表示範囲の限定</a></li>
+              </ul>
+
+	      <h3 id="1">表示データのページング</h3>
+    		<p class="exp">
+例えば通販サイトの商品リスト表示のように、大量のデータを表示する場合、全てをページ内に表示するのは現実的ではありません。<br />
+そのためにページ分けし、1ページに表示するデータの数を制限するのが一般的です。<br />
+Curryではこれを簡単に実現する機能を備えたPagerクラスが用意されています。<br />
+<br />
+Pagerクラスは、データ総数と1ページの表示件数を設定する事で、ページ数を計算し、以下のような、ページナビゲータのHTMLソースを生成します。
+</p>
+				<p class="exp">
+<style tyle="text/css">
+div.pager {
+  margin-left:50px;
+}
+</style>
+<div class="pager">
+<span class="page"><a href="/controller/action/?p=1">&lt;&lt;</a></span>
+<span class="page"><a href="/controller/action/?p=5">&lt;</a></span>
+<span class="page"><a href="/controller/action/?p=1">1</a></span>
+<span class="page"><a href="/controller/action/?p=2">2</a></span>
+<span class="page"><a href="/controller/action/?p=3">3</a></span>
+<span class="page"><a href="/controller/action/?p=4">4</a></span>
+<span class="page"><a href="/controller/action/?p=5">5</a></span>
+<span class="page">6</span>
+<span class="page"><a href="/controller/action/?p=7">7</a></span>
+<span class="page"><a href="/controller/action/?p=8">8</a></span>
+<span class="page"><a href="/controller/action/?p=9">9</a></span>
+<span class="page"><a href="/controller/action/?p=10">10</a></span>
+<span class="page"><a href="/controller/action/?p=7">&gt;</a></span>
+<span class="page"><a href="/controller/action/?p=10">&gt;&gt;</a></span>
+</div>
+</p>
+				
+	      <h3 id="2">Pagerクラス</h3>
+    		<p class="exp">
+Pagerクラスの基本的な利用方法は以下のような感じです。
+</p>
+				<div class="file_name">
+コントローラー
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">public</span> <span class="reserved">function</span> listAction()
+{
+    <span class="comment">// データ総数取得
+</span>    $product = $this-&gt;model(<span class="reteral">'Product'</span>);
+    $cnt = $product-&gt;getTotalCount();
+    $limit = 10;
+
+    Loader::load(<span class="reteral">'Pager'</span>, <span class="reteral">'utility'</span>);
+    $pager = <span class="reserved">new</span> Pager();
+    <span class="comment">// リンクURL設定
+</span>    $pager-&gt;setUrl($this-&gt;request-&gt;getPath() . <span class="reteral">'/?p=%page%'</span>);
+    <span class="comment">// 現在ページ設定
+</span>    $pager-&gt;setCurrentPage($this-&gt;request-&gt;getQuery(<span class="reteral">'p'</span>));
+    <span class="comment">// データ総数設定
+</span>    $pager-&gt;setDataCount($cnt);
+    <span class="comment">// 1ページ表示件数設定
+</span>    $pager-&gt;setCountPerPage($limit);
+    <span class="comment">// ページ計算処理実行
+</span>    $pager-&gt;paginate();
+    <span class="comment">// ビューへページャーを設定
+</span>    $this-&gt;view-&gt;pager = $pager;
+
+    <span class="comment">// 現在ページの表示データ取得
+</span>    $offset = $pager-&gt;getDataOffset();
+    $products = $model-&gt;getData($limit, $offset);
+    $this-&gt;view-&gt;products = $products;
+}
+</pre>
+</div></div>
+				<div class="file_name">
+ビュー
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reteral">{$pager-&gt;outputTag()}</span>
+</pre>
+</div></div>
+				<p class="exp">
+基本的にはPagerクラスのインスタンスを生成し、paginateメソッドでページ計算を行いますが、事前に行なっている4つの設定メソッドの実行が必要です。<br />
+setCountPerPageはデフォルトが10なので、10で良い場合は設定の必要はありません。<br />
+<br />
+そしてインスタンスをそのままビューに設定し、ビューテンプレートでoutputTagメソッドを実行すれば、ページナビゲーターのHTMLが出力されます。<br />
+<br />
+また、Pagerの設定には以下の様な方法もあります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+    $pager = <span class="reserved">new</span> <span class="class">Pager</span>();
+    <span class="comment">// リクエストオブジェクトを設定
+</span>    $pager-&gt;setRequest($this-&gt;request);
+    <span class="comment">// データ総数設定
+</span>    $pager-&gt;setDataCount($cnt);
+    <span class="comment">// 1ページ表示件数設定
+</span>    $pager-&gt;setCountPerPage($limit);
+    <span class="comment">// ページ計算処理実行
+</span>    $pager-&gt;paginate();
+</pre>
+</div></div>
+				<p class="exp">
+setRequestでRequestクラスのインスタンスを設定すると、リクエスト情報をもとにsetUrlとsetCurrentPageが自動的に実行され、URLと現在ページが設定されます。<br />
+setUrlメソッドとsetCurrentPageメソッドを明示的に実行する場合は、ページのパラメータクエリキーを指定することができますが、setRequestで行った場合、このキーは"p"に固定されます。<br />
+特にこだわりがない場合はsetRequestメソッドを利用することで処理を簡素化することができるわけです。
+</p>
+				
+	      <h3 id="3">ページナビゲータのカスタマイズ</h3>
+    		<p class="exp">
+出力されるページナビゲータは単純なHTMLなので、見栄えはスタイルシートによって調整可能ですが、デフォルトでは上記のようなシンプルなものです。<br />
+デフォルトでは出力されるHTMLは以下の様なものです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+&lt;div class=&quot;pager&quot;&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=1&quot;&gt;&amp;lt;&amp;lt;&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=5&quot;&gt;&amp;lt;&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=1&quot;&gt;1&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=2&quot;&gt;2&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=3&quot;&gt;3&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=4&quot;&gt;4&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=5&quot;&gt;5&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;6&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=7&quot;&gt;7&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=8&quot;&gt;8&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=9&quot;&gt;9&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=10&quot;&gt;10&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=7&quot;&gt;&amp;gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;page&quot;&gt;&lt;a href=&quot;/controller/action/?p=10&quot;&gt;&amp;gt;&amp;gt;&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;
+</pre>
+</div></div>
+				<p class="exp">
+"pager"というクラスの大枠と、"page"という各ページのリンクのタグによって構成されます。<br />
+更に各ページのタグは、ページ番号部分と、「先頭へ」「前へ」「後ろへ」「最後へ」を表す部分に分類されます。<br />
+このそれぞれのタグの種類とスタイル、表示文字はカスタマイズが可能です。<br />
+カスタマイズにはsetOutputOptionメソッドを利用します。<br />
+<br />
+例えば各ページのタグをdivにし、ボーダーで囲むような形式にするには以下のようにします。
+</p>
+				<div class="file_name">
+コントローラー
+</div>
+<div class="sample_code"><div>
+<pre>
+$pager-&gt;setOutputOption(array(
+  <span class="reteral">'top_tag'</span> =&gt; <span class="reteral">'div'</span>,
+  <span class="reteral">'last_tag'</span> =&gt; <span class="reteral">'div'</span>,
+  <span class="reteral">'prev_tag'</span> =&gt; <span class="reteral">'div'</span>,
+  <span class="reteral">'next_tag'</span> =&gt; <span class="reteral">'div'</span>,
+  <span class="reteral">'page_tag'</span> =&gt; <span class="reteral">'div'</span>
+));
+</pre>
+</div></div>
+				<div class="file_name">
+ビューテンプレート
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;style tyle=&quot;text/css&quot;&gt;
+.pager {
+    overflow: hidden;
+}
+.pager div.page {
+    float: left;
+    margin: 0 3px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+&lt;/style&gt;
+<span class="reteral">{$pager-&gt;outputTag()}</span>
+</pre>
+</div></div>
+				<p class="exp">
+<style tyle="text/css">
+.pager {
+    overflow: hidden;
+}
+.pager div.page {
+    float: left;
+    margin: 0 3px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+</style>
+<style tyle="text/css">
+.pager {
+    overflow: hidden;
+}
+.pager div.page {
+    float: left;
+    margin: 0 3px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+</style>
+<div class="pager">
+<div class="page"><a href="/controller/action/?p=1">&lt;&lt;</a></div>
+<div class="page"><a href="/controller/action/?p=5">&lt;</a></div>
+<div class="page"><a href="/controller/action/?p=1">1</a></div>
+<div class="page"><a href="/controller/action/?p=2">2</a></div>
+<div class="page"><a href="/controller/action/?p=3">3</a></div>
+<div class="page"><a href="/controller/action/?p=4">4</a></div>
+<div class="page"><a href="/controller/action/?p=5">5</a></div>
+<div class="page">6</div>
+<div class="page"><a href="/controller/action/?p=7">7</a></div>
+<div class="page"><a href="/controller/action/?p=8">8</a></div>
+<div class="page"><a href="/controller/action/?p=9">9</a></div>
+<div class="page"><a href="/controller/action/?p=10">10</a></div>
+<div class="page"><a href="/controller/action/?p=7">&gt;</a></div>
+<div class="page"><a href="/controller/action/?p=10">&gt;&gt;</a></div>
+</div>
+</p>
+				<p class="exp">
+<br />
+<br />
+<br />
+次の例は、ページ番号を括弧"[ ]"で囲み、先頭・最後・前・次の文字を変更する指定方法です。
+</p>
+				<div class="file_name">
+コントローラー
+</div>
+<div class="sample_code"><div>
+<pre>
+$pager-&gt;setOutputOption(array(
+  <span class="reteral">'page_format'</span> =&gt; <span class="reteral">'[%page%]'</span>,
+  <span class="reteral">'top_text'</span> =&gt; <span class="reteral">'先頭'</span>,
+  <span class="reteral">'last_text'</span> =&gt; <span class="reteral">'最後'</span>,
+  <span class="reteral">'prev_text'</span> =&gt; <span class="reteral">'前'</span>,
+  <span class="reteral">'next_text'</span> =&gt; <span class="reteral">'次'</span>
+));
+</pre>
+</div></div>
+				<p class="exp">
+<div class="pager">
+<span class="page"><a href="/controller/action/?p=1">先頭</a></span>
+<span class="page"><a href="/controller/action/?p=5">前</a></span>
+<span class="page"><a href="/controller/action/?p=1">[1]</a></span>
+<span class="page"><a href="/controller/action/?p=2">[2]</a></span>
+<span class="page"><a href="/controller/action/?p=3">[3]</a></span>
+<span class="page"><a href="/controller/action/?p=4">[4]</a></span>
+<span class="page"><a href="/controller/action/?p=5">[5]</a></span>
+<span class="page">[6]</span>
+<span class="page"><a href="/controller/action/?p=7">[7]</a></span>
+<span class="page"><a href="/controller/action/?p=8">[8]</a></span>
+<span class="page"><a href="/controller/action/?p=9">[9]</a></span>
+<span class="page"><a href="/controller/action/?p=10">[10]</a></span>
+<span class="page"><a href="/controller/action/?p=7">次</a></span>
+<span class="page"><a href="/controller/action/?p=10">最後</a></span>
+</div>
+</p>
+				<p class="exp">
+<br />
+<br />
+<br />
+また、外枠のタグと、各ページのタグ、先頭・最後・前・次の各タグは、それぞれタグのクラスやスタイルを任意に指定することが可能です。<br />
+デフォルトは外枠が"pager"、各ページ等は"page"になっています。<br />
+例えば外枠のクラスを"custom_pager"、各ページを"custom_page"、先頭・最後・前・次は"jump"というクラスに設定し、先頭・最後はstyle属性を直接指定したい場合は以下のようにします。
+</p>
+				<div class="file_name">
+コントローラー
+</div>
+<div class="sample_code"><div>
+<pre>
+$pager-&gt;setOutputOption(array(
+  <span class="reteral">'frame_class'</span> =&gt; <span class="reteral">'custom_pager'</span>,
+  <span class="reteral">'page_class'</span> =&gt; <span class="reteral">'custom_page'</span>,
+  <span class="reteral">'top_class'</span> =&gt; <span class="reteral">'jump'</span>,
+  <span class="reteral">'top_style'</span> =&gt; <span class="reteral">'font-weight:bolder;'</span>,
+  <span class="reteral">'last_class'</span> =&gt; <span class="reteral">'jump'</span>,
+  <span class="reteral">'last_style'</span> =&gt; <span class="reteral">'font-weight:bolder;'</span>,
+  <span class="reteral">'prev_class'</span> =&gt; <span class="reteral">'jump'</span>,
+  <span class="reteral">'next_class'</span> =&gt; <span class="reteral">'jump'</span>
+));
+</pre>
+</div></div>
+				<p class="exp">
+この場合の出力HTMLは以下のようになります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+&lt;div class=&quot;custom_pager&quot;&gt;
+&lt;span class=&quot;jump&quot; style=&quot;font-weight:bolder;&quot;&gt;&lt;a href=&quot;/controller/action/?p=1&quot;&gt;&amp;lt;&amp;lt;&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;jump&quot;&gt;&lt;a href=&quot;/controller/action/?p=5&quot;&gt;&amp;lt;&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=1&quot;&gt;1&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=2&quot;&gt;2&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=3&quot;&gt;3&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=4&quot;&gt;4&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=5&quot;&gt;5&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;6&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=7&quot;&gt;7&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=8&quot;&gt;8&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=9&quot;&gt;9&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;custom_page&quot;&gt;&lt;a href=&quot;/controller/action/?p=10&quot;&gt;10&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;jump&quot;&gt;&lt;a href=&quot;/controller/action/?p=7&quot;&gt;&amp;gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span class=&quot;jump&quot; style=&quot;font-weight:bolder;&quot;&gt;&lt;a href=&quot;/controller/action/?p=10&quot;&gt;&amp;gt;&amp;gt;&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;
+</pre>
+</div></div>
+				<p class="exp">
+指定できるオプションは以下のとおりです。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr>
+<th>キー</th>
+<th>内容</th>
+<th>デフォルト</th>
+</tr>
+<tr>
+<td class="title">frame_tag</td>
+<td>ナビゲータ領域の外枠ボックス領域のタグを指定します。</td>
+<td>div</td>
+</tr>
+<tr>
+<td class="title">frame_class</td>
+<td>ナビゲータ領域の外枠ボックス領域のタグのクラスを指定します。</td>
+<td>pager</td>
+</tr>
+<tr>
+<td class="title">page_tag</td>
+<td>各ページの領域のタグを指定します。</td>
+<td>span</td>
+</tr>
+<tr>
+<td class="title">page_class</td>
+<td>各ページの領域のタグのクラスを指定します。</td>
+<td>page</td>
+</tr>
+<tr>
+<td class="title">page_style</td>
+<td>各ページの領域のスタイルシートを指定します。</td>
+<td></td>
+</tr>
+<tr>
+<td class="title">page_format</td>
+<td>各ページの表示文字のフォーマットを指定します。%page%をプレースホルダとして、実際の出力ではこの部分がページ番号に置き換わります。</td>
+<td>%page%</td>
+</tr>
+<tr>
+<td class="title">prev_tag</td>
+<td>「前のページ」を表すリンクのボックス領域のタグを指定します。</td>
+<td>span</td>
+</tr>
+<tr>
+<td class="title">prev_class</td>
+<td>「前のページ」を表すリンクのボックス領域のタグのクラスを指定します。</td>
+<td>page</td>
+</tr>
+<tr>
+<td class="title">prev_style</td>
+<td>「前のページ」を表すリンクのボックス領域のスタイルシートを指定します。</td>
+<td></td>
+</tr>
+<tr>
+<td class="title">prev_text</td>
+<td>「前のページ」を表すリンクの表示文字を指定します。</td>
+<td>></td>
+</tr>
+<tr>
+<td class="title">next_tag</td>
+<td>「次のページ」を表すリンクのボックス領域のタグを指定します。</td>
+<td>span</td>
+</tr>
+<tr>
+<td class="title">next_class</td>
+<td>「次のページ」を表すリンクのボックス領域のタグのクラスを指定します。</td>
+<td>page</td>
+</tr>
+<tr>
+<td class="title">next_style</td>
+<td>「次のページ」を表すリンクのボックス領域のスタイルシートを指定します。</td>
+<td></td>
+</tr>
+<tr>
+<td class="title">next_text</td>
+<td>「次のページ」を表すリンクの表示文字を指定します。</td>
+<td><</td>
+</tr>
+<tr>
+<td class="title">top_tag</td>
+<td>「最初のページ」を表すリンクのボックス領域のタグを指定します。</td>
+<td>span</td>
+</tr>
+<tr>
+<td class="title">top_class</td>
+<td>「最初のページ」を表すリンクのボックス領域のタグのクラスを指定します。</td>
+<td>page</td>
+</tr>
+<tr>
+<td class="title">top_style</td>
+<td>「最初のページ」を表すリンクのボックス領域のスタイルシートを指定します。</td>
+<td></td>
+</tr>
+<tr>
+<td class="title">top_text</td>
+<td>「最初のページ」を表すリンクの表示文字を指定します。</td>
+<td><<</td>
+</tr>
+<tr>
+<td class="title">last_tag</td>
+<td>「最後のページ」を表すリンクのボックス領域のタグを指定します。</td>
+<td>span</td>
+</tr>
+<tr>
+<td class="title">last_class</td>
+<td>「最後のページ」を表すリンクのボックス領域のタグのクラスを指定します。</td>
+<td>page</td>
+</tr>
+<tr>
+<td class="title">last_style</td>
+<td>「最後のページ」を表すリンクのボックス領域のスタイルシートを指定します。</td>
+<td></td>
+</tr>
+<tr>
+<td class="title">last_text</td>
+<td>「最後のページ」を表すリンクの表示文字を指定します。</td>
+<td>>></td>
+</tr>
+</table>
+</p>
+				
+	      <h3 id="4">ページナビゲータのタグを自作する</h3>
+    		<p class="exp">
+タグの生成はoutputTagメソッドによって簡単に行うことができ、見栄えの調整も、setOutputメソッドとスタイルシートの組み合わせにより自由に行えますが、ビューテンプレートで自分でタグを記述することで、更に自由度の高いものとすることができます。<br />
+<br />
+このためにはoutputTagは利用せず、getPageInfoメソッドによって得たページ情報を利用して、ビューテンプレートでタグを記述します。
+</p>
+				<div class="file_name">
+コントローラー
+</div>
+<div class="sample_code"><div>
+<pre>
+    $pager = <span class="reserved">new</span> <span class="class">Pager</span>();
+    $pager-&gt;setRequest($this-&gt;request);
+    $pager-&gt;setDataCount($cnt);
+    $pager-&gt;setCountPerPage($limit);
+    $pager-&gt;paginate();
+    <span class="comment">// ページ情報取得
+</span>    <span class="bold">$pageInfo = $pager-&gt;getPageInfo();
+    $this-&gt;view-&gt;page_info = $pageInfo ;</span>
+</pre>
+</div></div>
+				<div class="file_name">
+ビューテンプレート
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;div class=&quot;pager&quot;&gt;
+&lt;div class=&quot;page&quot;&gt;
+<span class="reteral">{if $page_info.top.url != ''}</span>&lt;a href=&quot;<span class="reteral">{$page_info.top.url}</span>&quot;&gt;最初へ&lt;/a&gt;{else}最初へ<span class="reteral">{/if}</span>
+&lt;/div&gt;
+&lt;div class=&quot;page&quot;&gt;
+<span class="reteral">{if $page_info.prev.url != ''}</span>&lt;a href=&quot;<span class="reteral">{$page_info.prev.url}</span>&quot;&gt;前へ&lt;/a&gt;{else}前へ<span class="reteral">{/if}</span>
+&lt;/div&gt;
+<span class="reteral">{foreach from=$page_info.pages item=page}</span>
+&lt;div class=&quot;page&quot;&gt;
+<span class="reteral">{if $page.url != ''}</span>&lt;a href=&quot;<span class="reteral">{$page.url}</span>&quot;&gt;<span class="reteral">{$page.page}</span>&lt;/a&gt;{else}<span class="reteral">{$page.page}</span><span class="reteral">{/if}</span>
+&lt;/div&gt;
+<span class="reteral">{/foreach}</span>
+&lt;div class=&quot;page&quot;&gt;
+<span class="reteral">{if $page_info.next.url != ''}</span>&lt;a href=&quot;<span class="reteral">{$page_info.next.url}</span>&quot;&gt;次へ&lt;/a&gt;{else}次へ<span class="reteral">{/if}</span>
+&lt;/div&gt;
+&lt;div class=&quot;page&quot;&gt;
+<span class="reteral">{if $page_info.last.url != ''}</span>&lt;a href=&quot;<span class="reteral">{$page_info.last.url}</span>&quot;&gt;最後へ&lt;/a&gt;{else}最後へ<span class="reteral">{/if}</span>
+&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</div></div>
+				<p class="exp">
+getPageInfoメソッドによって得られる配列情報は以下の様な構造になっています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+array(
+    <span class="reteral">'top'</span> =&gt; array(
+        <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=1'</span>
+</span>    ),
+    <span class="reteral">'last'</span> =&gt; array(
+        <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=5'</span>
+</span>    ),
+    <span class="reteral">'prev'</span> =&gt; array(
+        <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=2'</span>
+</span>    ),
+    <span class="reteral">'next'</span> =&gt; array(
+        <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=4'</span>
+</span>    ),
+    <span class="reteral">'pages'</span> =&gt; array(
+        array(
+            <span class="reteral">'page'</span> =&gt; 1,
+            <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=1'</span>
+</span>        ),
+        array(
+            <span class="reteral">'page'</span> =&gt; 2,
+            <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=2'</span>
+</span>        ),
+        array(
+            <span class="reteral">'page'</span> =&gt; 3,
+            <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=3'</span>
+</span>        ),
+        array(
+            <span class="reteral">'page'</span> =&gt; 4,
+            <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=4'</span>
+</span>        ),
+        array(
+            <span class="reteral">'page'</span> =&gt; 5,
+            <span class="reteral">'url'</span> =&gt; <span class="reteral">'http:<span class="comment">//・・・・?p=5'</span>
+</span>        )
+    )
+);
+</pre>
+</div></div>
+				<p class="exp">
+この情報を利用し、ビューテンプレートでタグを記述することで、自由自在にページナビゲータを作ることが可能です。
+</p>
+				
+	      <h3 id="5">ページ表示範囲の限定</h3>
+    		<p class="exp">
+通常、ページナビゲータは1ページ目から、存在する最後のページまでの物が表示されます。<br />
+しかし、ページ数が多く、全て表示するのが難しい場合があります。<br />
+こういった場合のために、表示する範囲を現在のページの前後に表示する数を制限することが可能です。例えばページ数が100だったとしても、表示ページ範囲数を5に設定すると、現在のページが10の時、5～15のみがページナビゲータとして表示されます。<br />
+これにはsetDisplayRangeメソッドを利用します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$pager-&gt;setDisplayRange(5);
+</pre>
+</div></div>
+				<p class="exp">
+<div class="pager">
+<span class="page"><a href="/controller/action/?p=1">&lt;&lt;</a></span>
+<span class="page"><a href="/controller/action/?p=9">&lt;</a></span>
+<span class="page"><a href="/controller/action/?p=5">5</a></span>
+<span class="page"><a href="/controller/action/?p=6">6</a></span>
+<span class="page"><a href="/controller/action/?p=7">7</a></span>
+<span class="page"><a href="/controller/action/?p=8">8</a></span>
+<span class="page"><a href="/controller/action/?p=9">9</a></span>
+<span class="page">10</span>
+<span class="page"><a href="/controller/action/?p=11">11</a></span>
+<span class="page"><a href="/controller/action/?p=12">12</a></span>
+<span class="page"><a href="/controller/action/?p=13">13</a></span>
+<span class="page"><a href="/controller/action/?p=14">14</a></span>
+<span class="page"><a href="/controller/action/?p=15">15</a></span>
+<span class="page"><a href="/controller/action/?p=11">&gt;</a></span>
+<span class="page"><a href="/controller/action/?p=100">&gt;&gt;</a></span>
+</div>
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

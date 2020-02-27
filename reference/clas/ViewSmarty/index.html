@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li class="selected"><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>ViewSmarty</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">ViewAbstractを継承し、CurryのMVCの中でビュークラスとして必要な機能を提供するクラスです。<br />
+テンプレートエンジンとしてSmartyを利用する場合にこのクラスをビュークラスとして利用します。<br />
+このクラスをビュークラスとする場合は、SmartyのパッケージディレクトリをCurryのフレームワークのルートディレクトリに配置する必要があります。そしてcurry.iniのviewセクション内の"class_name"の値に"ViewSmarty"を設定します。</div>
+    
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/core/view_smarty.php</div>
+
+    
+    <h3>フィールド</h3>
+        <div class="explanation">公開されるフィールドはありません。</div>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/intialize">intialize</a></td>
+        <td>protected</td>
+        <td>
+		            処理は何も行いません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/renderTemplate">renderTemplate</a></td>
+        <td>protected</td>
+        <td>
+		            レイアウトが無効になっている場合にrenderメソッドより呼び出されます。<br />
+コントローラークラスなどから指定されたテンプレートファイルを読み込み、変数を割り当てて出力します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/renderTemplateWithLayout">renderTemplateWithLayout</a></td>
+        <td>protected</td>
+        <td>
+		            レイアウトが有効になっている場合にrenderメソッドより呼び出されます。<br />
+コントローラークラスなどから指定されたテンプレートファイルを読み込み、変数を割り当てた後、レイアウトテンプレートを読みこみ、変数"$inner_contents"の位置にテンプレートソースを割り当てて出力します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/setCompileDirectory">setCompileDirectory</a></td>
+        <td>public</td>
+        <td>
+		            Smartyのテンプレートコンパイル機能を利用する場合に、コンパイル済みテンプレートを出力するディレクトリを設定します。このディレクトリはシステムが書き込み可能な権限を与える必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/setCacheDirectory">setCacheDirectory</a></td>
+        <td>public</td>
+        <td>
+		            SmartyのHTMLキャッシュ機能を利用する場合に、HTMLのキャッシュを出力するディレクトリを設定します。このディレクトリはシステムが書き込み可能な権限を与える必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/getSmarty">getSmarty</a></td>
+        <td>public</td>
+        <td>
+		            Smartyのインスタンスを取得します。<br />
+これは新たにSmartyのインスタンスを生成するという意味ではなく、ViewSmartyクラスがフィールドとして保持しているインスタンスを返します。
+                  </td>
+      </tr>
+        </table>
+	
+      <h3>オーバーライドメソッド（）</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/intialize">intialize</a></td>
+        <td>protected</td>
+        <td>
+		            処理は何も行いません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/renderTemplate">renderTemplate</a></td>
+        <td>protected</td>
+        <td>
+		            レイアウトが無効になっている場合にrenderメソッドより呼び出されます。<br />
+コントローラークラスなどから指定されたテンプレートファイルを読み込み、変数を割り当てて出力します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/ViewSmarty/renderTemplateWithLayout">renderTemplateWithLayout</a></td>
+        <td>protected</td>
+        <td>
+		            レイアウトが有効になっている場合にrenderメソッドより呼び出されます。<br />
+コントローラークラスなどから指定されたテンプレートファイルを読み込み、変数を割り当てた後、レイアウトテンプレートを読みこみ、変数"$inner_contents"の位置にテンプレートソースを割り当てて出力します。
+                  </td>
+      </tr>
+        </table>
+    
+      <h3>継承メソッド（）</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setTemplate">setTemplate</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTML描画に使用するテンプレートを明示的に指定します。<br />
+通常はリクエストされたコントローラーとモジュールのキーにもとづいて自動選択されますが、自動選択されるものとは別のテンプレートで出力したい場合にこのメソッドで指定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setLayout">setLayout</a>
+		</td>
+        <td>public</td>
+        <td>
+		            レイアウトを利用している場合に、HTMLレイアウトとして使用するテンプレートを明示的に指定することができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/enableLayout">enableLayout</a>
+		</td>
+        <td>public</td>
+        <td>
+		            ビューレイアウトの仕組みを利用するか否かを設定します。使用しない場合はレイアウトテンプレートの格納ディレクトリにレイアウトテンプレートを配置しても無視されます。<br />
+デフォルトでは利用する設定になっているので、利用する場合は特にこのメソッドを明示的に実行する必要はありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setTemplateDirectory">setTemplateDirectory</a>
+		</td>
+        <td>public</td>
+        <td>
+		            ビューテンプレートを格納するルートのディレクトリを設定します。<br />
+Curryではディレクトリの管理はPathManagerに集約されているため、実際にはPathManagerのsetViewTemplateDirectoryメソッドを実行するのと同じ意味になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setLayoutDirectory">setLayoutDirectory</a>
+		</td>
+        <td>public</td>
+        <td>
+		            ビューレイアウトテンプレートを格納するディレクトリを設定します。<br />
+Curryではディレクトリの管理はPathManagerで集中管理しているため、実際にはPathManagerのsetViewLayoutDirectoryメソッドを実行するのと同じ意味になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/render">render</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTML描画処理を実行します。<br />
+この処理はコントローラーで自動的に実行されるため、通常は明示的に実行する必要はありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/enableRendering">enableRendering</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTML出力を行うか否かを設定します。<br />
+falseに設定することで、HTML出力が行われなくなります。HTML出力がViewクラスの役割のため、falseに設定することは実質上、Viewクラスの無効化と言えます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/clearValues">clearValues</a>
+		</td>
+        <td>public</td>
+        <td>
+		            ビューに割り当てられたテンプレート変数を全てクリアします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/addCss">addCss</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTMLヘッダに特定の外部CSSファイルの読み込みの記述を追加します。<br />
+レイアウトを利用する場合、HTMLのlinkタグによるCSSファイルの読み込み記述は、レイアウトに固定で記述する方法がありますが、あるページだけ任意のCSSを読み込みたいというような事があります。addCssメソッドではこれを実現します。<br />
+このメソッドでCSSファイルの格納ディレクトリ以下のCSSファイルのパスを指定することで、そのCSSファイルを読み込む事ができます。<br />
+<br />
+addCssメソッドでは、フレームワークで自動的に読み込まれるCSS（common.cssや{コントローラー名}.css）よりも後のタイミングで読み込みが行なわれます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/addJs">addJs</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTMLヘッダに特定の外部Javascriptファイルの読み込みの記述を追加します。<br />
+レイアウトを利用する場合、HTMLのscriptタグによるJavascriptファイルの読み込み記述は、レイアウトに固定で記述する方法がありますが、あるページだけ任意のJavascriptファイルを読み込みたいというような事があります。addJsメソッドではこれを実現します。<br />
+このメソッドでJavascriptファイルの格納ディレクトリ以下のJavascriptファイルのパスを指定することで、そのJavascriptファイルを読み込む事ができます。<br />
+<br />
+addJsメソッドでは、フレームワークで自動的に読み込まれるJavascript（common.jsや{コントローラー名}.js）よりも後のタイミングで読み込みが行なわれます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setDefaultLayoutEnabled">setDefaultLayoutEnabled</a>
+		</td>
+        <td>public</td>
+        <td>
+		            ビューレイアウトを利用するかしないかの初期設定値を設定します。<br />
+enableLayoutも同様にビューレイアウトを利用するかしないかの設定を行うメソッドですが、<br />
+enableLayoutはビュークラスのインスタンスメソッドのため、どちらかというとコントローラークラス内で必要に応じて都度設定するためのメソッドであるのに対し、<br />
+このsetDefaultLayoutEnabledは静的メソッドで、最初にこのメソッドで設定するとレイアウトは一切無効となります。<br />
+<br />
+Curryは基本はレイアウトが有効で、ページによって無効にしたい場合はenableLayoutで無効にするという考え方ですが、逆に、レイアウト無効が基本でページによって有効にしたい場合はenableLayoutで有効にする、というようにしたい場合などにsetDefaultLayoutEnabledを利用します。<br />
+<br />
+このような性格上、このメソッドはindex.phpなどでシステム全体の基本設定としてレイアウト無効にするという使い方が考えられます。
+          <br /><br /><span class="version">※バージョン1.1.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setErrorTemplate">setErrorTemplate</a>
+		</td>
+        <td>public</td>
+        <td>
+		            例外発生時に表示するページのテンプレートを指定します。<br />
+例外発生時はテンプレートディレクトリ内のerror/error.php（tpl）が出力されますが、<br />
+error.php以外のテンプレートを出力したい場合にこのメソッドで設定します。<br />
+<br />
+例えば、debug.phpというテンプレートを作り、開発時はこのテンプレートにエラー情報が出力されるような内容にし、error.phpは公開環境用として固定のエラーメッセージを表示するような内容にして、後は何かで開発環境か公開環境かを判定してそれによってどちらのエラーテンプレートを出力するかを切り分ける、という使い方が考えられます。<br />
+<br />
+ただしエラーテンプレートの格納ディレクトリはテンプレートディレクトリ下のerrorディレクトリに固定で変更することは出来ません。エラーテンプレートのしてはこの中に作成したものを指定することになります。
+          <br /><br /><span class="version">※バージョン1.1.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/getErrorTemplate">getErrorTemplate</a>
+		</td>
+        <td>public</td>
+        <td>
+		            現在設定されているエラーテンプレート名を取得します。
+          <br /><br /><span class="version">※バージョン1.1.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/existsTemplate">existsTemplate</a>
+		</td>
+        <td>public</td>
+        <td>
+		            setTemplateメソッドなどで設定されたテンプレートの存在を確認します。
+          <br /><br /><span class="version">※バージョン1.1.4以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setRenderingAction">setRenderingAction</a>
+		</td>
+        <td>public</td>
+        <td>
+		            実際に出力するテンプレートの基準となるアクション名を設定します。
+          <br /><br /><span class="version">※バージョン1.3.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setRenderingController">setRenderingController</a>
+		</td>
+        <td>public</td>
+        <td>
+		            実際に出力するテンプレートの基準となるコントローラー名を設定します。
+          <br /><br /><span class="version">※バージョン1.3.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setDefaultErrorTemplate">setDefaultErrorTemplate</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エラーテンプレート名のデフォルトを設定します。<br />
+setErrorTemplateとの違いは、静的メソッドであるという点です。インスタンスとしてのエラーテンプレートのデフォルトは、インスタンス生成時にデフォルトの設定を参照し、設定します。つまり、setDefaultErrorTemplateメソッドは、インスタンス生成前に設定することで、インスタンス生成時点で設定されるエラーテンプレート名のデフォルトを指定できるという位置づけのメソッドになります。<br />
+<br />
+このメソッドの使いどころとしては、Initializerクラスでの初期化メソッド内となります。このメソッド時点ではビューのインスタンスはまだ生成されておらず、Initializerで初期設定としてエラーテンプレートが設定できないため、setDefaultErrorTemplateであらかじめ設定しておくというような使い方になります。
+          <br /><br /><span class="version">※バージョン1.4.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setOutputEncoding">setOutputEncoding</a>
+		</td>
+        <td>public</td>
+        <td>
+		            出力の文字コードを指定します。<br />
+これを指定すると、テンプレートのファイルの文字コードに関わらず、指定した文字コードに強制的に変換され、出力されます。<br />
+指定した場合、HTMLヘッダの文字コード宣言もこれに合わせる必要があります。
+          <br /><br /><span class="version">※バージョン1.4.7以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setTitle">setTitle</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTMLヘッダのtitleタグを設定します。<br />
+サイト名など、ブラウザのヘッダにページタイトルとして表示する文字列を指定します。
+          <br /><br /><span class="version">※バージョン1.4.9以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setMetaHttpEquiv">setMetaHttpEquiv</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTMLヘッダにhttp-equiv属性を持つmetaタグを追加します。<br />
+パラメータとしてhttp-equiv属性の値とcontent属性の値を指定します。
+          <br /><br /><span class="version">※バージョン1.4.9以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setMetaName">setMetaName</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTMLヘッダに、name属性を持つmetaタグを追加します。<br />
+パラメータとしてname属性の値とcontent属性の値を指定します。 
+          <br /><br /><span class="version">※バージョン1.4.9以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setMetaNameKeywords">setMetaNameKeywords</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTMLヘッダに、name属性が"keywords"であるmetaタグを追加します。<br />
+ページの特徴を表すキーワードを指定しす。
+          <br /><br /><span class="version">※バージョン1.4.9以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/setMetaNameDescription">setMetaNameDescription</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTMLヘッダに、name属性が"description"であるmetaタグを追加します。<br />
+ページの概要文を指定します。 <br />
+検索サイトによってはこの文をサイトの説明文としてそのまま表示するものもあります。
+          <br /><br /><span class="version">※バージョン1.4.9以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/addPreferredCss">addPreferredCss</a>
+		</td>
+        <td>public</td>
+        <td>
+		            addCssメソッドと同様に、HTMLヘッダにCSSファイルの読み込みの記述を追加することが出来ますが、こちらのメソッドでは先頭に記述され、フレームワークで自動的に読み込まれるCSSよりも前のタイミングで読み込まれます。
+          <br /><br /><span class="version">※バージョン1.4.11以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/ViewSmarty/addPreferredJs">addPreferredJs</a>
+		</td>
+        <td>public</td>
+        <td>
+		            addJsメソッドと同様に、HTMLヘッダにJavascriptファイルの読み込みの記述を追加することが出来ますが、こちらのメソッドでは先頭に記述され、フレームワークで自動的に読み込まれるJavascriptよりも前のタイミングで読み込まれます。
+          <br /><br /><span class="version">※バージョン1.4.11以降</span>        </td>
+      </tr>
+        </table>
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

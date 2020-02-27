@@ -1,0 +1,72 @@
+@import "contents.css";
+
+div.define,
+div.package,
+div.extends,
+div.explanation,
+div.return_explanation,
+div.version	{
+	margin:0 0 30px 30px;
+	line-height:160%;
+}
+
+div.define {
+	color: #555555;
+	font-size:14px;
+	border:2px solid #eeaa88;
+	background:#fffaf0;
+	padding:5px;
+	margin:40px 10px 30px 30px;
+}
+div.define span.method_name {
+	font-weight:bolder;
+}
+div.define span.reserved {
+	color: #3333ff;
+}
+
+div.explanation {
+	margin-right:20px;
+}
+
+table.contents tr.deleted td {
+	background:#eeeeee;
+}
+
+table.contents td dl {
+	margin:0;
+}
+table.contents td dt {
+	font-size:12px;
+	margin:0;
+	padding:0;
+}
+table.contents td dd {
+	font-size:12px;
+	margin:0 0 10px 20px;
+	padding:0;
+}
+
+table.contents td span.version {
+	color : #cc0000;
+}
+table.contents td span.extends {
+	color : #aa8800;
+}
+
+div.reference ul li {
+	float: left;
+	width: 180px;
+}
+div.reference ul {
+	overflow: hidden;
+}
+div.reference h3 {
+	margin-top: 30px;
+}
+#left_frame h3 {
+	background-color: #eedd88;
+	border: 1px solid #ccaa66;
+	margin: 0 0 5px 0;
+	padding: 5px;
+}

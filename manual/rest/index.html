@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li class="selected"><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>REST</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">RESTfulリクエスト</a></li>
+                        <li><a href="#2">RESTコントローラー</a></li>
+                        <li><a href="#3">パラメータの扱い</a></li>
+                        <li><a href="#4">レスポンス</a></li>
+                        <li><a href="#5">PUTやDELETEメソッドのリクエスト方法</a></li>
+              </ul>
+
+	      <h3 id="1">RESTfulリクエスト</h3>
+    		<p class="exp">
+CurryではRESTfulなリクエストに対応し、コントローラー、アクションで表されるリソースに対して、HTTPメソッドによって処理を分けることができるようになっています。<br />
+通常、アクション単位にメソッドを定義し、URLと紐付いていますが、これに加えてGET、POST、PUT、DELETEという4つのHTTPメソッドによって更にPHPアクションメソッドを4つに分割することが可能です。
+</p>
+				
+	      <h3 id="2">RESTコントローラー</h3>
+    		<p class="exp">
+RESTリクエストに対応するには、コントローラークラスを通常のControllerではなく、RestControllerを継承するだけです。RestControllerはControllerとほぼ同様の働きをしますが、通常のアクションメソッドは、HTTPのGETメソッドによるアクセスの場合のみ実行されます。その他のHTTPメソッドの場合はGETのアクションメソッドの末尾にHTTPメソッド名を付加したメソッドが呼び出されます。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="comment">// /index/hogeへGETメソッドでリクエストの場合
+</span>    <span class="reserved">public</span> <span class="reserved">function</span> hoge()
+    {
+    }
+    <span class="comment">// /index/hogeへPOSTメソッドでリクエストの場合
+</span>    <span class="reserved">public</span> <span class="reserved">function</span> hogePost()
+    {
+    }
+    <span class="comment">// /index/hogeへPUTメソッドでリクエストの場合
+</span>    <span class="reserved">public</span> <span class="reserved">function</span> hogePut()
+    {
+    }
+    <span class="comment">// /index/hogeへDELETEメソッドでリクエストの場合
+</span>    <span class="reserved">public</span> <span class="reserved">function</span> hogeDelete()
+    {
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+基本的にRestControllerとControllerの違いはこの部分だけです。<br />
+ちなみにindexアクションの場合は少し特殊で以下のようになります。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="comment">// /index/indexへGETメソッドでリクエストの場合
+</span>    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+    }
+    <span class="comment">// /index/indexへPOSTメソッドでリクエストの場合
+</span>    <span class="reserved">public</span> <span class="reserved">function</span> post()
+    {
+    }
+    <span class="comment">// /index/indexへPUTメソッドでリクエストの場合
+</span>    <span class="reserved">public</span> <span class="reserved">function</span> put()
+    {
+    }
+    <span class="comment">// /index/indexへDELETEメソッドでリクエストの場合
+</span>    <span class="reserved">public</span> <span class="reserved">function</span> delete()
+    {
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+このように、indexアクションの場合はindexPostなどのように末尾にHTTPメソッド名がつくのではなく、HTTPメソッドそのものの名前となります。
+</p>
+				
+	      <h3 id="3">パラメータの扱い</h3>
+    		<p class="exp">
+通常のコントローラーではリクエストパラメーターをGET、POST、URLパラメーターに分類し、それぞれReauestクラスのgetQueryメソッド、getPostメソッド、getParamsメソッドで取得できるようになっていますが、RESTコントローラーではそもそもHTTPメソッドごとにアクションが別れるため、このパラメーターの切り分けは無意味です。<br />
+そのため、RESTコントローラーではリクエストパラメーターをRequestクラスのgetRestPramsメソッドで一元的に取得できるようになっています。RestControllerのrestParamsフィールドでも同様の値が取得できます。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> hoge()
+    {
+        <span class="comment">// GETパラメーターを取得（）
+</span>        $params = $ths-&gt;request-&gt;getRestParams();
+        <span class="comment">// $params = $this-&gt;restParams; これでも同じ結果
+</span>    }
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePost()
+    {
+        <span class="comment">// POSTパラメーターを取得
+</span>        $params = $ths-&gt;request-&gt;getRestParams();
+    }
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePut()
+    {
+        <span class="comment">// PUTパラメーターを取得
+</span>        $params = $ths-&gt;request-&gt;getRestParams();
+    }
+    <span class="reserved">public</span> <span class="reserved">function</span> hogeDelete()
+    {
+        <span class="comment">// DELETEパラメーターを取得
+</span>        $params = $ths-&gt;request-&gt;getRestParams();
+    }
+}
+</pre>
+</div></div>
+				
+	      <h3 id="4">レスポンス</h3>
+    		<p class="exp">
+RESTでは、同一のリソースに対して行う処理をHTTPメソッドによって切り分けるという考え方です。<br />
+WEBサイトを前提に考えるとすると、基本となるGETメソッドがデータ取得の意味合いとなるため、WEBブラウザ上にページを表示するのは通常はGETメソッドの役割となります。逆に言えばその他のメソッドは更新系のメソッドであり、レスポンスとしてはWebサイトのユーザーインターフェイスとしてのHTMLを返すわけではないと考えることもできます。<br />
+<br />
+そのためCurryでは、GETメソッドに対応するアクションメソッドは、通常のコントローラーと同様にビュークラスによってHTMLが出力されますが、その他のメソッドの場合は、特に何もしなければレスポンスなしになります。レスポンスとして何を出力するのかはユーザー次第です。
+</p>
+				<h4>リダイレクト</h4>
+<p class="exp">
+更新系の処理の後については、よくあるパターンは更新後の状態でページを再表示するというものです。これはその更新系メソッドのレスポンスとして、処理の最後にGETメソッドと同様のページデータ取得とHTML生成処理を行うという方法も考えられますが、更新処理の2重処理を防ぐためにもリダイレクトするというのが一般的です。<br />
+それを実現するのは以下のようなコードになります。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> hoge()
+    {
+        <span class="comment">// データ取得
+</span>        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $data =  $model-&gt;getData();
+        <span class="comment">// ビューへデータ割り当て
+</span>        $this-&gt;view-&gt;data = $data;
+    }
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePost()
+    {
+        <span class="comment">// データ追加
+</span>        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $model-&gt;insertData($this-&gt;restParams);
+        <span class="comment">// GETメソッドでリダイレクト
+</span>        $this-&gt;redirect(<span class="reteral">'hoge'</span>);
+    }
+ }
+</pre>
+</div></div>
+				<p class="exp">
+これでPOSTメソッドでデータの追加後にGETメソッドへリダイレクトし、ページ最表示、となります。<br />
+このように個々のメソッドでリダイレクト処理を記述しても良いのですが、この動きをお決まりとする場合にはもっと簡単な方法があります。それには、RestControllerのprotectedフィールドである、autoRedirectにtrueを設定するだけです。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="comment">// オートリダイレクトを有効に
+</span>    <span class="reserved">protected</span> $autoRedirect = <span class="reserved">true</span>;
+
+    <span class="reserved">public</span> <span class="reserved">function</span> hoge()
+    {
+        <span class="comment">// データ取得
+</span>        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $data =  $model-&gt;getData();
+        <span class="comment">// ビューへデータ割り当て
+</span>        $this-&gt;view-&gt;data = $data;
+    }
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePost()
+    {
+        <span class="comment">// データ追加
+</span>        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $model-&gt;insertData($this-&gt;restParams);
+
+        <span class="comment">// オートリダイレクトが有効なため、処理後に自動的にGETメソッドへリダイレクト
+</span>    }
+ }
+</pre>
+</div></div>
+				<p class="exp">
+こうすることでいちいちredirectメソッドを実行する必要がなく、コーディング量を減らすことができます。<br />
+もちろん、特定のメソッドだけで有効にしたい場合はそのメソッド内で$this->autoRedirect = true;と記述すればOKです。<br />
+逆に、基本は有効で特定のフィールドだけ無効にしたい場合はフィールドでtrueに設定し、特定のメソッド内でだけfalseをセットします。
+</p>
+				<h4>処理結果を返す</h4>
+<p class="exp">
+例えばAjaxによる非同期更新処理などの場合は、処理結果を何らかの形でレスポンスとして返すのが一般的です。<br />
+この場合、処理の最後にレスポンス出力の処理を行う事になります。<br />
+例えばプレーンテキストをレスポンスとして返す場合は以下のようになります。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePost()
+    {
+        <span class="comment">// データ追加
+</span>        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $result = $model-&gt;insertData($this-&gt;restParams);
+
+        <span class="comment">// 結果を文字列としてレスポンス
+</span>        $res = <span class="reteral">'OK'</span>;
+        <span class="reserved">if</span> ($res == <span class="reserved">false</span>) {
+            $res = <span class="reteral">'NG'</span>;
+        }
+        $this-&gt;response-&gt;plain($res);
+    }
+ }
+</pre>
+</div></div>
+				<div class="file_name">
+失敗の場合のレスポンス
+</div>
+<div class="sample_code"><div>
+<pre>
+NG
+</pre>
+</div></div>
+				<p class="exp">
+コントローラーのresponseフィールドにはResponseクラスのインスタンスが格納されており、これを利用して出力が可能です。単純な文字列を出力する場合はplainメソッドを利用します。<br />
+<br />
+AjaxのレスポンスとしてはJSONやXMLを利用するのも一般的です。<br />
+これもResponseクラスで簡単に行えます。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePost()
+    {
+        <span class="comment">// データ追加
+</span>        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $result = $model-&gt;insertData($this-&gt;restParams);
+
+        <span class="comment">// 結果を文字列としてレスポンス
+</span>        $res[<span class="reteral">'result'</span>] = <span class="reteral">'0'</span>;
+        <span class="reserved">if</span> ($result == <span class="reserved">false</span>) {
+            $res[<span class="reteral">'result'</span>] = <span class="reteral">'1'</span>;
+            $res[<span class="reteral">'message'</span>] = <span class="reteral">'追加に失敗しました。'</span>;
+        }
+        <span class="comment">// JSON形式でレスポンス
+</span>        $this-&gt;response-&gt;json($res);
+        <span class="comment">// XML形式の場合
+</span>        <span class="comment">//$this-&gt;response-&gt;xml($res);
+</span>    }
+ }
+</pre>
+</div></div>
+				<div class="file_name">
+失敗の場合のJSON形式のレスポンス
+</div>
+<div class="sample_code"><div>
+<pre>
+{&quot;result&quot;:&quot;1&quot;,&quot;message&quot;:&quot;\u8ffd\u52a0\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002&quot;}
+</pre>
+</div></div>
+				<div class="file_name">
+失敗の場合のXML形式のレスポンス
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;response&gt;
+  &lt;result&gt;1&lt;/result&gt;
+  &lt;message&gt;追加に失敗しました。&lt;/message&gt;
+&lt;/response&gt;
+</pre>
+</div></div>
+				<h4>任意のテンプレートをHTMLとして表示</h4>
+<p class="exp">
+GET以外のメソッドはデフォルトではレスポンスなしですが、<br />
+ビューを有効にし、テンプレートを指定すれば、GETメソッド同様にテンプレートを出力することも可能です。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePost()
+    {
+        <span class="comment">// データ追加
+</span>        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $result = $model-&gt;insertData($this-&gt;restParams);
+
+        <span class="comment">// 処理完了表示ページテンプレート出力
+</span>	$this-&gt;view-&gt;enableRendering(<span class="reserved">true</span>);
+	$this-&gt;view-&gt;setTemplate(<span class="reteral">'complete'</span>);
+    }
+ }
+</pre>
+</div></div>
+				<p class="exp">
+しかしこの場合、ブラウザの更新ボタンによって2重処理の危険性があります。<br />
+そのため、実際は2重処理防止のチェック処理を挟むか、別アクションとしてリダイレクトするのが望ましいと言えます。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePost()
+    {
+        <span class="comment">// データ追加
+</span>        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $result = $model-&gt;insertData($this-&gt;restParams);
+
+        <span class="comment">// 処理完了表示アクションへリダイレクト
+</span>	$this-&gt;redirect(<span class="reteral">'complete'</span>);
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> complete()
+    {
+    }
+ }
+</pre>
+</div></div>
+				
+	      <h3 id="5">PUTやDELETEメソッドのリクエスト方法</h3>
+    		<p class="exp">
+そもそも、HTMLの仕様上、フォームからの送信はGETかPOSTしかできません。<br />
+それではPUTやDELETEはどのようにして送信するかですが、方法は2つあります。<br />
+一つはAjaxを利用する方法、もうひとつは擬似的になりますがCurryの仕組みを利用してフォームから送信する方法です。
+</p>
+				<h4>Ajaxでリクエスト</h4>
+<p class="exp">
+HTMLのフォームからはPUTメソッドやDELETEメソッドは送信できませんが、Ajaxを利用すれば可能です。<br />
+ここではjQueryを利用してAjaxによるPUTメソッドの実行を例にします。
+</p>
+				<div class="file_name">
+htdocs/js/index.js
+</div>
+<div class="sample_code"><div>
+<pre>
+$(function(){
+    $(<span class="reteral">'form input:button'</span>).click(function(){
+        $.ajax({
+            <span class="reteral">'type'</span> : <span class="reteral">'PUT'</span>,
+            <span class="reteral">'url'</span> : <span class="reteral">'/index/hoge'</span>,
+            <span class="reteral">'data'</span> : {
+                <span class="reteral">'param1'</span> : $(this).find(<span class="reteral">'input[name=&quot;param1&quot;]'</span>).val(),
+                <span class="reteral">'param2'</span> : $(this).find(<span class="reteral">'input[name=&quot;param2&quot;]'</span>).val(),
+                <span class="reteral">'param3'</span> : $(this).find(<span class="reteral">'input[name=&quot;param3&quot;]'</span>).val()
+            },
+            <span class="reteral">'dataType'</span> : <span class="reteral">'json'</span>,
+            <span class="reteral">'success'</span> : function(res){
+                <span class="reserved">if</span> (res.result != <span class="reteral">'0'</span>) {
+                    alert(res.message);
+                }
+            }
+        });
+    });
+});
+</pre>
+</div></div>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePut()
+    {
+        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $result = $model-&gt;updateData($this-&gt;restParams);
+
+        $res[<span class="reteral">'result'</span>] = <span class="reteral">'0'</span>;
+        <span class="reserved">if</span> ($result == <span class="reserved">false</span>) {
+            $res[<span class="reteral">'result'</span>] = <span class="reteral">'1'</span>;
+            $res[<span class="reteral">'message'</span>] = <span class="reteral">'追加に失敗しました。'</span>;
+        }
+        $this-&gt;response-&gt;json($res);
+    }
+ }
+</pre>
+</div></div>
+				<h4>Curryの仕組みを利用してのフォーム送信</h4>
+<p class="exp">
+Curryではフォームから擬似的にPUTやDELETEメソッドを送信することが可能です。<br />
+それには、formにスタイルシートのクラスとして"rest"を指定した上で、method属性に"PUT"などを指定するだけです。
+</p>
+				<div class="file_name">
+app/views/templates/index/hoge.tpl
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;form class=&quot;rest&quot; method=&quot;PUT&quot; action=&quot;/index/hoge/&quot;&gt;
+  &lt;input type=&quot;text&quot; name=&quot;param1&quot; /&gt;
+  &lt;input type=&quot;text&quot; name=&quot;param2&quot; /&gt;
+  &lt;input type=&quot;text&quot; name=&quot;param3&quot; /&gt;
+  &lt;input type=&quot;submit&quot; name=&quot;send&quot; value=&quot;更新&quot; /&gt;
+&lt;/form&gt;
+</pre>
+</div></div>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">RestController</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> hogePut()
+    {
+        $model = $this-&gt;model(<span class="reteral">'Hoge'</span>);
+        $result = $model-&gt;updateData($this-&gt;restParams);
+
+        $res[<span class="reteral">'result'</span>] = <span class="reteral">'0'</span>;
+        <span class="reserved">if</span> ($result == <span class="reserved">false</span>) {
+            $res[<span class="reteral">'result'</span>] = <span class="reteral">'1'</span>;
+            $res[<span class="reteral">'message'</span>] = <span class="reteral">'追加に失敗しました。'</span>;
+        }
+        $this-&gt;response-&gt;json($res);
+    }
+ }
+</pre>
+</div></div>
+				<p class="exp">
+このフォームを送信する際、実際にはmethod属性を"POST"に書き換えて送信しています。<br />
+そして元々method属性に書かれていた"PUT"はフォームからの送信パラメータの一つとして別途、送信されます。<br />
+Curryではそのパラメータが存在すればPUTメソッドだと判断し、Putのアクションメソッドを呼び出します。なので実際にはPUTメソッドでリクエストされているわけではなく、擬似的なものです。<br />
+<br />
+Curryでは、コントローラーがRestControllerを継承している場合に限り、POSTパラメーターから"_method"というキーを検索します。存在すればこれをHTTPメソッドとして扱います。<br />
+そのため、以下の例のように最初からフォームのmethod属性をPOSTにし、別途、input:hiddenでvalueに"PUT"をセットしておけば同じ動きとなります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+&lt;form method=&quot;POST&quot; action=&quot;/index/hoge/&quot;&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;_method&quot; value=&quot;PUT&quot; /&gt;
+  &lt;input type=&quot;text&quot; name=&quot;param1&quot; /&gt;
+  &lt;input type=&quot;text&quot; name=&quot;param2&quot; /&gt;
+  &lt;input type=&quot;text&quot; name=&quot;param3&quot; /&gt;
+  &lt;input type=&quot;submit&quot; name=&quot;send&quot; value=&quot;更新&quot; /&gt;
+&lt;/form&gt;
+</pre>
+</div></div>
+				<p class="exp">
+前者の、method属性に"PUT"を指定するフォームの場合、Curryフレームワークのパッケージに同梱している"site/htdocs/js/rest.js"が重要になります。擬似的なRESTリクエストを実現しているのはこのJavascripだからです。このjsはjQueryとネイティブのJavascriptの両方に対応しています。
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

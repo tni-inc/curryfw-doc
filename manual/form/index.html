@@ -1,0 +1,1278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li class="selected"><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>フォーム自動生成</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">HtmlFormの基本</a></li>
+                        <li><a href="#2">より柔軟な利用</a></li>
+                        <li><a href="#3">カスタムレイアウト</a></li>
+                        <li><a href="#7">ユーザー定義レイアウトクラス</a></li>
+                        <li><a href="#6">入力タグのvalue初期値設定</a></li>
+                        <li><a href="#4">便利な機能</a></li>
+                        <li><a href="#5">配列データをもとにフォームの構築</a></li>
+              </ul>
+
+	      <h3 id="1">HtmlFormの基本</h3>
+    		<p class="exp">
+Curryには、HTMLを直接記述せずにPHPのコーディングでフォームを生成する機能が備わっています。HtmlElementクラスを利用すればどんなタグにでも対応できるため、もちろんformタグも生成できますが、専用のHtmlFormクラスを利用すると遥かに簡素なコーディングでフォーム生成が可能です。<br />
+<br />
+通常、フォームは何らかのタグでレイアウトを整える事が多くなりますが、HtmlFormではこのタグによるレイアウトを自動的に組み立てる機能が備わっており、デフォルトで有効になっています。<br />
+<br />
+HtmlFormの基本的な利用方法は以下の様なものです。<br />
+HtmlFormクラスはデフォルトでは読み込まれていませんので、明示的に読み込む必要があります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+Loader::load(<span class="reteral">'HtmlForm'</span>, <span class="reteral">'html'</span>);
+
+$sexList = array(<span class="reteral">'1'</span> =&gt; <span class="reteral">'男'</span>, <span class="reteral">'2'</span> =&gt; <span class="reteral">'女'</span>);
+$prefList = array(<span class="reteral">'tokyo'</span> =&gt; <span class="reteral">'東京都'</span>, <span class="reteral">'osaka'</span> =&gt; <span class="reteral">'大阪府'</span>);
+
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$form-&gt;setAction(<span class="reteral">'/user/regist'</span>);
+$form-&gt;addTextbox(<span class="reteral">'name'</span>);
+$form-&gt;addRadio(<span class="reteral">'sex'</span>, $sexList);
+$form-&gt;addSelect(<span class="reteral">'pref'</span>, $prefList);
+$form-&gt;addTextarea(<span class="reteral">'address'</span>);
+$form-&gt;addSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>);
+$form-&gt;render();
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;/user/regist&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;span&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;1&quot; /&gt;男&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;2&quot; /&gt;女&lt;/label&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;select name=&quot;pref&quot;&gt;
+        &lt;option value=&quot;tokyo&quot;&gt;東京都&lt;/option&gt;
+        &lt;option value=&quot;osaka&quot;&gt;大阪府&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<p class="exp">
+このように、何も意識しなくてもレイアウト整形用のタグが含まれる状態になっています。<br />
+構造としては、フォームの入力タグを直接格納するタグ、<br />
+入力タグに対する見出しを設定した場合にその見出しを直接格納するタグ、<br />
+そしてそれらを包括するコンテナタグが存在し、このコンテナタグがフォームタグの直下に存在するような形です。<br />
+以下はそのイメージです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+formタグ
+  ∟div(コンテナ)
+     ∟span（見出しコンテナ） 
+        ∟見出しテキスト
+     ∟span（フォーム入力コンテナ） 
+        ∟フォーム入力タグ
+  ・
+  ・
+  ・
+</pre>
+</div></div>
+				<p class="exp">
+それぞれのコンテナタグにはclass属性が設定されており、cssでスタイルを設定することにより、デザインは自由に設定することができます。<br />
+<br />
+この簡易レイアウトを利用したくない場合は、HtmlFormのsetIsAutoLayoutメソッドでfalseを設定します。<br />
+ユーザーインターフェイスに現れるフォームではレイアウトなしでは使いものになりませんが、例えばボタン一つのみが表示されているようなフォームとか、非表示のフォームではレイアウトは意味をなさないため、レイアウトを無効にすると良いでしょう。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+<span class="comment">// レイアウトOFF
+</span><span class="bold">$form-&gt;setIsAutoLayout(<span class="reserved">false</span>);</span>
+
+$form-&gt;setAction(<span class="reteral">'/user/regist'</span>);
+$form-&gt;addTextbox(<span class="reteral">'name'</span>);
+$form-&gt;addRadio(<span class="reteral">'sex'</span>, $sexList);
+$form-&gt;addSelect(<span class="reteral">'pref'</span>, $prefList);
+$form-&gt;addTextarea(<span class="reteral">'address'</span>);
+$form-&gt;addSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>);
+$form-&gt;render();
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;/user/regist&quot;&gt;
+  &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+  &lt;span&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;1&quot; /&gt;男&lt;/label&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;2&quot; /&gt;女&lt;/label&gt;
+  &lt;/span&gt;
+  &lt;select name=&quot;pref&quot;&gt;
+    &lt;option value=&quot;tokyo&quot;&gt;東京都&lt;/option&gt;
+    &lt;option value=&quot;osaka&quot;&gt;大阪府&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+  &lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<p class="exp">
+入力タグ追加用のメソッドは以下のとおりです。<br />
+フォーム入力タグのエレメントはHtmlElementを継承するFormElementで、HtmlElementに加えて独自の機能を持っています。<br />
+また入力タグの中でも復数の選択項目の中から選択する形式の物は更にFormElementを継承したFormElementSetです。これは基本的に復数の選択項目タグをコンテナタグに格納した形式のものです。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>メソッド</th><th>タグ</th><th>オブジェクトクラス</th></tr>
+<tr>
+<td class="title">addTextbox</td>
+<td>input type="text"</td>
+<td>FormElement</td>
+</tr><tr>
+<td class="title">addPassword</td>
+<td>input type="password"</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addTextarea</td>
+<td>textarea</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addHidden</td>
+<td>input type="hidden"</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addCheckbox</td>
+<td>input type="checkbox"</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addSubmit</td>
+<td>input type="submit"</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addButton</td>
+<td>input type="button"</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addImage</td>
+<td>input type="image"</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addReset</td>
+<td>input type="reset"</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addFile</td>
+<td>input type="file"</td>
+<td>FormElement</td>
+</tr>
+<tr>
+<td class="title">addRadio</td>
+<td>コンテナ：span<br />選択項目：input type="radio"</td>
+<td>FormElementSet</td>
+</tr>
+<tr>
+<td class="title">addSelect</td>
+<td>コンテナ：select<br />選択項目：option</td>
+<td>FormElementSet</td>
+</tr>
+<tr>
+<td class="title">addCheckboxes</td>
+<td>コンテナ：span<br />選択項目：input type="checkbox"</td>
+<td>FormElementSet</td>
+</tr>
+</table>
+</p>
+				<h4>見出しの設定</h4>
+<p class="exp">
+入力タグに対しては見出しを設定することが可能ですが、上の例では見出し用のタグ（class="caption"のタグ）の中身が空になっています。<br />
+これを設定するにはフォーム入力項目オブジェクトのsetCaptionメソッドを利用します。<br />
+フォーム入力項目オブジェクトはaddTextboxなどの入力項目追加メソッドの返り値として得られます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$form-&gt;setAction(<span class="reteral">'/user/regist'</span>);
+$form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;<span class="bold">setCaption(<span class="reteral">'名前'</span>)</span>;
+$form-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;<span class="bold">setCaption(<span class="reteral">'住所'</span>)</span>;
+$form-&gt;addSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;/user/regist&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;caption&quot;&gt;名前&lt;/div&gt;
+    &lt;div class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;caption&quot;&gt;住所&lt;/div&gt;
+    &lt;div class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;caption&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;input&quot;&gt;
+      &lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<h4>簡易コンテナの設定変更</h4>
+<p class="exp">
+
+</p>
+				<p class="exp">
+簡易コンテナのタグにはデフォルトでclass属性が設定されています。<br />
+デフォルトのクラスは入力タグのコンテナが"input"、<br />
+見出しタグのコンテナが"caption"、<br />
+それらを包括するコンテナが"container"<br />
+となっています。<br />
+<br />
+これらのclass属性は任意に指定することも可能です。<br />
+以下はその設定例です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+<span class="comment">// 入力タグのコンテナタグ
+</span><span class="bold">$form-&gt;setContainerTagName(<span class="reteral">'dl'</span>);</span>
+<span class="comment">// 入力タグのコンテナタグ
+</span><span class="bold">$form-&gt;setCaptionContainerTagName(<span class="reteral">'dt'</span>);</span>
+<span class="comment">// 見出しのコンテナタグ
+</span><span class="bold">$form-&gt;setInputContainerTagName(<span class="reteral">'dd'</span>);</span>
+<span class="comment">// コンテナのクラス属性
+</span><span class="bold">$form-&gt;setContainerClass(<span class="reteral">'custom_container'</span>);</span>
+<span class="comment">// 見出しのコンテナのクラス属性
+</span><span class="bold">$form-&gt;setCaptionContainerClass(<span class="reteral">'custom_caption'</span>);</span>
+<span class="comment">// 入力タグのコンテナのクラス属性
+</span><span class="bold">$form-&gt;setInputContainerClass(<span class="reteral">'custom_input'</span>);</span>
+
+$form-&gt;setAction(<span class="reteral">'/user/regist'</span>);
+$form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$form-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+$form-&gt;addSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;/user/regist&quot;&gt;
+  &lt;dl class=&quot;custom_container&quot;&gt;
+    &lt;dt class=&quot;custom_caption&quot;&gt;名前&lt;/dt&gt;
+    &lt;dd class=&quot;custom_input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;dl class=&quot;custom_container&quot;&gt;
+    &lt;dt class=&quot;custom_caption&quot;&gt;住所&lt;/dt&gt;
+    &lt;dd class=&quot;custom_input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;dl class=&quot;custom_container&quot;&gt;
+    &lt;dt class=&quot;custom_caption&quot;&gt;&lt;/dt&gt;
+    &lt;dd class=&quot;custom_input&quot;&gt;
+      &lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				
+	      <h3 id="2">より柔軟な利用</h3>
+    		<p class="exp">
+フォームへの入力タグの追加はadd～メソッドによって行いますが、これらのメソッドは入力タグを生成し、即座にformの要素として追加します。そして簡易レイアウトが有効になっている場合には強制的にレイアウトに組み込まれます。<br />
+<br />
+add～メソッドとよく似たメソッドで、create～メソッドが存在します。これは入力タグを生成して返すだけで、フォームへの追加は行なわれません。<br />
+<br />
+実はadd～メソッドで行なっているのは、内部的にcreate～メソッドにより入力タグを生成後、addFormElementメソッドでフォームへ追加しているだけです。なので、例えばaddTextboxを実行するのと、createTextboxを実行後、addFormElementでフォームへ追加するのは同じ意味になります。<br />
+<br />
+以下の2つはパターンの実装は同じ結果となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// add～メソッドで追加
+</span>$form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+
+<span class="comment">// create～メソッドで生成後、addFormElementメソッドで追加
+</span>$textbox = $form-&gt;createTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$form-&gt;addFormElement($textbox);
+</pre>
+</div></div>
+				<p class="exp">
+例えば、ある入力タグだけはレイアウトの枠にはめたくないということはあるでしょう。<br />
+レイアウトに組み込む機能を提供しているのはaddFormElementメソッドなので、create～メソッドでタグオブジェクトを生成した後、addFormElementではなく、通常のaddElementメソッドでフォームへ追加すればレイアウトタグを生成せず、formタグの直下に入力タグを配置することができます。<br />
+<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// add～メソッドで追加するとレイアウトに格納される
+</span>$form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+
+<span class="comment">// create～メソッドで生成後、addElementメソッドで追加するとレイアウト外となる
+</span>$textarea = $form-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+$form-&gt;addElement($textarea);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;/user/regist&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;名前&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				
+	      <h3 id="3">カスタムレイアウト</h3>
+    		<p class="exp">
+大抵の場合は標準の簡易レイアウトで事足りますが、より柔軟なレイアウトを組むこともできます。<br />
+それにはHtmlFormのaddLayoutメソッドを利用します。<br />
+addLayoutメソッドはフォームにレイアウト用のタグを追加しつつ、レイアウトタグのオブジェクトを返します。そして通常、フォームオブジェクトに直接addTextboxなどのメソッドで入力タグを追加するところを、代わりにレイアウトオブジェクトのaddTextboxメソッドを実行することで、レイアウトに組み込まれた状態で入力タグが追加されます。<br />
+<br />
+レイアウトオブジェクトとはFormLayoutAbstractクラスを継承したクラスのインスタンスです。<br />
+例えばFormLayoutTableはFormLayoutAbstractクラスを継承し、タグとしてtableタグを利用したレイアウトを構築するためのクラスです。<br />
+<br />
+FormLayoutAbstractを継承するクラスは名前の末尾がタグの名前となっている必要があります。<br />
+そしてHtmlFormのaddLayoutメソッドのパラメータにはこの末尾のタグ名を指定します。<br />
+例えばaddLayout('table')であればFormLayoutTableがレイアウトのクラスとして利用されます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+<span class="comment">// $layoutにはFormLayoutTableのインスタンスが代入される
+</span>$layout = $form-&gt;addLayout(<span class="reteral">'table'</span>);
+$layout-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$layout-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;caption&quot;&gt;名前&lt;/td&gt;
+        &lt;td class=&quot;input&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;caption&quot;&gt;住所&lt;/td&gt;
+        &lt;td class=&quot;input&quot;&gt;
+          &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<h4>コンテナのclass属性のデフォルト設定</h4>
+<p class="exp">
+カスタムレイアウトのタグの種類はレイアウトクラスの定義で決まりますが、入力タグと見出しのそれぞれのコンテナのcssのクラスは設定することができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$layout = $form-&gt;addLayout(<span class="reteral">'table'</span>);
+<span class="bold">$layout-&gt;setCaptionContainerClass(<span class="reteral">'custom_caption'</span>);
+$layout-&gt;setInputContainerClass(<span class="reteral">'custom_input'</span>);</span>
+$layout-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$layout-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;custom_caption&quot;&gt;名前&lt;/td&gt;
+        &lt;td class=&quot;custom_input&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;custom_caption&quot;&gt;住所&lt;/td&gt;
+        &lt;td class=&quot;custom_input&quot;&gt;
+          &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<h4>入力項目ごとのclass属性の設定</h4>
+<p class="exp">
+また、フォーム入力項目ごとに個別にコンテナのclass属性を設定する事も可能です。<br />
+レイアウトオブジェクトのadd～メソッドはフォーム入力タグオブジェクトを返します。<br />
+フォーム入力タグのgetInputContainerメソッドやgetCaptionContainerメソッドを実行すると、それぞれ入力項目を格納するコンテナと見出しを格納するコンテナが得られます。これらはHtmlElementのインスタンスであるため、HtmlElementでできることはなんでもでき、柔軟に設定が可能になります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$layout = $form-&gt;addLayout(<span class="reteral">'table'</span>);
+<span class="bold">$fomElem =</span> $layout-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+<span class="bold">$fomElem-&gt;getInputContainer()-&gt;setClass(<span class="reteral">'name'</span>);
+$fomElem-&gt;getCaptionContainer()-&gt;setClass(<span class="reteral">'name_caption'</span>);</span>
+<span class="bold">$fomElem =</span> $layout-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+<span class="bold">$fomElem-&gt;getInputContainer()-&gt;setClass(<span class="reteral">'address'</span>);
+$fomElem-&gt;getCaptionContainer()-&gt;setClass(<span class="reteral">'address_caption'</span>);</span>
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;name_caption&quot;&gt;名前&lt;/td&gt;
+        &lt;td class=&quot;name&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;address_caption&quot;&gt;住所&lt;/td&gt;
+        &lt;td class=&quot;address&quot;&gt;
+          &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;name_caption&quot;&gt;名前&lt;/td&gt;
+        &lt;td class=&quot;name&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;address_caption&quot;&gt;住所&lt;/td&gt;
+        &lt;td class=&quot;address&quot;&gt;
+          &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<h4>見出しの書式設定</h4>
+<p class="exp">
+見出しは通常、setCaptionメソッドで設定した文字列をそのまま表示しますが、表示する形式を書式として設定することができます。書式の設定は文字列で指定し、"%s"を一つだけ含めます。そうすると、"%s"の部分がsetCaptionで設定された文字列に置き換わって表示されます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$layout = $form-&gt;addLayout(<span class="reteral">'table'</span>);
+<span class="bold">$layout-&gt;setCaptionFormat(<span class="reteral">'■%s：'</span>);</span>
+$layout-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$layout-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;caption&quot;&gt;■名前：&lt;/td&gt;
+        &lt;td class=&quot;input&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;caption&quot;&gt;■住所：&lt;/td&gt;
+        &lt;td class=&quot;input&quot;&gt;
+          &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<h4>復数レイアウト</h4>
+<p class="exp">
+
+</p>
+				<p class="exp">
+レイアウトは一つのフォームに復数設定することもできます。<br />
+それには単純にaddLayoutメソッドを複数回実行するだけです。<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+<span class="comment">// レイアウト1
+</span>$layout1 = $form-&gt;addLayout(<span class="reteral">'table'</span>);
+$layout1-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$layout1-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+<span class="comment">// レイアウト2
+</span>$layout2 = $form-&gt;addLayout(<span class="reteral">'dl'</span>);
+$layout2-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'電話番号'</span>);
+$layout2-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'メールアドレス'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;caption&quot;&gt;名前&lt;/td&gt;
+        &lt;td class=&quot;input&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;caption&quot;&gt;住所&lt;/td&gt;
+        &lt;td class=&quot;input&quot;&gt;
+          &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  &lt;dl&gt;
+    &lt;dt class=&quot;caption&quot;&gt;電話番号&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/dd&gt;
+    &lt;dt class=&quot;caption&quot;&gt;メールアドレス&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<h4>レイアウト外の入力項目</h4>
+<p class="exp">
+HtmlFormのaddLayoutによって生成されたレイアウトオブジェクトに対して入力項目を追加していくと自動的にレイアウト整形されますが、一部の項目はレイアウト外としたい場合はあるでしょう。そのような場合はlayoutオブジェクトは無視してフォームオブジェクトへ直接addするだけで実現できます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+<span class="bold">$form-&gt;addHidden(<span class="reteral">'ip'</span>)-&gt;setValue($req-&gt;getServer(<span class="reteral">'REMOTE_ADDR'</span>));</span>
+$layout = $form-&gt;addLayout(<span class="reteral">'dl'</span>);
+$layout-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$layout-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+<span class="bold">$form-&gt;addSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>);</span>
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  <span class="bold">&lt;input type=&quot;hidden&quot; name=&quot;ip&quot; value=&quot;1.2.3.4&quot; /&gt;</span>
+  &lt;dl&gt;
+    &lt;dt class=&quot;caption&quot;&gt;名前&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/dd&gt;
+    &lt;dt class=&quot;caption&quot;&gt;住所&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+  <span class="bold">&lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;</span>
+&lt;/form&gt;
+</pre>
+</div>
+				<p class="exp">
+更に、レイアウト外とする入力タグを、何らかのタグに格納した状態でフォームに追加したい場合は、一旦create～メソッドによってフォームへの追加はせずにオブジェクトだけ取得し、別途HtmlElementを生成してその中へ格納し、HtmlElementのインスタンスをフォームへ追加するという方法で実現が可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$layout = $form-&gt;addLayout(<span class="reteral">'dl'</span>);
+$layout-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$layout-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+<span class="comment">// submit生成
+</span>$submit = $form-&gt;createSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>);
+<span class="comment">// divを生成してsubmitを格納
+</span>$div = <span class="class">HtmlElement</span>::create(<span class="reteral">'div'</span>)-&gt;addStyle(<span class="reteral">'text-align'</span>, <span class="reteral">'center'</span>)-&gt;addElement($submit);
+<span class="comment">// フォームへdivを追加
+</span>$form-&gt;addElement($div);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;dl&gt;
+    &lt;dt class=&quot;caption&quot;&gt;名前&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/dd&gt;
+    &lt;dt class=&quot;caption&quot;&gt;住所&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+  <span class="bold">&lt;div style=&quot;text-align:center&quot;&gt;
+    &lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+  &lt;/div&gt;</span>
+&lt;/form&gt;
+</pre>
+</div>
+				
+	      <h3 id="7">ユーザー定義レイアウトクラス</h3>
+    		<p class="exp">
+レイアウトクラスはFormLayoutAbstractを継承している必要があり、<br />
+Curryのパッケージに含まれるのは、<br />
+
+</p>
+				<ul class="kajo">
+    <li>FormLayoutTable</li>
+    <li>FormLayoutDl</li>
+    <li>FormLayoutDiv</li>
+</ul>
+				<p class="exp">
+の3つです。<br />
+<br />
+FormLayoutを継承すれば、レイアウトクラスは自由に作成することができます。<br />
+このクラスで必要なことは以下の3つです。
+</p>
+				<ul class="kajo">
+    <li>FormElementAbstractクラスを継承する</li>
+    <li>クラス名の頭がFormElementで始まるようにする</li>
+    <li>$_tagNameフィールドを定義して値を設定する</li>
+    <li>$_captionContainerTagNameフィールドを定義して値を設定する</li>
+    <li>$_inputContainerTagNameフィールドを定義して値を設定する</li>
+    <li>addFormElementContainerメソッドを定義して値を設定する</li>
+</ul>
+				<p class="exp">
+レイアウトのトップレベルのタグ名は、$_tagNameで定義したものになりますが、定義しなかった場合、クラス名の末尾がタグ名となります。ただし、当然既に定義存在するクラス名のものは作ることが出来ないため、例えばFormLayoutDivは標準で存在するため、divタグとしたい場合はクラス名は別のものにし、$_tagNameフィールドに"div"と指定剃る必要があります。<br />
+<br />
+タグの内側で入力タグのコンテナとなるタグを設定するのが$_inputContainerTagNameフィールドです。<br />
+見出しのコンテナとなるタグを設定するのが$_captionContainerTagNameフィールドです。<br />
+また入力タグに対して入力エラーメッセージを表示する場合のタグもレイアウトの一部として組み込まれており、デフォルトのタグはspanに設定されていますが、必要に応じて$_errorContainerTagNameフィールドを定義することで指定が可能です。<br />
+<br />
+そしてaddFormElementContainerメソッドはFormLayoutAbstractの抽象メソッドであり、必ず継承する必要があります。<br />
+addFormElementContainerは引数が2つで、第1引数が入力タグのコンテナタグのHtmlElementインスタンスです。<br />
+第２引数が見出しのコンテナタグのHtmlElementインスタンスです。<br />
+つまり$_inputContainerTagNameフィールドと$_captionContainerTagNameフィールドで指定したタグ名で生成されたそれぞれのコンテﾅのHtmlElementインスタンスが引数で入ってきます。<br />
+そしてこれをレイアウトに追加するのがaddFormElementContainerの役割で、例えばそれぞれのタグをレイアウトのトップレベルのタグの直下に格納する場合はそれぞれのインスタンスをaddElementメソッドで追加するだけになります。<br />
+<br />
+例えばコンテナのトップレベルのタグがdiv、見出しのコンテナがp、入力のコンテンもpの場合は以下の様なクラスになります。<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">FormLayoutDivP</span> <span class="reserved">extends</span> <span class="class">FormLayoutAbstract</span>
+{
+    <span class="reserved">protected</span> $_tagName = <span class="reteral">'div'</span>;	
+    <span class="reserved">protected</span> $_captionContainerTagName = <span class="reteral">'p'</span>;
+    <span class="reserved">protected</span> $_inputContainerTagName = <span class="reteral">'p'</span>;
+    <span class="reserved">protected</span> $_errorTagName = <span class="reteral">'div'</span>;
+	
+    <span class="reserved">protected</span> <span class="reserved">function</span> addFormElementContainer(HtmlElement $inputContainer, HtmlElement $captionContainer)
+    {
+        $this-&gt;addElement($captionContainer);
+        $this-&gt;addElement($inputContainer);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+そしてこのレイアウトを利用すると以下のようになります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$layout = $form-&gt;addLayout(<span class="reteral">'div_p'</span>);
+$layout-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>)-&gt;setErrorMessage(<span class="reteral">'入力してください。'</span>);
+$layout-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;div&gt;
+    &lt;p class=&quot;caption&quot;&gt;名前&lt;/p&gt;
+    &lt;p class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+      &lt;div class=&quot;error&quot;&gt;入力してください。&lt;/div&gt;
+    &lt;/p&gt;
+    &lt;p class=&quot;caption&quot;&gt;住所&lt;/p&gt;
+    &lt;p class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<p class="exp">
+FormLayoutAbstractはHtmlFormを継承しているため、HtmlFormの持つ機能は全て備えています。つまり、レイアウトは自由にカスタマイズが出来るということです。<br />
+<br />
+例えば以下のように属性を自由に設定したり、レイアウトのタグ階層も自由に組むことができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">FormLayoutCustom</span> <span class="reserved">extends</span> <span class="class">FormLayoutAbstract</span>
+{
+    <span class="reserved">protected</span> $_tagName = <span class="reteral">'div'</span>;	
+    <span class="reserved">protected</span> $_captionContainerTagName = <span class="reteral">'span'</span>;
+    <span class="reserved">protected</span> $_inputContainerTagName = <span class="reteral">'span'</span>;
+    
+    <span class="reserved">protected</span> $_subContainer;
+    
+    <span class="reserved">public</span> <span class="reserved">function</span> __construct(HtmlForm $form)
+    {
+        <span class="comment">// レイアウトのトップレベルタグにクラス属性設定
+</span>        $this-&gt;addClass(<span class="reteral">'layout'</span>);
+        
+        <span class="comment">// サブコンテナを生成
+</span>        $this-&gt;_subContainer = HtmlElement::create(<span class="reteral">'div'</span>)-&gt;setClass(<span class="reteral">'sub'</span>);
+        $this-&gt;addElement($this-&gt;_subContainer);
+        <span class="reserved">parent</span>::__construct($form);
+    }
+    	
+    <span class="reserved">protected</span> <span class="reserved">function</span> addFormElementContainer(HtmlElement $inputContainer, HtmlElement $captionContainer)
+    {
+        $inputContainer-&gt;setClass(<span class="reteral">'custom_input'</span>);
+        
+        $elements = $inputContainer-&gt;getElementsByTagName(<span class="reteral">'input'</span>);
+        <span class="reserved">if</span> (count($elements) &gt; 0 &amp;&amp; $elements[0]-&gt;getType() == <span class="reteral">'submit'</span>) {
+            <span class="comment">// class属性が&quot;button&quot;の場合はサブコンテナの中に入れずにボタン専用のコンテナに格納
+</span>            $buttonContainer = HtmlElement::create(<span class="reteral">'div'</span>)-&gt;setClass(<span class="reteral">'buttons'</span>);
+            $buttonContainer-&gt;addElement($inputContainer);
+            $this-&gt;addElement($buttonContainer);
+        } <span class="reserved">else</span> {
+            <span class="comment">// それ以外はサブコンテナの中に更に入力タグごとのサブコンテナを生成して格納
+</span>            $subSubContainer = HtmlElement::create(<span class="reteral">'p'</span>)-&gt;setClass(<span class="reteral">'sub_sub'</span>);
+            $subSubContainer-&gt;addElement($captionContainer);
+            $subSubContainer-&gt;addElement($inputContainer);
+            $this-&gt;_subContainer-&gt;addElement($subSubContainer);
+        }
+    }
+}
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$layout = $form-&gt;addLayout(<span class="reteral">'custom'</span>);
+$layout-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$layout-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+$layout-&gt;addSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>)-&gt;addClass(<span class="reteral">'button'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;div class=&quot;layout&quot;&gt;
+    &lt;div class=&quot;sub&quot;&gt;
+      &lt;p class=&quot;sub_sub&quot;&gt;
+        &lt;span class=&quot;caption&quot;&gt;名前&lt;/span&gt;
+        &lt;span class=&quot;custom_input&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+        &lt;/span&gt;
+      &lt;/p&gt;
+      &lt;p class=&quot;sub_sub&quot;&gt;
+        &lt;span class=&quot;caption&quot;&gt;住所&lt;/span&gt;
+        &lt;span class=&quot;custom_input&quot;&gt;
+          &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+        &lt;/span&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;buttons&quot;&gt;
+      &lt;span class=&quot;custom_input&quot;&gt;
+        &lt;input class=&quot;button&quot; type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				
+	      <h3 id="6">入力タグのvalue初期値設定</h3>
+    		<p class="exp">
+フォーム入力タグの初期値はvalue属性で設定するため、FormElementのsetValueメソッドで設定することができます。textareaについてはタグのテキストノードが値となるため、setTextで設定する事はもちろん出来ますが、setValueメソッドでも設定することが可能です。<br />
+<br />
+selectなどのFormElementSetクラスを利用した物の初期選択状態の設定についてもsetValueメソッドで可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$data = array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'山田太郎'</span>,
+    <span class="reteral">'sex'</span>     =&gt; <span class="reteral">'1'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'東京都'</span>,
+);
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>)-&gt;<span class="bold">setValue($data[<span class="reteral">'name'</span>])</span>;
+$form-&gt;addRadio(<span class="reteral">'sex'</span>, array(<span class="reteral">'1'</span> =&gt; <span class="reteral">'男'</span>, <span class="reteral">'2'</span> =&gt; <span class="reteral">'女'</span>))-&gt;setCaption(<span class="reteral">'名前'</span>)-&gt;<span class="bold">setValue($data[<span class="reteral">'sex'</span>])</span>;
+$form-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>)-&gt;<span class="bold">setValue($data[<span class="reteral">'address'</span>])</span>;
+$form-&gt;addSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>);
+$form-&gt;render();
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;名前&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; <span class="bold">value=&quot;山田太郎&quot;</span> /&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;名前&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;span&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;1&quot; <span class="bold">checked=&quot;checked&quot;</span> /&gt;男&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;2&quot; /&gt;女&lt;/label&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;住所&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;<span class="bold">東京都</span>&lt;/textarea&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<p class="exp">
+setValueメソッドで個別に設定することも可能ですが、FormクラスのbindValuesメソッドを利用すると一度に値を設定することができます。<br />
+<br />
+bindValuesに設定する値は入力タグのname属性をキーとした配列になります。<br />
+タグのname属性と設定するデータのキーが一致していれば、bindValuesメソッドだけで全ての項目の初期値が設定できるため、便利です。<br />
+<br />
+以下の例は上の例と同じ結果となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$data = array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'山田太郎'</span>,
+    <span class="reteral">'sex'</span>     =&gt; <span class="reteral">'1'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'東京都'</span>,
+);
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$form-&gt;setIsAutoLayout(<span class="reserved">false</span>);
+$form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$form-&gt;addRadio(<span class="reteral">'sex'</span>, array(<span class="reteral">'1'</span> =&gt; <span class="reteral">'男'</span>, <span class="reteral">'2'</span> =&gt; <span class="reteral">'女'</span>))-&gt;setCaption(<span class="reteral">'名前'</span>);
+$form-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+$form-&gt;addSubmit(<span class="reteral">'regist'</span>, <span class="reteral">'登録'</span>);
+<span class="bold">$form-&gt;bindValues($data)</span>;
+$form-&gt;render();
+</pre>
+</div></div>
+				<p class="exp">
+FormLayoutSetの場合、setValueで指定する値は配列も可能です。<br />
+checkboxの場合、またはselecでsetMultiple(true)などで複数選択可能状態であれば複数選択された状態となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$prefList = array(<span class="reteral">'tokyo'</span> =&gt; <span class="reteral">'東京都'</span>, <span class="reteral">'osaka'</span> =&gt; <span class="reteral">'大阪府'</span>);
+$form-&gt;addSelect(<span class="reteral">'pref'</span>, $prefList)-&gt;setValue(array(<span class="reteral">'osaka'</span>, <span class="reteral">'tokyo'</span>))-&gt;setMultiple(<span class="reserved">true</span>);
+$form-&gt;addCheckboxes(<span class="reteral">'pref2'</span>, $prefList)-&gt;setValue(array(<span class="reteral">'osaka'</span>, <span class="reteral">'tokyo'</span>));
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;select name=&quot;pref&quot; multiple=&quot;multiple&quot;&gt;
+  &lt;option value=&quot;tokyo&quot; selected=&quot;selected&quot;&gt;東京都&lt;/option&gt;
+  &lt;option value=&quot;osaka&quot; selected=&quot;selected&quot;&gt;大阪府&lt;/option&gt;
+&lt;/select&gt;
+&lt;span&gt;
+  &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;tokyo&quot; name=&quot;pref2&quot; checked=&quot;checked&quot; /&gt;東京都&lt;/label&gt;
+  &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;osaka&quot; name=&quot;pref2&quot; checked=&quot;checked&quot; /&gt;大阪府&lt;/label&gt;
+&lt;/span&gt;
+</pre>
+</div>
+				
+	      <h3 id="4">便利な機能</h3>
+    		<h4>内部コンテナ</h4>
+<p class="exp">
+formタグの直下に、formタグの内容を包括する形のコンテナタグを挟むことができます。<br />
+それにはHtmlFormのsetInnerContainerメソッドでコンテナにしたいHtmlElementのインスタンスを指定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+<span class="bold">$form-&gt;setInnerContainer(HtmlElement::create(<span class="reteral">'div'</span>)-&gt;setClass(<span class="reteral">'inner_container'</span>));</span>
+$form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$form-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+$form-&gt;render();
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  <span class="bold">&lt;div class=&quot;inner_container&quot;&gt;</span>
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;span class=&quot;caption&quot;&gt;名前&lt;/span&gt;
+      &lt;span class=&quot;input&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;span class=&quot;caption&quot;&gt;住所&lt;/span&gt;
+      &lt;span class=&quot;input&quot;&gt;
+        &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+  <span class="bold">&lt;/div&gt;</span>
+&lt;/form&gt;
+</pre>
+</div>
+				<h4>エラーメッセージ表示</h4>
+<p class="exp">
+
+</p>
+				<p class="exp">
+フォームの入力に対しては通常、入力チェックを行います。そしてエラー時はフォームに戻り、エラーメッセージを表示するのが通例です。<br />
+FormElementにはエラーメッセージを設定する機能が備わっています。<br />
+設定方法は、FormElementのインスタンスに対してsetErrorMessageメソッドでエラーメッセージを指定します。<br />
+ただし簡易レイアウトもしくはカスタムレイアウトが有効になっている必要があります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$errors = array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'入力してください'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'全て全角で入力してください'</span>
+);
+$form = <span class="reserved">new</span> HtmlForm();
+$name = $form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+<span class="reserved">if</span> (isset($errors[<span class="reteral">'name'</span>])) {
+    $name-&gt;setErrorMessage($errors[<span class="reteral">'name'</span>]);
+}
+$addr = $form-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+<span class="reserved">if</span> (isset($errors[<span class="reteral">'address'</span>])) {
+    $addr-&gt;setErrorMessage($errors[<span class="reteral">'address'</span>]);
+}
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;名前&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+      &lt;span class=&quot;error&quot;&gt;入力してください&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;住所&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+      &lt;span class=&quot;error&quot;&gt;全て全角で入力してください&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<p class="exp">
+また、フォームの全ての項目のエラーメッセージを一度に設定する事もできます。<br />
+それにはbindErrorsメソッドで、フォーム入力タグのname属性をキーとするエラーメッセージの配列を指定します。<br />
+<br />
+以下は上の例と同じ結果となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$errors = array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'入力してください'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'全て全角で入力してください'</span>
+);
+$form = <span class="reserved">new</span> HtmlForm();
+$form-&gt;addTextbox(<span class="reteral">'name'</span>)-&gt;setCaption(<span class="reteral">'名前'</span>);
+$form-&gt;addTextarea(<span class="reteral">'address'</span>)-&gt;setCaption(<span class="reteral">'住所'</span>);
+<span class="bold">$form-&gt;bindErrorsc($errors);</span>
+</pre>
+</div></div>
+				
+	      <h3 id="5">配列データをもとにフォームの構築</h3>
+    		<p class="exp">
+フォームの項目情報を定義した配列によって一度にフォームを構築する事ができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+$formElements = array(
+    array(
+        <span class="reteral">'type'</span>    =&gt; <span class="reteral">'textbox'</span>,
+        <span class="reteral">'name'</span>    =&gt; <span class="reteral">'name'</span>,
+        <span class="reteral">'caption'</span> =&gt; <span class="reteral">'名前'</span>,
+    ),
+    array(
+        <span class="reteral">'type'</span>    =&gt; <span class="reteral">'radio'</span>,
+        <span class="reteral">'name'</span>    =&gt; <span class="reteral">'sex'</span>,
+        <span class="reteral">'caption'</span> =&gt; <span class="reteral">'性別'</span>,
+        <span class="reteral">'list'</span>    =&gt; array(1 =&gt; <span class="reteral">'男'</span>, 2 =&gt; <span class="reteral">'女'</span>),
+    ),
+    array(
+        <span class="reteral">'type'</span>    =&gt; <span class="reteral">'textarea'</span>,
+        <span class="reteral">'name'</span>    =&gt; <span class="reteral">'address'</span>,
+        <span class="reteral">'caption'</span> =&gt; <span class="reteral">'住所'</span>,
+    ),
+    array(
+        <span class="reteral">'type'</span>  =&gt; <span class="reteral">'submit'</span>,
+        <span class="reteral">'name'</span>  =&gt; <span class="reteral">'regist'</span>,
+        <span class="reteral">'value'</span> =&gt; <span class="reteral">'登録'</span>,
+    ),
+);
+$form-&gt;buildFromArray($formElements);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;名前&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;性別&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;span&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;1&quot; /&gt;男&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;2&quot; /&gt;女&lt;/label&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;住所&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;span class=&quot;caption&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;input&quot;&gt;
+      &lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<p class="exp">
+カスタムレイアウトを利用する場合は先にaddLayoutメソッドでレイアウトオブジェクトを生成しておき、フォーム項目定義配列の"layout"キーにレイアウトオブジェクトのインスタンスを指定します。<br />
+<br />
+また、"container"キーにHtmlElementのインスタンスを指定すると、そのフォーム項目は指定されたタグの下に配置されます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$form = <span class="reserved">new</span> <span class="class">HtmlForm</span>();
+<span class="bold">$layout = $form-&gt;addLayout(<span class="reteral">'dl'</span>);</span>
+
+$formElements = array(
+    array(
+        <span class="bold"><span class="reteral">'layout'</span>  =&gt; $layout,</span>
+        <span class="reteral">'type'</span>    =&gt; <span class="reteral">'textbox'</span>,
+        <span class="reteral">'name'</span>    =&gt; <span class="reteral">'name'</span>,
+        <span class="reteral">'caption'</span> =&gt; <span class="reteral">'名前'</span>,
+    ),
+    array(
+        <span class="bold"><span class="reteral">'layout'</span>  =&gt; $layout,</span>
+        <span class="reteral">'type'</span>    =&gt; <span class="reteral">'radio'</span>,
+        <span class="reteral">'name'</span>    =&gt; <span class="reteral">'sex'</span>,
+        <span class="reteral">'caption'</span> =&gt; <span class="reteral">'性別'</span>,
+        <span class="reteral">'list'</span>    =&gt; array(1 =&gt; <span class="reteral">'男'</span>, 2 =&gt; <span class="reteral">'女'</span>),
+    ),
+    array(
+        <span class="bold"><span class="reteral">'layout'</span>  =&gt; $layout,</span>
+        <span class="reteral">'type'</span>    =&gt; <span class="reteral">'textarea'</span>,
+        <span class="reteral">'name'</span>    =&gt; <span class="reteral">'address'</span>,
+        <span class="reteral">'caption'</span> =&gt; <span class="reteral">'住所'</span>,
+    ),
+    array(
+        <span class="bold"><span class="reteral">'container'</span> =&gt; <span class="class">HtmlElement</span>::create(<span class="reteral">'div'</span>)-&gt;addStyle(<span class="reteral">'text-align'</span>, <span class="reteral">'center'</span>),</span>
+        <span class="reteral">'type'</span>  =&gt; <span class="reteral">'submit'</span>,
+        <span class="reteral">'name'</span>  =&gt; <span class="reteral">'regist'</span>,
+        <span class="reteral">'value'</span> =&gt; <span class="reteral">'登録'</span>,
+    ),
+);
+$form-&gt;buildFromArray($formElements);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  &lt;dl&gt;
+    &lt;dt class=&quot;caption&quot;&gt;名前&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;
+    &lt;/dd&gt;
+    &lt;dt class=&quot;caption&quot;&gt;性別&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;span&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;1&quot; /&gt;男&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;2&quot; /&gt;女&lt;/label&gt;
+      &lt;/span&gt;
+    &lt;/dd&gt;
+    &lt;dt class=&quot;caption&quot;&gt;住所&lt;/dt&gt;
+    &lt;dd class=&quot;input&quot;&gt;
+      &lt;textarea name=&quot;address&quot;&gt;&lt;/textarea&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;div style=&quot;text-align:center&quot;&gt;
+    &lt;input type=&quot;submit&quot; name=&quot;regist&quot; value=&quot;登録&quot; /&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+</div>
+				<p class="exp">
+buildFromArrayで受け付ける配列のキーは以下のとおりです。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>キー</th><th>意味</th><th>指定方法</th></tr>
+<tr>
+<td class="title">layout</td>
+<td>レイアウト</td>
+<td>HtmlLayoutAbstractを継承するクラスのインスタンス。これを指定することで、入力タグはそのレイアウトに含まれます。また、boolean型のtrueを指定すると、フォームに含まれる１番目のレイアウトに含まれるようになります。</td>
+</tr>
+<tr>
+<td class="title">container</td>
+<td>入力タグのコンテナタグ</td>
+<td>HtmlElementのインスタンスを指定することで、入力タグがそのコンテナタグに格納された形とすること事ができます。</td>
+</tr>
+<tr>
+<td class="title">caption</td>
+<td>見出し</td>
+<td>入力タグに対する見出し文字列を指定します。</td>
+</tr>
+<tr>
+<td class="title">list</td>
+<td>選択系入力タグの選択項目情報配列</td>
+<td>typeでselect、radio、checkboxesを指定した場合の選択項目リスト情報を定義した配列を指定します。</td>
+</tr>
+<tr>
+<td class="title">上記以外</td>
+<td>タグ属性情報</td>
+<td>指定されたキーがそのまま属性名としてタグに設定されます。</td>
+</tr>
+</table>
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

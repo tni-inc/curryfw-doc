@@ -1,0 +1,1043 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li class="selected"><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>HtmlForm</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">HtmlFormはHtmlElementをFORMタグ生成用に特化したクラスです。<br />
+このクラスを利用するとFORMタグとフォームの入力タグを少ないコーディングで構築することができます。<br />
+フォームはFORMタグに各種の入力タグが含まれる形で構成されますが、通常は見栄えや入力のしやすさのために何らかのレイアウトを整形するためのタグが併用されます。HtmlFormでは何も考えなくてもあらかじめ簡易的なレイアウトタグが構成されるようになっています。<br />
+更に自由度の高いカスタムレイアウトの利用も可能です。</div>
+    
+        <h3>Curry対応バージョン</h3>
+    <div class="version">バージョン 1.4.0 以降</div>
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/html/html_form.php</div>
+
+    
+    <h3>フィールド</h3>
+        <div class="explanation">公開されるフィールドはありません。</div>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/isAutoLayout">isAutoLayout</a></td>
+        <td>public</td>
+        <td>
+		            フォームのオートレイアウトが有効か無効かの設定を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setIsAutoLayout">setIsAutoLayout</a></td>
+        <td>public</td>
+        <td>
+		            オートレイアウトの有効・無効を設定します。<br />
+オートレイアウトを有効にするとフォームへ入力タグの追加時に自動的にレイアウトタグが構成されるようになります。<br />
+オートレイアウトの詳細は<a href="/manual/form">マニュアル</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setContainerTagName">setContainerTagName</a></td>
+        <td>public</td>
+        <td>
+		            オートレイアウトにおける、コンテナとなるタグのタグ名を指定します。<br />
+デフォルトではdivに設定されています。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setCaptionContainerTagName">setCaptionContainerTagName</a></td>
+        <td>public</td>
+        <td>
+		            オートレイアウトにおける、コンテナの更に見出し部分のサブコンテナのタグ名を設定します。<br />
+デフォルトではspanに設定されています。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setInputContainerTagName">setInputContainerTagName</a></td>
+        <td>public</td>
+        <td>
+		            オートレイアウトにおける、コンテナの更に入力タグ部分のサブコンテナのタグ名を設定します。<br />
+デフォルトではspanに設定されています。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setErrorTagName">setErrorTagName</a></td>
+        <td>public</td>
+        <td>
+		            入力エラー表示用のタグのタグ名を設定します。<br />
+デフォルトではspanに設定されています。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setContainerClass">setContainerClass</a></td>
+        <td>public</td>
+        <td>
+		            オートレイアウトにおける、コンテナとなるタグのクラス属性を設定します。<br />
+デフォルトでは"container"に設定されています。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setCaptionContainerClass">setCaptionContainerClass</a></td>
+        <td>public</td>
+        <td>
+		            オートレイアウトにおける、コンテナの中の見出し部分のサブコンテナのclass属性を設定します。<br />
+デフォルトでは"caption"に設定されています。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setInputContainerClass">setInputContainerClass</a></td>
+        <td>public</td>
+        <td>
+		            オートレイアウトにおける、コンテナの中の入力タグ部分のサブコンテナのclass属性を設定します。<br />
+デフォルトでは"input"に設定されています。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setErrorClass">setErrorClass</a></td>
+        <td>public</td>
+        <td>
+		            オートレイアウトにおけるエラーメッセージ表示用のタグのclass属性を設定します。<br />
+デフォルトでは"error"に設定されいます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/setInnerContainer">setInnerContainer</a></td>
+        <td>public</td>
+        <td>
+		            formタグの直下で大枠のコンテナとしてタグを挟みたい場合、setInnerContainerでHtmlElementのインスタンスを設定スルと、HtmlFormの独自のメソッドで追加した入力タグは全てそのタグの下に入るようになります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createTextbox">createTextbox</a></td>
+        <td>public</td>
+        <td>
+		            テキスト入力用の入力タグとして、type属性が"text"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createTextarea">createTextarea</a></td>
+        <td>public</td>
+        <td>
+		            テキスト入力用のタグとして、textareaタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createPassword">createPassword</a></td>
+        <td>public</td>
+        <td>
+		            パスワード入力用の入力タグとして、type属性が"password"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createHidden">createHidden</a></td>
+        <td>public</td>
+        <td>
+		            非表示の入力タグとして、type属性が"hidden"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createFile">createFile</a></td>
+        <td>public</td>
+        <td>
+		            アップロードファイル選択の入力タグとして、type属性が"file"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createImage">createImage</a></td>
+        <td>public</td>
+        <td>
+		            画像を利用したフォームデータ送信ボタンのタグとして、type属性が"image"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createSubmit">createSubmit</a></td>
+        <td>public</td>
+        <td>
+		            フォームデータ送信ボタンのタグとして、type属性が"submit"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createReset">createReset</a></td>
+        <td>public</td>
+        <td>
+		            フォーム入力データのリセットボタンのタグとして、type属性が"reset"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createButton">createButton</a></td>
+        <td>public</td>
+        <td>
+		            ボタンのタグとして、type属性が"button"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createCheckbox">createCheckbox</a></td>
+        <td>public</td>
+        <td>
+		            チェックボックスのタグとして、type属性が"checkbox"であるinputタグを生成し、取得します。<br />
+このメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createSelect">createSelect</a></td>
+        <td>public</td>
+        <td>
+		            ドロップダウンリストとして、selectタグを生成し、取得します。<br />
+引数$listを指定すると、そのデータによって選択項目としてoptionタグを復数生成し、selectの下に追加します。<br />
+またこのメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createRadio">createRadio</a></td>
+        <td>public</td>
+        <td>
+		            ラジオボタンのタグとして、type属性が"radio"であるinputタグを生成し、取得します。<br />
+このメソッドでは、ラジオボタンのコンテナタグとしてspanを生成し、$listで指定されたデータを元にラジオボタンを複数生成し、spanの下に追加します。<br />
+またこのメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createCheckboxes">createCheckboxes</a></td>
+        <td>public</td>
+        <td>
+		            複数選択のチェックボックスのタグとして、type属性が"checkbox"であるinputタグを生成し、取得します。<br />
+このメソッドでは、チェックボックスのコンテナタグとしてspanを生成し、$listで指定されたデータを元にチェックボックスを複数生成し、spanの下に追加します。<br />
+またこのメソッドではformへの追加は行わないので、取得したインスタンスをaddFormElementメソッドで追加する必要があります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addTextbox">addTextbox</a></td>
+        <td>public</td>
+        <td>
+		            テキスト入力用の入力タグとして、type属性が"text"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addTextarea">addTextarea</a></td>
+        <td>public</td>
+        <td>
+		            テキスト入力用のタグとして、textareaタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addPassword">addPassword</a></td>
+        <td>public</td>
+        <td>
+		            パスワード入力用の入力タグとして、type属性が"password"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addHidden">addHidden</a></td>
+        <td>public</td>
+        <td>
+		            非表示の入力タグとして、type属性が"hidden"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addFile">addFile</a></td>
+        <td>public</td>
+        <td>
+		            アップロードファイル選択の入力タグとして、type属性が"file"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addImage">addImage</a></td>
+        <td>public</td>
+        <td>
+		            画像を利用したフォームデータ送信ボタンのタグとして、type属性が"image"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addSubmit">addSubmit</a></td>
+        <td>public</td>
+        <td>
+		            フォームデータ送信ボタンのタグとして、type属性が"submit"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addReset">addReset</a></td>
+        <td>public</td>
+        <td>
+		            フォーム入力データのリセットボタンのタグとして、type属性が"reset"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addButton">addButton</a></td>
+        <td>public</td>
+        <td>
+		            ボタンのタグとして、type属性が"button"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addCheckbox">addCheckbox</a></td>
+        <td>public</td>
+        <td>
+		            チェックボックスのタグとして、type属性が"checkbox"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addSelect">addSelect</a></td>
+        <td>public</td>
+        <td>
+		            ドロップダウンリストとして、selectタグを生成し、追加します。<br />
+引数$listを指定すると、そのデータによって選択項目としてoptionタグを復数生成し、selectの下に追加します。<br />
+生成したFormElementSetのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addRadio">addRadio</a></td>
+        <td>public</td>
+        <td>
+		            ラジオボタンのタグとして、type属性が"radio"であるinputタグを生成し、追加します。<br />
+このメソッドでは、ラジオボタンのコンテナタグとしてspanを生成し、$listで指定されたデータを元にラジオボタンを複数生成し、spanの下に追加します。<br />
+生成したFormElementSetのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addCheckboxes">addCheckboxes</a></td>
+        <td>public</td>
+        <td>
+		            複数選択のチェックボックスのタグとして、type属性が"checkbox"であるinputタグを生成し、追加します。<br />
+このメソッドでは、チェックボックスのコンテナタグとしてspanを生成し、$listで指定されたデータを元にチェックボックスを複数生成し、spanの下に追加します。<br />
+生成したFormElementSetのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/createLayout">createLayout</a></td>
+        <td>public</td>
+        <td>
+		            カスタムレイアウトのインスタンスを生成し、取得します。<br />
+カスタムレイアウトはFormLayoutAbstractを継承したクラスですが、<br />
+"FormLayout"　+　引数で指定された文字列によってレイアウトクラスを決定します。<br />
+例えば引数で"table"が指定されれば、FormLayoutTableクラスのインスタンスがレイアウトインスタンスとして生成されます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/addLayout">addLayout</a></td>
+        <td>public</td>
+        <td>
+		            カスタムレイアウトのインスタンスを生成し、フォームに追加します。<br />
+これはcreateLayoutメソッドで取得したインスタンスをaddElementメソッドで追加するのと同じ動きになるため、処理の詳細はcreateLayoutと同様となります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/buildFromArray">buildFromArray</a></td>
+        <td>public</td>
+        <td>
+		            フォームの入力タグの情報を定義した配列を元にフォームを構築します。<br />
+配列の定義方法の詳細は<a href="/manual/form/#5">マニュアル</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/bindValue">bindValue</a></td>
+        <td>public</td>
+        <td>
+		            name属性指定でフォーム入力項目用の値をセットします。<br />
+この値をセットしておくと、同じname属性の入力タグを追加した時に、そのタグの値の初期値として設定されます。このメソッドにより値をセットするタイミングは、入力タグを追加するより前でも後でもどちらのタイミングでもかまいません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/bindValues">bindValues</a></td>
+        <td>public</td>
+        <td>
+		            フォームの入力タグに対する初期値を配列で復数一度にセットします。<br />
+bindValueメソッドの復数項目一括設定版メソッドです。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/bindCaption">bindCaption</a></td>
+        <td>public</td>
+        <td>
+		            name属性指定でフォーム入力項目用の見出しテキストをセットします。<br />
+この値をセットしておくと、同じname属性の入力タグを追加した時に、そのタグの見出しテキストとして設定されます。このメソッドにより見出しをセットするタイミングは、入力タグを追加するより前でも後でもどちらのタイミングでもかまいません。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/bindCaptions">bindCaptions</a></td>
+        <td>public</td>
+        <td>
+		            フォームの入力タグの見出しテキストを配列で復数一度にセットします。<br />
+bindCaptionメソッドの復数項目一括設定版メソッドです。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/bindError">bindError</a></td>
+        <td>public</td>
+        <td>
+		            name属性指定でフォーム入力項目に対するエラーメッセージを設定します。<br />
+このメソッドでエラーメッセージをセットしておくと、同じname属性の入力タグを追加した時に、そのタグに対するエラーメッセージとして自動的に表示されるようになります。このメソッドによりエラーメッセージをセットするタイミングは、入力タグを追加するより前でも後でもどちらのタイミングでもかまいません。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/bindErrors">bindErrors</a></td>
+        <td>public</td>
+        <td>
+		            フォームの入力タグに対して表示するエラーメッセージを配列で復数一度にセットします。<br />
+bindErrorメソッドの復数項目一括設定版メソッドです。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlForm/getFormElements">getFormElements</a></td>
+        <td>public</td>
+        <td>
+		            配下に存在するFormElementのインスタンスのみを全て検索し、配列として返します。<br />
+エレメント階層の末端までを再帰的に検索します。
+                  </td>
+      </tr>
+        </table>
+	
+    
+      <h3>継承メソッド（）</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/__call">__call</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HtmlElementにおける__callは、エレメント属性の設定または取得の役割を果たします。<br />
+実際にクラスメソッドとして定義されているメソッド以外で"set"や"get"で始まるメソッドを呼び出すと、"set"や"get"に続く部分を属性名として扱い、その属性に値をセット、または値の取得を行います。<br />
+<br />
+例えばsetIdメソッドを実行すると、id属性に対して引数で指定した値を設定します。<br />
+つまり、setId('example_id')と、setAttribute('id', 'example_id')は全く同じ動作となります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/create">create</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HtmlElementのインスタンスを生成して返します。<br />
+このメソッドはPHP5.3で追加されている関数を使用しているため、PHP5.2以下では使用出来ません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/setIndentChar">setIndentChar</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTML生成の際の自動インデントに使用する文字種を指定します。<br />
+初期値は半角スペース2個です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getClone">getClone</a>
+		</td>
+        <td>public</td>
+        <td>
+		            自信のインスタンスのコピーを生成し、新規インスタンスとして取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/setTagName">setTagName</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのタグ名を指定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getTagName">getTagName</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのタグ名として設定されている値を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addClass">addClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのclass属性として設定したい値を追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getClass">getClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            現在設定されている、エレメントのclass属性値を取得します。<br />
+復数設定されている場合は全ての値が居半角スペースで区切られた文字列となります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/hasClass">hasClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            指定された値がclass属性値に含まれているかを確認します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/removeClass">removeClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            指定された値を、現在設定されているclass属性値から削除します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/clearClass">clearClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            クラス属性値の設定をクリアします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addStyle">addStyle</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのstyle属性値を追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addStyles">addStyles</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのstyle属性値を復数一度に追加します。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getStyle">getStyle</a>
+		</td>
+        <td>public</td>
+        <td>
+		            現在設定されているstyle属性値を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addNode">addNode</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントの子ノードを追加します。<br />
+追加できるのはHtmlElementのインスタンスまたはテキストです。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addNodes">addNodes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントの子ノードを配列で指定し、復数一度に追加します。<br />
+追加できるのはHtmlElementのインスタンスまたはテキストです。 <br />
+これはaddNodeメソッドを複数回実行するの同じ意味になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/insertNode">insertNode</a>
+		</td>
+        <td>public</td>
+        <td>
+		            既に存在する子ノード群の任意の位置に新たなノードを挿しこむ用に追加します。<br />
+指定方法は数値インデックスまたは既に存在する子ノードに含まれるHtmlElementのインスタンスを指定します。前者の場合は指定したインデックス位置に既に存在する子ノードの手前に追加します。後者の場合は指定したインスタンスと同一のインスタンスが存在する場合に、そのインスタンスの手前に追加します。<br />
+指定したインデックスが存在しない、または指定したHtmElementのインスタンスが存在しない場合は末尾に追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getNode">getNode</a>
+		</td>
+        <td>public</td>
+        <td>
+		            指定したインデックス位置に存在する子ノードを取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getNodes">getNodes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            全ての子ノードを配列として取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addElement">addElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードとしてエレメントを追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addElements">addElements</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードとしてエレメントを配列で指定し、復数一度に追加します。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/insertElement">insertElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            既に存在する子ノード群の任意の位置に新たなエレメントを挿しこむように追加します。<br />
+指定方法は数値インデックスまたは既に存在する子ノードに含まれるHtmlElementのインスタンスを指定します。前者の場合は指定したインデックス位置に既に存在する子ノードの手前に追加します。後者の場合は指定したインスタンスと同一のインスタンスが存在する場合に、そのインスタンスの手前に追加します。<br />
+指定したインデックスが存在しない、または指定したHtmElementのインスタンスが存在しない場合は末尾に追加します。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getElement">getElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            インデックスを指定し、子ノードからエレメントを取得します。<br />
+指定したインデックスが存在しない、または指定したインデックスのノードがHtmlElementのインスタンスではない場合はfalseが返ります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getElementById">getElementById</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードの中からid属性指定で単一のエレメントを取得します。<br />
+指定したid属性のエレメントが存在しない、またはエレメントではない場合はnullを返します。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getElementsByTagName">getElementsByTagName</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードの中からタグ名指定でエレメントを取得します。タグ名が合致するエレメント全てを配列で返します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getElementsByClass">getElementsByClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードの中からクラス属性指定でエレメントを取得します。エレメントの持つクラス属性値のうち一つでも合致するエレメント全てを配列で返します。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getElements">getElements</a>
+		</td>
+        <td>public</td>
+        <td>
+		            すべての子ノードのうち、HtmlElementのインスタンスである物のみを全て配列として取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/removeElement">removeElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードから特定のエレメントを削除します。<br />
+削除対象は子ノードに含まれるHtmlElementのインスタンスを引数として指定します。同一インスタンスが存在すれば削除します。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addText">addText</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードとしてテキストノードを追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/setText">setText</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードとしてテキストノードを設定します。<br />
+addTextとの違いは一旦全ての子ノードをクリアするということです。setTextは子ノードの追加という概念ではなく、エレメントのコンテンツとしてテキストを設定するという考え方です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/clearNodes">clearNodes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            設定されている全ての子ノードをクリアし、何もない状態にします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/setAttribute">setAttribute</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントの属性値を設定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/setAttributes">setAttributes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメエントの属性値を復数一度に設定します。<br />
+パラメーターには属性名と属性値の組み合わせの配列を指定します。<br />
+これは個々の属性の設定をsetAttributeメソッドにより複数回実行するの同じいみになります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getAttribute">getAttribute</a>
+		</td>
+        <td>public</td>
+        <td>
+		            設定されている属性の属性値を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getAttributes">getAttributes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            設定されている全ての属性値を取得します。<br />
+得られるのは属性名をキー、属性値が値として定義された配列です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/setIsEmptyTag">setIsEmptyTag</a>
+		</td>
+        <td>public</td>
+        <td>
+		            空要素タグであるか否かを設定します。<br />
+空要素タグとは要素を持たないタグで、通常のタグが開始タグと終了タグで構成されるのに対し、空要素タグでは閉じタグが必要ありません。<br />
+空要素タグはHTMLの仕様として規定されたものであり、また主要な空要素はインスタンス生成時（タグ名指定時）に自動的に空要素として設定されるため、通常は実装者が意識する必要はありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/isEmptyTag">isEmptyTag</a>
+		</td>
+        <td>public</td>
+        <td>
+		            空要素タグであるか否かを取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addEmptyTags">addEmptyTags</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HtmlElementが内部的に持っている空要素タグのリストにタグ名を追加します。<br />
+静的メソッドであるため、設定を行う場合は初期化処理としてあらかじめ行います。<br />
+指定はタグ名を文字列で、または復数のタグ名を配列で指定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/setIsReturnInner">setIsReturnInner</a>
+		</td>
+        <td>public</td>
+        <td>
+		            出力するHTMLで、開始タグの直後と終了タグの直前、子ノード間に改行を挿入するか否かを指定します。<br />
+これは人間の目に視覚的な見やすさのための設定であるため、処理内容やブラウザの表示に影響をあたえるものではありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/isReturnInner">isReturnInner</a>
+		</td>
+        <td>public</td>
+        <td>
+		            開始タグの直後と終了タグの直前、子ノード間に改行を挿入するか否かの設定を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addReturnInnerNgTags">addReturnInnerNgTags</a>
+		</td>
+        <td>public</td>
+        <td>
+		            デフォルトでタグの内部に改行の挿入を禁止するタグ名を設定します。<br />
+これは、対象のタグ名の個々のHtmlElementに都度、setIsReturnInnerを実行するのと同じ意味になり、あらかじめ内部に改行を挿入したくないタグが決まっている場合はこのメソッドによりデフォルト設定として設定しておきます。<br />
+静的メソッドであるため、初期設定としてあらかじめ実行しておきます。<br />
+<br />
+以下のタグはデフォルトで改行禁止に設定されています。<br />
+・a<br />
+・textarea<br />
+・label<br />
+・strong<br />
+・em<br />
+・object
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getInnerHtml">getInnerHtml</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノード全てのHTMLを生成し、取得します。<br />
+得られるHTMLに自身のエレメントは含まれず、子ノード以下の最下層までHTMLとして取得することができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/getHtml">getHtml</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメント以下、エレメント自身を含む全ての子ノードを最下層までを含めてHTMLを生成し、取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/render">render</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメント以下、エレメント自身を含む全ての子ノードを最下層までを含めてHTMLを生成し、出力します。<br />
+これはgetHtmlで取得したHTMLをそのままechoするのと同じ意味になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/addFromArray">addFromArray</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノード情報を定義した配列を元に子ノードを追加します。<br />
+このメソッドの詳細は<a href="/manual/html/#3">マニュアル</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlForm/fromArray">fromArray</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノード情報を含むエレメント情報を定義した配列を元にHtmlElementのインスタンスを生成し、返します。<br />
+静的メソッドであるため、既に存在するインスタンスに子ノードを設定するaddFromArrayメソッドとは違い、親となるエレメント自身を新規インスタンスとして生成します。<br />
+このメソッドの詳細は<a href="/manual/html/#3">マニュアル</a>を参照してください。
+                  </td>
+      </tr>
+        </table>
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

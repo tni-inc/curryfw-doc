@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li class="selected"><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>ビュースクリプト</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">ビュースクリプトの役割</a></li>
+                        <li><a href="#2">ビュースクリプトクラスの定義</a></li>
+                        <li><a href="#3">テンプレート変数の加工</a></li>
+                        <li><a href="#4">HTML自動生成機能を利用する</a></li>
+              </ul>
+
+	      <h3 id="1">ビュースクリプトの役割</h3>
+    		<p class="exp">
+ビューはMVCにおいてユーザーインターフェイスを担当する概念です。<br />
+CurryにおいてはビューはHTMLテンプレートが基本となり、CurryのクラスであるViewAbstractを継承するクラスが裏でテンプレートを制御しています。<br />
+<br />
+モデルで取得したデータをHTMLとして表示する場合に、表示用にデータを加工する必要が有る場合があります。それがテンプレート内で行えてしまう程度の軽微な加工であれば良いですが、PHPのコーディングで対応しなければならないような複雑な処理の場合、コントローラー、またはモデルにそのロジックが入り込みがちです。<br />
+<br />
+MVCを厳格に意識して実装する場合、これは好ましいことではありません。<br />
+サイト訪問者への見せ方を調節するコーディングががMやCに入り込んでいる場合、この見せ方を少し変更するとなった場合にMやCのソースを改変しなければならなくなります。<br />
+これはMとVとCの分離が不十分な状態と言えます。<br />
+<br />
+そこでCurryではビュースクリプトと呼ぶ専用のクラスを定義することができます。<br />
+これはコントローラーと1対1で関連付くクラスで、コントローラーと同じようにアクションメソッドを定義します。すると、アクセスのあったコントローラーのアクションの処理の後、ビュースクリプトクラスのアクションメソッドが実行されます。<br />
+<br />
+このビュースクリプトクラスではコントローラーでビューに対して設定されたビュー変数を参照、再代入することができるため、コントローラーで無加工でビューへ割り当てられたデータを加工する事ができます。
+</p>
+				
+	      <h3 id="2">ビュースクリプトクラスの定義</h3>
+    		<p class="exp">
+ビュースクリプトクラスの定義については以下のルールに従う必要があります。
+</p>
+				<ul class="kajo">
+    <li>ViewScriptクラスを継承する</li>
+    <li>クラス名の末尾をViewとする</li>
+    <li>app/views/scriptsディレクトリ内にクラスファイルを配置する</li>
+    <li>必要に応じてコントローラーと同じアクションメソッドを定義する</li>
+</ul>
+				<p class="exp">
+ビュースクリプトクラスはコントローラークラスと1対1で定義し、アクションメソッドもコントローラークラスと同様に定義します。<br />
+ただし、アクセスされたコントローラー・アクションに対して、対応するビュースクリプトのクラス・アクションが定義されている場合のみ実行されます。定義されていない場合は何もしません。つまり、ビュースクリプトとしての処理が必要な場合のみ、コントローラーと同じ名前でアクションメソッドを定義すれば良いということです。<br />
+<br />
+あるコントローラーに対しての、コントローラーとビューの関係をディレクトリ構成的に見ると、例えば以下の様な感じになります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟controllers/
+            ∟cart_controller.php  ←コントローラークラス
+        ∟views/
+            ∟scripts/
+                ∟cart_view.php  ←ビュースクリプトクラス
+            ∟templates/
+                ∟cart/  ←ビューテンプレート
+                    ∟products.php
+</pre>
+</div></div>
+				<div class="file_name">
+app/controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> detail()
+    {
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/scripts/cart_view.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartView</span> <span class="reserved">extends</span> <span class="class">ViewScript</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+cartコントローラーに対するコントローラークラスとビュースクリプトクラスの定義の例です。<br />
+この例では、productsアクションに対するアクセスの場合はビュースクリプトにもアクションメソッドが存在するため、CartView::productsがCartController::productsの後のタイミングで実行されます。detailアクションの場合はCartViewにメソッドが無いため、ビュースクリプトとしての処理は行われないことになります。
+</p>
+				
+	      <h3 id="3">テンプレート変数の加工</h3>
+    		<p class="exp">
+ビュースクリプトで行う最も基本的な処理として、テンプレート変数に格納されているデータの加工が考えられます。<br />
+通常はコントローラークラスでビューテンプレート用変数にデータを割り当て、テンプレートでそれを表示するという流れになりますが、ビュースクリプトがその間に立ち、コントローラーで割り当てられたデータを加工し、再度割り当て直すような処理になります。
+</p>
+				<div class="file_name">
+app/controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $model = $this-&gt;model(<span class="reteral">'Cart'</span>);
+        $products = $model-&gt;getProducts();
+        $this-&gt;view-&gt;products = $products;
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/scripts/cart_view.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartView</span> <span class="reserved">extends</span> <span class="class">ViewScript</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $products = $this-&gt;products;
+        $total = 0;
+        <span class="reserved">foreach</span> ($products <span class="reserved">as</span> $key =&gt; $product) {
+            $products[$key][<span class="reteral">'price'</span>] = number_format($product[<span class="reteral">'price'</span>]);
+            $total += $product[<span class="reteral">'price'</span>];
+        }
+        $this-&gt;products = $products;
+        $this-&gt;total_price = number_format($total);
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/templates/cart/products.tpl
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;商品名&lt;/th&gt;
+      &lt;th&gt;価格&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+  <span class="reteral">{foreach from=$products item=prd}</span>
+    &lt;tr&gt;
+      &lt;td&gt;<span class="reteral">{$prd.product_name}</span>&lt;/td&gt;
+      &lt;td&gt;<span class="reteral">{$prd.price}</span>&lt;/td&gt;
+    &lt;/tr&gt;
+  <span class="reteral">{/foreach}</span>
+    &lt;tr&gt;
+      &lt;td&gt;合計&lt;/td&gt;
+      &lt;td&gt;<span class="reteral">{$total_price}</span>&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</div></div>
+				<p class="exp">
+この例では通販のカートを想定したものですが、コントローラーで商品リストデータを取得してビューへ割り当て、ビュースクリプトでは各商品の価格の表示フォーマットを調整し、同時に合計価格の計算を行なって新たな変数に割り当てています。<br />
+例えばこのような合計金額などは処理ロジック上は不要なもので、ユーザーインターフェイス上、ユーザーに必要な情報であるに過ぎず、ビュースクリプトで行うのが妥当と考えられます。
+</p>
+				
+	      <h3 id="4">HTML自動生成機能を利用する</h3>
+    		<p class="exp">
+Curryにはフォームを含むHTMLの自動生成機能が備わっており、PHPのコーディングによってHTMLを生成し、テンプレートでHTMLを書かなくともHTMLを出力を行うことが可能になっています。特にフォームやテーブルなど動的に表示内容が変わる様なHTMLに対して、部分的にこの機能を利用するのが有効です。<br />
+<br />
+HTMLは紛れもなくユーザーインターフェイスであり、これの生成を行うPHPのコーディングはビュースクリプトに記述すべきです。<br />
+<br />
+例えば上記のカートの商品リストの表示のtableタグをHTML自動生成機能を利用した実装を行う場合は以下の様なコーディングになります。
+</p>
+				<div class="file_name">
+app/views/scripts/cart_view.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartView</span> <span class="reserved">extends</span> <span class="class">ViewScript</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        <span class="comment">// データ加工
+</span>        $products = $this-&gt;products;
+        $total = 0;
+        <span class="reserved">foreach</span> ($products <span class="reserved">as</span> $key =&gt; $product) {
+            $products[$key][<span class="reteral">'price'</span>] = number_format($product[<span class="reteral">'price'</span>]);
+            $total += $product[<span class="reteral">'price'</span>];
+        }
+        $products[] = array(<span class="reteral">'product_name'</span> =&gt; <span class="reteral">'合計'</span>, <span class="reteral">'price'</span> =&gt; number_format($total));
+
+        <span class="comment">// テーブル自動生成
+</span>        $table = <span class="reserved">new</span> HtmlTable();
+        $table-&gt;addHeader(array(<span class="reteral">'商品名'</span>, <span class="reteral">'価格'</span>));
+        $table-&gt;fromArray($products);
+        $this-&gt;products_table = $table-&gt;getHtml();
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/templates/cart/products.tpl
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reteral">{$products_table}</span>
+</pre>
+</div></div>
+				<p class="exp">
+HTML自動生成の詳細については<a href="/manual/html">HTML自動生成のマニュアル</a>や<a href="/manual/html">フォーム自動生成のマニュアル</a>を参照してください。
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

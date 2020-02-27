@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li class="selected"><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>Request</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">POSTやGETを始めとするリクエスト情報を管理するクラスです。このクラスのインスタンスはコントローラーのgetRequestメソッドにより、得ることができます。</div>
+    
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/core/request.php</div>
+
+    
+    <h3>フィールド</h3>
+        <div class="explanation">公開されるフィールドはありません。</div>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getPost">getPost</a></td>
+        <td>public</td>
+        <td>
+		            POSTリクエストの情報を取得します。<br />
+これにより得られる値はスーパーグローバル変数である$_POSTより取得できるものと同様ですが、Curryでは$_POSTの直接の参照は推奨されませんので、このメソッドを利用してください。<br />
+またコントローラークラスでは、クラス変数である$this->postを参照する事によって、このメソッドを引数なしで呼び出した場合と同じ結果が得られます。<br />
+つまり、$this->request->getPost('hoge')と$this->post['hoge']はどちらも同じ値になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getQuery">getQuery</a></td>
+        <td>public</td>
+        <td>
+		            $_GETリクエストの情報を取得します。<br />
+これにより得られる値はスーパーグローバル変数である$_GETより取得できるものと同様ですが、Curryでは$_GETの直接の参照は推奨されませんので、このメソッドを利用してください。<br />
+またコントローラークラスでは、クラス変数である$this->queryを参照する事によって、このメソッドを引数なしで呼び出した場合と同じ結果が得られます。<br />
+つまり、$this->request->getQuery('hoge')と$this->query['hoge']はどちらも同じ値になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getParams">getParams</a></td>
+        <td>public</td>
+        <td>
+		            Curryのルールに従う形でURLに含まれるパラメーター情報を取得します。<br />
+ドメイン以降のURLパスの第3セグメント以降がこのメソッドにより取得可能で、この場合は第3セグメントをキー"0"、第4セグメントをキー"1"・・・という形の配列で取得できます。<br />
+セグメント内に"="が含まれる場合、"="の前方がキー、後方が値の形で取得できます。<br />
+またrouting.iniにより、各セグメントのキーが設定されている場合は数値キーではなく、その設定キーにより取得できます。<br />
+<br />
+コントローラークラスでは、クラス変数である$this->paramsを参照する事によって、このメソッドを引数なしで呼び出した場合と同じ結果が得られます。<br />
+つまり、$this->request->getParams('hoge')と$this->params['hoge']はどちらも同じ値になります。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getController">getController</a></td>
+        <td>public</td>
+        <td>
+		            リクエストされたコントローラーキーを取得します。<br />
+これは通常はドメイン以降のURLパスの第1セグメントになります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getAction">getAction</a></td>
+        <td>public</td>
+        <td>
+		            リクエストされたアクションキーを取得します。<br />
+これは通常はドメイン以降のURLパスの第2セグメントになります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getControllerSubDirectory">getControllerSubDirectory</a></td>
+        <td>public</td>
+        <td>
+		            コントローラー格納ディレクトリにサブディレクトリが存在する場合で、そのサブディレクトリ内のコントローラーへリクエストがあった場合にサブディレクトリのパスを、コントローラー格納ディレクトリをルートとした相対パスで取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getBasePath">getBasePath</a></td>
+        <td>public</td>
+        <td>
+		            Web公開ルートディレクトリからindex.phpまでの相対パスを取得します。<br />
+これはmod_rewriteを利用する場合にRewriteBaseに設定したものと同じものになります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getBaseUrl">getBaseUrl</a></td>
+        <td>public</td>
+        <td>
+		            サイトのトップURLを取得します。これはindex.phpの存在するディレクトリのURLです。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/isXmlHttp">isXmlHttp</a></td>
+        <td>public</td>
+        <td>
+		            Ajaxによるリクエストかどうかを判定します。Ajaxによるリクエストの場合にはtrue、そうではない場合にはfalseが返ります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getServer">getServer</a></td>
+        <td>public</td>
+        <td>
+		            スーパーグローバル変数、$_SERVERの値を取得します。<br />
+引数なしで$_SERVERの全てをそのまま返します。<br />
+引数にキーを指定することで、特定キーの値だけを取得することも可能です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getEnv">getEnv</a></td>
+        <td>public</td>
+        <td>
+		            スーパーグローバル変数、$_ENVの値を取得します。<br />
+引数なしで$_ENVの全てをそのまま返します。<br />
+引数にキーを指定することで、特定キーの値だけを取得することも可能です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/setAutoTrim">setAutoTrim</a></td>
+        <td>public</td>
+        <td>
+		            オートトリミングの有効・無効を設定します。<br />
+有効にすると、GETやPOSTの全てのキーのデータに対して自動的にtrimが実行されます。
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getIpAddress">getIpAddress</a></td>
+        <td>public</td>
+        <td>
+		            アクセス元のIPアドレスを取得します。
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Request/getHostname">getHostname</a></td>
+        <td>public</td>
+        <td>
+		            アクセス元のリモートホスト名を取得します。
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+        </table>
+	
+    
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

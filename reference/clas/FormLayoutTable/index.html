@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li class="selected"><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>FormLayoutTable</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation"></div>
+    
+        <h3>Curry対応バージョン</h3>
+    <div class="version">バージョン 1.4.0 以降</div>
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/html/form_layout_table.php</div>
+
+    
+    <h3>フィールド</h3>
+        <div class="explanation">公開されるフィールドはありません。</div>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FormLayoutTable/addFormElementContainer">addFormElementContainer</a></td>
+        <td></td>
+        <td>
+		            
+                  </td>
+      </tr>
+        </table>
+	
+      <h3>オーバーライドメソッド（）</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/FormLayoutTable/addFormElementContainer">addFormElementContainer</a></td>
+        <td></td>
+        <td>
+		            
+                  </td>
+      </tr>
+        </table>
+    
+      <h3>継承メソッド（）</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/getParentForm">getParentForm</a>
+		</td>
+        <td>public</td>
+        <td>
+		            レイアウトの属するHtmlFormのインスタンスを取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/getFormElements">getFormElements</a>
+		</td>
+        <td>public</td>
+        <td>
+		            配下に存在するFormElementのインスタンスのみを全て検索し、配列として返します。<br />
+エレメント階層の末端までを再帰的に検索します。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/setInputContainerClass">setInputContainerClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            入力タグのコンテナのclass属性を設定します。<br />
+デフォルトでは"input"に設定されています。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/setCaptionContainerClass">setCaptionContainerClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            入力タグの見出しのコンテナのclass属性を設定します。<br />
+デフォルトでは"caption"に設定されています。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/setErrorClass">setErrorClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エラーメッセージ表示用タグのclass属性を設定します。<br />
+デフォルトでは"error"に設定されています。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/setCaptionFormat">setCaptionFormat</a>
+		</td>
+        <td>public</td>
+        <td>
+		            見出しの出力フォーマットを指定します。<br />
+デフォルトではsetCaptionで指定されたテキストがそのまま表示される状態に設定されています。<br />
+指定方法は、任意の文字列の中に"%s"を一つだけ含めます。この部分がsetCaptionで指定されたテキストに置き換えられます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/getCaptionFormat">getCaptionFormat</a>
+		</td>
+        <td>public</td>
+        <td>
+		            見出しの出力フォーマットとして設定されている文字列を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addFormElement">addFormElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            レイアウトにフォーム入力タグを追加するためのメソッドです。<br />
+このメソッドによって追加することでレイアウトが正しく構成されるため、レイアウトに追加する場合はHtmlElementよりの継承メソッドであるaddElementを使用せず、必ずこちらのメソッドを使用するようにしてください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addTextbox">addTextbox</a>
+		</td>
+        <td>public</td>
+        <td>
+		            テキスト入力用の入力タグとして、type属性が"text"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addTextarea">addTextarea</a>
+		</td>
+        <td>public</td>
+        <td>
+		            テキスト入力用のタグとして、textareaタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addPassword">addPassword</a>
+		</td>
+        <td>public</td>
+        <td>
+		            パスワード入力用の入力タグとして、type属性が"password"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addFile">addFile</a>
+		</td>
+        <td>public</td>
+        <td>
+		            アップロードファイル選択の入力タグとして、type属性が"file"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addHidden">addHidden</a>
+		</td>
+        <td>public</td>
+        <td>
+		            非表示の入力タグとして、type属性が"hidden"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addSubmit">addSubmit</a>
+		</td>
+        <td>public</td>
+        <td>
+		            フォームデータ送信ボタンのタグとして、type属性が"submit"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addImage">addImage</a>
+		</td>
+        <td>public</td>
+        <td>
+		            画像を利用したフォームデータ送信ボタンのタグとして、type属性が"image"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addButton">addButton</a>
+		</td>
+        <td>public</td>
+        <td>
+		            ボタンのタグとして、type属性が"button"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addReset">addReset</a>
+		</td>
+        <td>public</td>
+        <td>
+		            フォーム入力データのリセットボタンのタグとして、type属性が"reset"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addSelect">addSelect</a>
+		</td>
+        <td>public</td>
+        <td>
+		            ドロップダウンリストとして、selectタグを生成し、追加します。<br />
+$listを指定すると、そのデータによって選択項目としてoptionタグを復数生成し、selectの下に追加します。<br />
+生成したFormElementSetのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addCheckbox">addCheckbox</a>
+		</td>
+        <td>public</td>
+        <td>
+		            チェックボックスのタグとして、type属性が"checkbox"であるinputタグを生成し、追加します。<br />
+生成したFormElementのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addRadio">addRadio</a>
+		</td>
+        <td>public</td>
+        <td>
+		            ラジオボタンのタグとして、type属性が"radio"であるinputタグを生成し、追加します。<br />
+このメソッドでは、ラジオボタンのコンテナタグとしてspanを生成し、$listで指定されたデータを元にラジオボタンを複数生成し、spanの下に追加します。<br />
+生成したFormElementSetのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/FormLayoutTable/addCheckboxes">addCheckboxes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            複数選択のチェックボックスのタグとして、type属性が"checkbox"であるinputタグを生成し、追加します。<br />
+このメソッドでは、チェックボックスのコンテナタグとしてspanを生成し、$listで指定されたデータを元にチェックボックスを複数生成し、spanの下に追加します。<br />
+生成したFormElementSetのインスタンスを戻り値として返すため、後からインスタンスへの設定などの操作が可能です。 
+                  </td>
+      </tr>
+        </table>
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

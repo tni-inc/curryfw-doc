@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li class="selected"><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>Model</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">Modelクラスを利用すると、クラスとデータベーステーブルが1：1で関連付き、テーブルアクセスをシンプルに行うことができる様々なメソッドが利用できます。<br />
+<br />
+Modelクラスの利用方法は2つあります。<br />
+一つはModelクラスを継承し、名前規則に従ってテーブル名と結び付けられたクラス名とする方法です。こうすることで自動的にテーブルとクラスが関連付けられます。<br />
+もう一つは、継承はせずにModelクラスを利用し、コンストラクタで処理対象のテーブル名を指定する方法です。<br />
+前者の方法だと、そのテーブルに関連したSQLを実行する処理を独自のメソッドとして定義できるため、通常はこの方法を利用します。<br />
+後者の方法は、前者の方法でメソッドを何も定義しないのと同じ状態のインスタンスとなります。クラスを定義するまでもないほどに処理が単純で少ない場合はこの方法でもよいでしょう。</div>
+    
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/core/model.php</div>
+
+    
+    <h3>フィールド</h3>
+        <table class="contents">
+      <tr>
+        <th>フィールド名</th>
+        <th>アクセス</th>
+        <th>型</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">$db</td>
+        <td>protected</td>
+        <td>PDO</td>
+        <td>データベースとの接続を保持するPDOクラスのインスタンスです。<br />
+Db::isSingletonにtrueを指定した場合や、Model::setDefaultConnectionでデフォルトのインスタンスを設定してある場合はシステムを通して共通のインスタンスとなります。<br />
+それ以外の場合は、Modelのインスタンス生成時にPDOインスタンスの生成を都度行い、モデルごとに異なる接続を利用することになります。</td>
+      </tr>
+          <tr>
+        <td class="title">$name</td>
+        <td>protected</td>
+        <td>string</td>
+        <td>クラスと関連付けられたデータベーステーブルのテーブル名を保持します。<br />
+Modelを継承したクラスを定義した場合、通常はクラス名から処理対象のテーブル名が決定しますが、このフィールドにテーブル名を設定することで、クラス名に関係なく、そのテーブル名が優先され、処理対象となります。テーブル名との関連の命名規則の縛りから外れた自由なクラス名を付けたい場合に設定します。それ以外の場合は特に意識する必要はありません。</td>
+      </tr>
+          <tr>
+        <td class="title">$alias</td>
+        <td>protected</td>
+        <td>string</td>
+        <td>テーブルに対してSQL文中で割り当てられる別名です。<br />
+selectメソッドを利用したSQL構築機能を利用する場合に、複数のテーブルを結合したSQLでエイリアスを使用する場合に必要となる設定です。</td>
+      </tr>
+          <tr>
+        <td class="title">$schema</td>
+        <td>protected</td>
+        <td>string</td>
+        <td>データベーステーブルの存在するスキーマ名。<br />
+これを設定することで、SQL文上、テーブル名の前に付加され、「スキーマ名．テーブル名」という形式のテーブル名となります。<br />
+<br />
+この意味するところは使用するRDBMSの種類により異なります。<br />
+MySQLの場合はこのスキーマ名の設定はデータベース名の指定として働きます。通常はdatabase.iniで指定したデータベースへ接続しますが、これを指定することで、それとは別のデータベースに存在するテーブルを参照します。<br />
+PostgreSQLには別のデータベースを参照するという機能がありませんが、データベースとテーブルの間にスキーマという概念が存在します。スキーマは複数定義することができ、スキーマがことなれば同じテーブル名のテーブルが存在できるため、ここではMySQLのデータベースと同じレベルの概念として扱います。<br /><br /><span class="version">※バージョン1.1.0以降</span></td>
+      </tr>
+        </table>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/select">select</a></td>
+        <td>public</td>
+        <td>
+		            SqlSelectクラスのインスタンスを取得します。<br />
+SqlSelectクラスはSELECT文実行オブジェクトであり、このクラスに対して様々な条件指定メソッドを実行することでSELECT文を構築し、最終的には実行メソッドによりクエリ結果を配列で取得することができます。<br />
+詳細は<a href="/reference/clas/SqlSelect">SqlSelectクラスのリファレンス</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/find">find</a></td>
+        <td>public</td>
+        <td>
+		            テーブルの主キーフィールドの値を引数に指定することで、クエリ結果の単一行のデータを取得することができます。<br />
+これは、selectメソッドより取得したSqlSelectインスタンスでfetchRowを実行した場合と同様の結果となります。テーブルの主キーを構成するフィールドの数に応じて引数の数も可変となります。<br />
+selectメソッドから始まる一連のSELECT文の発行手続きを省略できるため、主キーによってSELECTする場合はこのメソッドで手軽にデータ取得が可能です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/insert">insert</a></td>
+        <td>public</td>
+        <td>
+		            SqlInsertクラスのインスタンスを取得します。<br />
+SqlInsertクラスはINSERT文実行オブジェクトであり、このクラスに対して様々な条件指定メソッドを実行することでINSERT文を構築し、最終的に実行メソッドにより、モデルクラスに関連付いているテーブルに対して行の挿入が行われます。<br />
+詳細は<a href="/reference/clas/SqlInsert">SqlInsertクラスのリファレンス</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/update">update</a></td>
+        <td>public</td>
+        <td>
+		            SqlUpdateクラスのインスタンスを取得します。<br />
+SqlUpdateクラスはUPDATE文実行オブジェクトであり、このクラスに対して様々な条件指定メソッドを実行することでUPDATE文を構築し、最終的には実行メソッドにより、モデルクラスに関連付いているテーブルに対して行の更新が行われます。<br />
+詳細は<a href="/reference/clas/SqlUpdate">SqlUpdateクラスのリファレンス</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/delete">delete</a></td>
+        <td>public</td>
+        <td>
+		            SqlDeleteクラスのインスタンスを取得します。<br />
+SqlDeleteクラスはDELETE文実行オブジェクトであり、このクラスに対して様々な条件指定メソッドを実行することでDELETE文を構築し、最終的には実行メソッドにより、モデルクラスに関連付いているテーブルに対して行の削除が行われます。<br />
+詳細は<a href="/reference/clas/SqlDelete">SqlDeleteクラスのリファレンス</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/setAlias">setAlias</a></td>
+        <td>public</td>
+        <td>
+		            SQL文中でテーブルに対して設定するテーブルエイリアスを設定します。他のテーブルと結合を行う場合には必要になります。<br />
+モデルクラス内で設定する場合はフィールド$aliasの初期値に直接設定するか、メソッド内で$this->aliasに直接設定しても同じ結果です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/getAlias">getAlias</a></td>
+        <td>public</td>
+        <td>
+		            モデルクラスに設定されているテーブルエイリアスを設定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/setName">setName</a></td>
+        <td>public</td>
+        <td>
+		            モデルクラスを関連付けるテーブルの名前を設定します。テーブル名とモデルクラス名が一定の名前規則で関連している場合は明示的に名前の設定は必要ありませんが、敢えて名前規則から外れたモデルクラス名の場合は指定する必要があります。<br />
+モデルクラス内ではフィールド$nameの初期値に直接指定するか、メソッド中で$this->nameに対して直接設定しても同じ結果です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/getName">getName</a></td>
+        <td>public</td>
+        <td>
+		            モデルクラスに設定されているテーブル名を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/setConnection">setConnection</a></td>
+        <td>public</td>
+        <td>
+		            モデルインスタンスで利用するデータベース接続オブジェクト（PDOインスタンス）を指定します。通常、モデルクラス内で独自にPDOインスタンスを生成しまが、他のモデルインスタンスと接続を共有してトランザクション処理を行いたい場合などに指定します。 Db::isSingletonをtrueに指定している場合はこのメソッドによる指定は無意味になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/getConnection">getConnection</a></td>
+        <td>public</td>
+        <td>
+		            モデルクラスの保持しているデータベース接続（PDOインスタンス）を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/getColumnsInfo">getColumnsInfo</a></td>
+        <td>public</td>
+        <td>
+		            テーブルの列定義情報を取得します。定義情報は列名と、各列の定義情報を格納する2次元配列で構成されます。<br />
+各列の情報は以下のようになります。<br />
+<br />
+index - 列番号<br />
+name - 列名<br />
+table - 列の属するテーブル名<br />
+length - 最大長<br />
+is_string - 文字列フィールドの場合はtrue、それ以外はfalse<br />
+primary_key - 主キーフィールドの場合はtrue、それ以外はfalse<br />
+not_null - NULL不可の場合はtrue、それ以外はfalse
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/getKeyColumns">getKeyColumns</a></td>
+        <td>public</td>
+        <td>
+		            主キーを構成するフィールドのフィールド名を配列で取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/setDefaultConnection">setDefaultConnection</a></td>
+        <td>public</td>
+        <td>
+		            システム全体において、Modelクラスで使用するデータベース接続インスタンスのデフォルトを設定します。<br />
+通常、Modelクラスのインスタンス生成時に都度データベース接続インスタンスを生成し、Modelクラス内に保持しますが、このメソッドでデフォルトの接続インスタンスを設定しておくと、Modelインスタンス生成時に保持する接続インスタンスとして利用されます。<br />
+つまり、敢えて別インスタンスを設定しない限りはシステム全体で一つの接続インスタンスを使いまわす形になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/allowVirtual">allowVirtual</a></td>
+        <td>public</td>
+        <td>
+		            <a href="/manual/model#5">空想モデルクラス</a>の生成を許可するかしないかを設定します。<br />
+引数にfalseを設定した場合、仮想モデルクラスの生成を許可しません。<br />
+デフォルトはtrueのため、許可する場合は特に設定の必要はありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/isAllowVirtual">isAllowVirtual</a></td>
+        <td>public</td>
+        <td>
+		            空想モデルクラスの生成を許可するかしないかを設定を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/selectAll">selectAll</a></td>
+        <td>public</td>
+        <td>
+		            対象のテーブルのデータ全件をSELECTし、クエリ結果を取得します。<br />
+単純に全件取得したい場合は、selectメソッドからの一連のSELECT分生成ロジックを記述するより手軽です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/selectBy">selectBy</a></td>
+        <td>public</td>
+        <td>
+		            "selectBy"という名前のメソッドが存在するわけではありません。<br />
+selectByの後にフィールド名を"And"でつなげてメソッド名とすることで、<br />
+そのフィールド名をWHERE条件として抽出したクエリ結果を得ることができるという特殊なメソッドです。<br />
+条件の値の設定方法は引数に直接値を指定するだけです。<br />
+<br />
+例えばageフィールドの値が30、addressフィールドの値が"東京"のデータを抽出したい場合は、<br />
+<br />
+$model->selectByAgeAndAddress(30, '東京');<br />
+<br />
+というようになります。<br />
+フィールド名の数と引数の数、順番は一致しなければなりません。<br />
+プラスアルファでもうひとつ引数を増やすと、その引数はorderByの指定となります。<br />
+<br />
+$model->selectByAgeAndAddress(30, '東京', 'name ASC');<br />
+<br />
+という風にすると、ORDER BY にnameフィールドを指定していることになります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/findBy">findBy</a></td>
+        <td>public</td>
+        <td>
+		            "findBy"という名前のメソッドが存在するわけではありません。<br />
+findByの後にフィールド名を"And"でつなげてメソッド名とすることで、<br />
+そのフィールド名をWHERE条件として抽出したクエリ結果を得ることができるという特殊なメソッドです。<br />
+条件の値の設定方法は引数に直接値を指定するだけです。<br />
+selectByメソッドとの違いは、selectByが条件に合致する複数行を取得するのに対し、<br />
+findByは1件しか返しません。つまり、基本は一件しか結果を返さないような条件指定が前提になります。<br />
+ただし、条件に合致するレコードが複数存在する場合でも、最初の1件を返します。<br />
+<br />
+例えばnameフィールドの値が"山田太郎"、ageフィールドの値が30のデータを一件抽出したい場合は、<br />
+<br />
+$model->findByNameAndAge('山田太郎', 30);<br />
+<br />
+というようになります。<br />
+フィールド名の数と引数の数、順番は一致しなければなりません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/setSchema">setSchema</a></td>
+        <td>public</td>
+        <td>
+		            対象テーブルの存在するデータベーススキーマを指定します。<br />
+システムでメインで使用する空間とは別の空間に存在するテーブルを参照したい場合に指定します。<br />
+ここで言うスキーマとはMySQLとPostgreSQLでは意味が異なります。<br />
+<br />
+MySQLの場合は外部DBのDB名、<br />
+PostgreSQLの場合は同DB内の別スキーマを指定することになります。
+          <br /><br /><span class="version">※バージョン1.1.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Model/getSchama">getSchama</a></td>
+        <td>public</td>
+        <td>
+		            現在モデルクラスに設定されているスキーマ名を取得します。<br />
+スキーマ名の説明についてはsetSchemaメソッドの説明を参照してください。
+          <br /><br /><span class="version">※バージョン1.1.0以降</span>        </td>
+      </tr>
+        </table>
+	
+    
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

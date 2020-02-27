@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li class="selected"><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>設定ファイル</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">iniファイル</a></li>
+                        <li><a href="#3">キーの階層化</a></li>
+                        <li><a href="#4">オブジェクトアクセス</a></li>
+                        <li><a href="#2">Curryで標準的に利用されるiniファイル</a></li>
+              </ul>
+
+	      <h3 id="1">iniファイル</h3>
+    		<p class="exp">
+プログラム中で利用する設定値を別ファイル化するのは有効な手段です。設定ファイルの一般的なフォーマットはXML、YAML、INIなどいくつかありますが、Curryフレームワークで標準的にINIを利用します。<br />
+<br />
+
+</p>
+				<h4>Iniクラス</h4>
+<p class="exp">
+INIファイルを手軽に利用するにはまず、ファイルをconfigsディレクトリ内に配置します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟configs/
+    ∟ system.ini
+</pre>
+</div></div>
+				<div class="file_name">
+configs/system.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[length]
+password_min = 6
+password_max = 16
+
+[lists]
+age[] = &quot;10代&quot;
+age[] = &quot;20代&quot;
+age[] = &quot;30代以上&quot;
+country[] = &quot;日本&quot;
+country[] = &quot;日本以外&quot;
+</pre>
+</div></div>
+				<p class="exp">
+配置したら、Iniクラスの静的メソッドであるloadメソッドを実行するだけです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$iniArray = Ini::load(<span class="reteral">'system.ini'</span>);
+var_dump($iniArray);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+array(2) {
+  [&quot;length&quot;]=&gt;
+  array(2) {
+    [&quot;password_min&quot;]=&gt;
+    string(1) &quot;6&quot;
+    [&quot;password_max&quot;]=&gt;
+    string(2) &quot;16&quot;
+  }
+  [&quot;lists&quot;]=&gt;
+  array(2) {
+    [&quot;age&quot;]=&gt;
+    array(3) {
+      [0]=&gt;
+      string(5) &quot;10代&quot;
+      [1]=&gt;
+      string(5) &quot;20代&quot;
+      [2]=&gt;
+      string(11) &quot;30代以上&quot;
+    }
+    [&quot;country&quot;]=&gt;
+    array(2) {
+      [0]=&gt;
+      string(6) &quot;日本&quot;
+      [1]=&gt;
+      string(12) &quot;日本以外&quot;
+    }
+  }
+}
+</pre>
+</div>
+				<p class="exp">
+このようにiniファイルの内容が配列で得られます。<br />
+また、第二引数にセクション名を指定することで、特定セクションの設定値のみ取得することも可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$iniArray = Ini::load(<span class="reteral">'system.ini'</span>, <span class="reteral">'length'</span>);
+var_dump($iniArray);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+array(2) {
+  [&quot;password_min&quot;]=&gt;
+  string(1) &quot;6&quot;
+  [&quot;password_max&quot;]=&gt;
+  string(2) &quot;16&quot;
+}
+</pre>
+</div>
+				
+	      <h3 id="3">キーの階層化</h3>
+    		<p class="exp">
+Curryでは、iniファイル内の設定キーを階層化することが出来ます。<br />
+それには、"第一階層キー.第二階層キー"という具合に、キー指定にドット（.）を含めます。<br />
+これを利用すると、上記の設定例は以下のように書き換えることができ、結果は同じになります。
+</p>
+				<div class="file_name">
+configs/system.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[setting]
+length.password_min = 6
+length.password_max = 16
+lists.age[] = &quot;10代&quot;
+lists.age[] = &quot;20代&quot;
+lists.age[] = &quot;30代以上&quot;
+lists.country[] = &quot;日本&quot;
+lists.country[] = &quot;日本以外&quot;
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+$iniArray = Ini::load(<span class="reteral">'system.ini'</span>, <span class="reteral">'setting'</span>);
+var_dump($iniArray);
+</pre>
+</div></div>
+				
+	      <h3 id="4">オブジェクトアクセス</h3>
+    		<p class="exp">
+Ini::loadメソッドによって得られる情報は配列ですが、キーへのオブジェクトアクセスも可能になっています。<br />
+例えば上記の例で得られる情報は、値の取得に以下の2通りの方法があります。
+</p>
+				<div class="file_name">
+配列として値取得
+</div>
+<div class="sample_code"><div>
+<pre>
+$ini = <span class="class">Ini</span>::load(<span class="reteral">'system.ini'</span>, <span class="reteral">'setting'</span>);
+var_dump($ini[<span class="reteral">'list'</span>][<span class="reteral">'age'</span>]);
+</pre>
+</div></div>
+				<div class="file_name">
+オブジェクトとして値取得
+</div>
+<div class="sample_code"><div>
+<pre>
+$ini = <span class="class">Ini</span>::load(<span class="reteral">'system.ini'</span>, <span class="reteral">'setting'</span>);
+var_dump($ini-&gt;list-&gt;age);
+</pre>
+</div></div>
+				<p class="exp">
+この二通りのパターンは同じ結果です。<br />
+<br />
+実際はIni::loadによって得られるのは配列ではなく、ArrayObjectのインスタンスです。<br />
+そのためオブジェクトアクセスが可能ですが、逆にこれが邪魔な場合もあるでしょう。<br />
+たとえばArrayObjectにはis_arrayなどの配列関数が利用できないという問題があります。<br />
+このような場合のため、Ini::loadの戻り値を純粋な配列とすることも可能になっています。<br />
+それには以下のメソッドを事前に実行するだけです。<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">Ini</span>::isReturnObject(<span class="reserved">false</span>);
+</pre>
+</div></div>
+				
+	      <h3 id="2">Curryで標準的に利用されるiniファイル</h3>
+    		<p class="exp">
+Curryの規定のiniファイルがいくつか存在します。これらはconfigsディレクトリに配置するだけで有効になるもので、Curryで予約的に利用されるものです。別の用途としてユーザーがこれらと同名のiniファイルを利用することは基本的にはできません。
+</p>
+				<h4>database.ini</h4>
+<p class="exp">
+Curryでデータベースを利用する際に、その接続情報を設定するiniファイルです。詳しくは<a href="/manula/start">導入</a>の章を参照してください。
+</p>
+				<h4>routing.ini</h4>
+<p class="exp">
+Curryでmod_rewriteを利用する場合、URLの形式は決まっています。すなわち、
+</p>
+				<div class="sample_code"><div>
+<pre>
+http://www.xxxx.com/(コントローラー)/(アクション)/(パラメーター1)/(パラメーター2)/・・・
+</pre>
+</div></div>
+				<p class="exp">
+という形式です。<br />
+通常、URLの中の各セグメントの位置は固定ですが、routing.iniによってこれを変更することが出来ます。また、パラメーターに任意のキーを設定することも可能です。詳しくは<a href="/manual/controller">コントローラー</a>の章を参照してください。
+</p>
+				<h4>curry.ini</h4>
+<p class="exp">
+Curryの動作に関わるあらゆる初期設定を行うiniファイルです。<br />
+このファイルによる設定の反映はDispatcher::dispatchの頭のタイミングで行われます。<br />
+そのため、index.phpで個別に設定メソッドで設定を行なっても、それを上書きするようにcurry.iniでの設定が反映されます。<br />
+コントローラーやプラグインのpreProcessで個別の設定メソッドを実行した場合はそちらが有効になります。<br />
+<br />
+curry.iniでの設定項目は<a href="/manual/customize">カスタマイズ</a>を参照してください。
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

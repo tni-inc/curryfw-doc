@@ -1,0 +1,576 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li class="selected"><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>SqlAbstract</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">各種SQL文生成クラスの基礎となる抽象クラスです。<br />
+SELECT、INSERT、UPDATE、INSERTのそれぞれのSQL文生成クラスはこのクラスを継承しています。</div>
+    
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/db/sql_abstract.php</div>
+
+    
+    <h3>フィールド</h3>
+        <div class="explanation">公開されるフィールドはありません。</div>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/__construct">__construct</a></td>
+        <td>public</td>
+        <td>
+		            コンストラクタです。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/getSql">getSql</a></td>
+        <td>public</td>
+        <td>
+		            事前に設定された各条件をもとにSQL文を構築し、返します。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/getParams">getParams</a></td>
+        <td>public</td>
+        <td>
+		            現在設定されているプレースホルダパラメータを取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/enablePreparing">enablePreparing</a></td>
+        <td>public</td>
+        <td>
+		            同一インスタンスで連続してSQLを実行した場合、1回目の実行時にプリペアを行ってステートメントを生成し、以降の実行は生成されたプリペアドステートメントを利用して実行しますが、<br />
+このメソッドではこのプリペアドステートメントを利用するかしないかを設定します。<br />
+<br />
+誤解してはいけないのが、Curryでは基本的に全てのSQLの実行はプリペアしています。<br />
+このメソッドで行う設定は、最初の1回目のプリペアドステートメントを使い続けるか、<br />
+それとも都度再生成するかの違いです。<br />
+最利用する方が効率が良いので、通常は特に意識する必要はなく、初期値のままで構いません。
+          <br /><br /><span class="version">※バージョン1.1.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/params">params</a></td>
+        <td>public</td>
+        <td>
+		            プレースホルダパラメータの値をセットします。<br />
+SQL文中に":"（コロン）で始まるプレースホルダが存在する場合、そのプレースホルダに当てはめる値をプレースホルダ名と値の組み合わせで指定します。<br />
+<br />
+指定の方法は二通りあります。<br />
+一つはプレースホルダ名をキーとする連想配列で指定する方法。この場合は複数同時に指定がかのうです。<br />
+もう一つは第一引数にプレースホルダ名、第二引数に値を指定する方法で、この場合はひとつずつしか設定できません。<br />
+<br />
+このメソッドによる指定時、プレースホルダ名の指定は先頭の":"（コロン）を付加してはいけません。内部で自動的に付加しています。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/execute">execute</a></td>
+        <td>public</td>
+        <td>
+		            SQL文を構築し、実行します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/clearConditions">clearConditions</a></td>
+        <td>public</td>
+        <td>
+		            whereやorder等、各メソッドで設定された条件を全てクリアします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/getStatement">getStatement</a></td>
+        <td>public</td>
+        <td>
+		            直前に実行したSQLのプリペアドステートメントを取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/where">where</a></td>
+        <td>public</td>
+        <td>
+		            WHERE条件の指定を行います。<br />
+指定の仕方はいくつか存在します。<br />
+<br />
+1，フィールド名と値の組み合わせで指定<br />
+$select->where('age', 30);<br />
+<br />
+2，ハッシュで指定<br />
+$select->where(array('age' => 30));<br />
+<br />
+3，WHERE条件文を直接指定<br />
+$select->where("age = 30");<br />
+<br />
+SQLインジェクション対策のため、値は直接WHERE句中に含めるべきではありません。<br />
+値の指定はプレースホルダ化し、パラメーターとして別指定するのが望ましいです。<br />
+上記の3パターンのうち、1や2のような指定の仕方をした場合、内部で自動的にプレースホルダとして処理してくれますが、3のように直接条件文に値を記述するのは安全ではありません。この場合、以下のようにするべきです。<br />
+<br />
+$select->where("age = :age");<br />
+$select->params(array('age' => 30));<br />
+<br />
+whereメソッドを複数回実行した場合、各条件をAND結合します。<br />
+$select->where('age', 30);<br />
+$select->where('name', 'taro');<br />
+→WHERE (age = 30) AND (name = 'taro')<br />
+<br />
+値にnullが指定された場合はデータベースの値としてもNULLで比較します。<br />
+$select->where('name', null);<br />
+→WHERE (name IS NULL)
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhere">orWhere</a></td>
+        <td>public</td>
+        <td>
+		            WHERE条件をOR結合で設定します。<br />
+whereメソッドとの違いは、既にWHERE条件の指定が一度でも行われている場合に、直前の条件との結合が"AND"ではなく"OR"になるということです。<br />
+<br />
+$select->where('age', 30);<br />
+$select->orWhere('name', 'taro');<br />
+→WHERE (age = 30) OR (name = 'taro')<br />
+<br />
+そのため、最初の一つ目の条件指定の場合に限り、whereでもorWhereでも結果は同じになります。<br />
+<br />
+条件の指定方法はwhereメソッドと同様なのでwhereメソッドの説明を参照してください。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereNot">whereNot</a></td>
+        <td>public</td>
+        <td>
+		            否定のWHERE条件を指定します。<br />
+<br />
+whereメソッドとの違いは、フィールド名と値の比較演算子が"="ではなく"<>"になるということです。<br />
+値がnullの場合は"IS NULL"ではなく"IS NOT NULL"になります。<br />
+<br />
+$select->whereNot('age', 30);<br />
+$select->whereNot('name', null);<br />
+→WHERE (age <> 30) AND (name IS NOT NULL)
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereNot">orWhereNot</a></td>
+        <td>public</td>
+        <td>
+		            否定のWHERE条件指定をOR結合で設定します。<br />
+whereNotのOR版です。<br />
+<br />
+$select->whereNot('age', 30);<br />
+$select->orWhereNot('name', null);<br />
+→WHERE (age <> 30) OR (name IS NOT NULL)<br />
+<br />
+orWhereメソッドと同様、最初の一つ目の条件指定時はwhereNotと違いはありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereLike">whereLike</a></td>
+        <td>public</td>
+        <td>
+		            LIKE演算子による曖昧条件の指定を行います。<br />
+このメソッドで値に"%"を含めるとあいまい条件検索が可能になります。<br />
+<br />
+$select->where('age', 30);<br />
+$select->whereLike('name', 'ta%');<br />
+→WHERE (age = 30) AND (name LIKE 'ta%')
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereLike">orWhereLike</a></td>
+        <td>public</td>
+        <td>
+		            LIKE演算子による曖昧条件をOR結合で指定します。<br />
+whereLikeメソッドのOR版です。<br />
+<br />
+$select->where('age', 30);<br />
+$select->orWhereLike('name', 'ta%');<br />
+→WHERE (age = 30) OR (name LIKE 'ta%') <br />
+<br />
+orWhereメソッドと同様、最初の一つ目の条件指定時はwhereLikeと違いはありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereNotLike">whereNotLike</a></td>
+        <td>public</td>
+        <td>
+		            LIKE演算子による否定の曖昧条件の指定を行います。<br />
+whereLikeの否定条件版です。<br />
+<br />
+$select->where('age', 30);<br />
+$select->whereNotLike('name', 'ta%');<br />
+→WHERE (age = 30) AND (name NOT LIKE 'ta%') 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereNotLike">orWhereNotLike</a></td>
+        <td>public</td>
+        <td>
+		            LIKE演算子による否定の曖昧条件をOR結合で指定します。<br />
+whereNoLikeのOR版です。<br />
+<br />
+$select->where('age', 30);<br />
+$select->orWhereNotLike('name', 'ta%');<br />
+→WHERE (age = 30) OR (name NOT LIKE 'ta%') <br />
+<br />
+orWhereメソッドと同様、最初の一つ目の条件指定時はwhereLikeと違いはありません。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereIn">whereIn</a></td>
+        <td>public</td>
+        <td>
+		            IN演算子による条件の指定を行います。<br />
+第二引数に複数の値を配列で指定することにより、すべての値のいずれかに合致する条件を指定することができます。<br />
+<br />
+$ages = array(20, 21, 22, 23, 24, 25);<br />
+$select->where('name', 'taro');<br />
+$select->whereIn('age', $ages);<br />
+→WHERE (name = 'taro') AND (age IN (20, 21, 22, 23, 24, 25))
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereIn">orWhereIn</a></td>
+        <td>public</td>
+        <td>
+		            IN演算子による条件をOR結合で指定します。<br />
+whereInのOR版です。<br />
+<br />
+$ages = array(20, 21, 22, 23, 24, 25);<br />
+$select->where('name', 'taro');<br />
+$select->orWhereIn('age', $ages);<br />
+→WHERE (name = 'taro') OR (age IN (20, 21, 22, 23, 24, 25))<br />
+<br />
+orWhereメソッドと同様、最初の一つ目の条件指定時はwhereInと違いはありません。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereNotIn">whereNotIn</a></td>
+        <td>public</td>
+        <td>
+		            IN演算子による否定の条件の指定を行います。<br />
+whereInの否定条件版です。<br />
+第二引数に複数の値を配列で指定することにより、すべての値のどれにも合致しない条件を指定することができます。<br />
+<br />
+$ages = array(20, 21, 22, 23, 24, 25);<br />
+$select->where('name', 'taro');<br />
+$select->whereNotIn('age', $ages);<br />
+→WHERE (name = 'taro') AND (age NOT IN (20, 21, 22, 23, 24, 25))
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereNotIn">orWhereNotIn</a></td>
+        <td>public</td>
+        <td>
+		            N演算子による否定の条件をOR結合で指定します。<br />
+whereNoInのOR版です。<br />
+<br />
+$ages = array(20, 21, 22, 23, 24, 25);<br />
+$select->where('name', 'taro');<br />
+$select->orWhereNotIn('age', $ages);<br />
+→WHERE (name = 'taro') OR (age NOT IN (20, 21, 22, 23, 24, 25)) 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereGt">whereGt</a></td>
+        <td>public</td>
+        <td>
+		            大なりのWHERE条件を指定します。<br />
+フィールド名と値の比較演算子を">"とし、対象列が条件指定した値より大きい事を条件とする場合に使用します。<br />
+<br />
+$select->where('name', 'taro');<br />
+$select->whereGt('age', 30);<br />
+→WHERE (name = 'taro') AND (age > 30)
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereLt">whereLt</a></td>
+        <td>public</td>
+        <td>
+		            小なりのWHERE条件を指定します。<br />
+フィールド名と値の比較演算子を"<"とし、対象列が条件指定した値より小さい事を条件とする場合に使用します。<br />
+<br />
+$select->where('name', 'taro');<br />
+$select->whereLt('age', 30);<br />
+→WHERE (name = 'taro') AND (age < 30)
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereGe">whereGe</a></td>
+        <td>public</td>
+        <td>
+		            大なりイコールのWHERE条件を指定します。<br />
+フィールド名と値の比較演算子を">="とし、対象列が条件指定した値より大きい、または等しい事を条件とする場合に使用します。<br />
+<br />
+$select->where('name', 'taro');<br />
+$select->whereGe('age', 30);<br />
+→WHERE (name = 'taro') AND (age >= 30)
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereLe">whereLe</a></td>
+        <td>public</td>
+        <td>
+		            小なりイコールのWHERE条件を指定します。<br />
+フィールド名と値の比較演算子を"<="とし、対象列が条件指定した値より小さい、または等しい事を条する場合に使用します。<br />
+<br />
+$select->where('name', 'taro');<br />
+$select->whereLe('age', 30);<br />
+→WHERE (name = 'taro') AND (age <= 30)
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereGt">orWhereGt</a></td>
+        <td>public</td>
+        <td>
+		            大なりの条件指定をOR結合で指定します。<br />
+whereGtメソッドのOR版です。<br />
+<br />
+$select->where('age', 30);<br />
+$select->orWhereGt('name', 'taro');<br />
+→WHERE (age = 30) OR (name > 'taro')<br />
+
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereLt">orWhereLt</a></td>
+        <td>public</td>
+        <td>
+		            小なりの条件指定をOR結合で指定します。<br />
+whereLtメソッドのOR版です。<br />
+<br />
+$select->where('age', 30);<br />
+$select->orWhereLt('name', 'taro');<br />
+→WHERE (age = 30) OR (name < 'taro')
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereGe">orWhereGe</a></td>
+        <td>public</td>
+        <td>
+		            大なりイコールの条件指定をOR結合で指定します。<br />
+whereGeメソッドのOR版です。<br />
+<br />
+$select->where('age', 30);<br />
+$select->orWhereGe('name', 'taro');<br />
+→WHERE (age = 30) OR (name >= 'taro')
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereLe">orWhereLe</a></td>
+        <td>public</td>
+        <td>
+		            小なりイコールの条件指定をOR結合で指定します。<br />
+whereLeメソッドのOR版です。<br />
+<br />
+$select->where('age', 30);<br />
+$select->orWhereLe('name', 'taro');<br />
+→WHERE (age = 30) OR (name <= 'taro')
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereBetween">whereBetween</a></td>
+        <td>public</td>
+        <td>
+		            範囲指定のWHERE条件を設定します。<br />
+BETWEEN演算子を使用し、対象列が指定した２つの値の範囲内であることを条件とする場合に指定します。<br />
+<br />
+$select->where('name', 'taro');<br />
+$select->whereBetween('age', 30, 40);<br />
+→WHERE (name = 'taro') AND (age BETWEEN 30 AND 40)
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/whereNotBetween">whereNotBetween</a></td>
+        <td>public</td>
+        <td>
+		            否定の範囲指定のWHERE条件を設定します。<br />
+BETWEEN演算子を使用し、対象列が指定した２つの値の範囲外であることを条件とする場合に指定します。<br />
+<br />
+$select->where('name', 'taro');<br />
+$select->whereNotBetween('age', 30, 40);<br />
+→WHERE (name = 'taro') AND (age NOT BETWEEN 30 AND 40)
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereBetween">orWhereBetween</a></td>
+        <td>public</td>
+        <td>
+		            範囲指定のWHERE条件をOR結合で設定します。<br />
+whereBetweenのOR版です。<br />
+<br />
+$select->where('name', 'taro');<br />
+$select->orWhereBetween('age', 30, 40);<br />
+→WHERE (name = 'taro') OR (age BETWEEN 30 AND 40)
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/SqlAbstract/orWhereNotBetween">orWhereNotBetween</a></td>
+        <td>public</td>
+        <td>
+		            否定の範囲指定のWHERE条件をOR結合で設定します。<br />
+whereNotBetweenのOR版です。<br />
+<br />
+$select->where('name', 'taro');<br />
+$select->orWhereNotBetween('age', 30, 40);<br />
+→WHERE (name = 'taro') OR (age NOT BETWEEN 30 AND 40)
+          <br /><br /><span class="version">※バージョン1.2.0以降</span>        </td>
+      </tr>
+        </table>
+	
+    
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

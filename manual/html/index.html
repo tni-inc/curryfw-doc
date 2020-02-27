@@ -1,0 +1,1166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li class="selected"><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>HTML自動生成</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">HTMLの概念とHtmlElementクラス</a></li>
+                        <li><a href="#6">利用のための準備</a></li>
+                        <li><a href="#2">HtmlElementクラスの基本</a></li>
+                        <li><a href="#5">HtmlElementのその他の機能</a></li>
+                        <li><a href="#3">配列データからHTML階層を構築</a></li>
+                        <li><a href="#4">TABLEタグの自動生成</a></li>
+              </ul>
+
+	      <h3 id="1">HTMLの概念とHtmlElementクラス</h3>
+    		<p class="exp">
+HTMLはHTMLノードの集合で構成されます。<br />
+ノードにはエレメントとテキストノードに分類され、HTMLではエレメントはタグの事を指します。そしてタグに内包されるテキスト情報がテキストノードです。<br />
+<br />
+一つのエレメントは復数のエレメントやテキストノードを保有することができ、これらを組み合わせることでHTMLのタグ階層を表現することができます。<br />
+また個々のエレメントは復数の属性を有することができます。これは例えばすべてのタグに共通の"class"属性や"id"属性、formタグ固有のmethod属性などです。<br />
+<br />
+HtmlElementクラスはHtmlを構成するタグエレメントをオブジェクト化した概念のクラスです。<br />
+このクラスを利用してタグ階層を構築し、最終的にHTMLとして出力することができます。
+</p>
+				
+	      <h3 id="6">利用のための準備</h3>
+    		<h4>HTML自動生成のコーディングの位置付け</h4>
+<p class="exp">
+HTMLは言うまでもなくユーザーインターフェイスです。<br />
+そのため、HTML生成はMVCの中でビューが担当するべき部分です。<br />
+Curryではビュー生成に関わるロジックを記述するための枠組みが用意されているので、HTML自動生成のコーディングはそこに記述するべきです。コントローラーに記述するべきではありません。<br />
+詳しくは<a href="/manual/viewscript">ビュースクリプトのマニュアル</a>を参照してください。
+</p>
+				<div class="file_name">
+site/app/views/scripts/example_view.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">ExampleView</span> <span class="reserved">extends</span> <span class="class">ViewScript</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        <span class="class">Loader</span>::load(<span class="reteral">'HtmlElement'</span>, <span class="reteral">'html'</span>);
+        $div = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'div'</span>);
+    }
+}
+</pre>
+</div></div>
+				<h4>クラスのロード</h4>
+<p class="exp">
+HTML自動生成関連のクラスはcurryのフレームワークディレクトリの中のhtmlディレクトリに格納されています。このディレクトリ内のクラスは初期状態では読み込まれていませんので、HTML自動生成機能を利用する場合はあらかじめ読み込んで置く必要があります。<br />
+<br />
+それには2つの方法があります。<br />
+<br />
+まずはクラス単位にLoader::loadメソッドによって読み込む方法です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">Loader</span>::load(<span class="reteral">'HtmlElement'</span>, <span class="reteral">'html'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+もう一つはLoaderのオートロードに任せる方法です。<br />
+ただしLoaderのオートロードの場合でも、デフォルトではhtmlフォルダ内はオートロードの対象になっていませんので、Loader::addAutoloadDirectoryメソッドでhtmlフォルダをオートロード対象とする必要があります。<br />
+これは初期設定としてinitializerなどで設定するか、curry.iniに設定を追加します。
+</p>
+				<div class="file_name">
+site/configs/curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[loader]
+;--if you want to set autoload directory of curry, set directories name that splitted comma.
+autoload_dirs = &quot;core,db,html&quot;
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="class">Loader</span>::addAutoloadDirectory(<span class="reteral">'html'</span>);
+    }
+}
+</pre>
+</div></div>
+				
+	      <h3 id="2">HtmlElementクラスの基本</h3>
+    		<h4>エレメント生成、HTML出力</h4>
+<p class="exp">
+HtmlElementクラスはnewキーワード、または静的メソッドであるcreateメソッドによりインスタンスを生成します。この時、パラメーターとしてタグ名を指定します。<br />
+そしてインスタンスのgetHtmlメソッドを実行することでHTMLを生成します。<br />
+またはrenderメソッドを利用すると、HTMLを生成してそれを即座に出力します。<br />
+<br />
+以下の２通りの例は同じ結果になります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// <span class="reserved">new</span> でインスタンス生成、getHtmlで取得したHTMLをechoで出力
+</span>$ul = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'ul'</span>);
+$html = $ul-&gt;getHtml();
+echo $html;
+
+<span class="comment">// createメソッドでインスタンス静止し、そのままrenderメソッドを実行して出力。
+</span>$ul = <span class="class">HtmlElement</span>::create(<span class="reteral">'ul'</span>);
+$ul-&gt;render();
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul&gt;&lt;/ul&gt;
+</pre>
+</div>
+				<h4>子ノードの追加</h4>
+<p class="exp">
+エレメントには復数のエレメントを追加することができます。<br />
+エレメントに対してエレメントを追加することでタグの階層構造を構築します。<br />
+エレメントの追加はaddElementメソッドを利用します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$ul = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'ul'</span>);
+
+$li1 = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'li'</span>);
+$ul-&gt;addElement($li1);
+
+$li2 = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'li'</span>);
+$ul-&gt;addElement($li2);
+
+$html = $ul-&gt;getHtml();
+echo $html;
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul&gt;
+  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+				<h4>テキストノードの設定</h4>
+<p class="exp">
+エレメントの子ノードとしてはエレメントの他にテキストノードを追加することができます。<br />
+これにはsetTextやaddTextメソッドを利用します。<br />
+setTextは、現在設定されているエレメントやテキストをクリアして新たにテキストを追加します。それに対してaddTextは現在存在するエレメントやテキストの後ろに追加する形でテキストを設定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$ul = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'ul'</span>);
+
+$li1 = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'li'</span>);
+$li1-&gt;addText(<span class="reteral">'リスト1a'</span>);
+$li1-&gt;addText(<span class="reteral">'リスト1b'</span>);
+$ul-&gt;addElement($li1);
+
+$li2 = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'li'</span>);
+$li2-&gt;addText(<span class="reteral">'リスト2a'</span>);
+$li2-&gt;setText(<span class="reteral">'リスト2b'</span>);
+$ul-&gt;addElement($li2);
+
+$html = $ul-&gt;getHtml();
+echo $html;
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul&gt;
+  &lt;li&gt;
+    リスト1a
+    リスト1b
+  &lt;/li&gt;
+  &lt;li&gt;
+    リスト2b
+  &lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+				<p class="exp">
+エレメントとテキストノードを混在させることも可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$ul = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'ul'</span>);
+
+$li1 = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'li'</span>);
+<span class="comment">// テキストノード追加
+</span>$li1-&gt;addText(<span class="reteral">'リスト1'</span>);
+<span class="comment">//エレメント生成、追加
+</span>$a = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'a'</span>);
+$a-&gt;setHref(<span class="reteral">'http:<span class="comment">//hogehoge'</span>);
+</span>$a-&gt;setText(<span class="reteral">'リンク'</span>);
+$li1-&gt;addElement($a);
+$ul-&gt;addElement($li1);
+
+$html = $ul-&gt;getHtml();
+echo $html;
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul&gt;
+  &lt;li&gt;
+    リスト1
+    &lt;a href=&quot;http:<span class="comment">//hogehoge&quot;&gt;リンク&lt;/a&gt;
+</span>  &lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+				<h4>属性の設定</h4>
+<p class="exp">
+setAttributeメソッド、または属性ごとのセッターメソッドによってタグの属性を設定出来ます。<br />
+<br />
+以下の２つの例は同じ結果です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$ul = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'ul'</span>);
+$ul-&gt;setAttribute(<span class="reteral">'type'</span>, <span class="reteral">'square'</span>);
+$html = $ul-&gt;getHtml();
+echo $html;
+
+$ul = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'ul'</span>);
+$ul-&gt;setType(<span class="reteral">'square'</span>);
+$html = $ul-&gt;getHtml();
+echo $html;
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul type=&quot;square&quot;&gt;&lt;/ul&gt;
+</pre>
+</div>
+				<p class="exp">
+復数の属性を一度に設定したい場合はsetAttributesメソッドを利用します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$ul = <span class="reserved">new</span> HtmlElement(<span class="reteral">'ul'</span>);
+$ul-&gt;setAttributes(array(
+  <span class="reteral">'id'</span> =&gt; <span class="reteral">'list'</span>
+  <span class="reteral">'type'</span> =&gt; <span class="reteral">'square'</span>
+));
+$html = $ul-&gt;getHtml();
+echo $html;
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul id=&quot;list&quot; type=&quot;square&quot;&gt;&lt;/ul&gt;
+</pre>
+</div>
+				<p class="exp">
+クラス属性については特別にaddClassメソッドが存在し、復数のクラスを追加していく形で設定することも可能です。<br />
+これはsetClassメソッドやsetAttributeメソッドで、復数のクラスをスペース区切りで指定したのと同じ意味となるため、以下の３パターンのコードは同じ結果となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// setAttributeメソッド
+</span>$ul-&gt;setAttribute(<span class="reteral">'class'</span>, <span class="reteral">'list menu'</span>);
+
+<span class="comment">// setClassメソッド
+</span>$ul-&gt;setClass(<span class="reteral">'list menu'</span>);
+
+<span class="comment">// addClassメソッド
+</span>$ul-&gt;addClass(<span class="reteral">'list'</span>);
+$ul-&gt;addClass(<span class="reteral">'menu'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+タグのスタイルシートを指定するstyle属性も専用のaddStyleメソッドが存在し、cssのプロパティと値を指定して追加することができます。<br />
+復数のスタイルを一度に指定する場合はaddStylesメソッドを使用し、プロパティと値の組み合わせの配列で指定する事ができます。<br />
+<br />
+style属性を指定する以下の4つのパターンは同じ結果となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// setAttributeメソッド
+</span>$ul-&gt;setAttribute(<span class="reteral">'style'</span>, <span class="reteral">'width:500px;margin-left:10px'</span>);
+
+<span class="comment">// setStyleメソッド
+</span>$ul-&gt;setStyle(<span class="reteral">'width:500px;margin-left:10px'</span>);
+
+<span class="comment">// addStyleメソッド
+</span>$ul-&gt;addStyle(<span class="reteral">'width'</span>, <span class="reteral">'500px'</span>);
+$ul-&gt;addStyle(<span class="reteral">'margin-left'</span>, <span class="reteral">'10px'</span>);
+
+<span class="comment">// addStylesメソッド
+</span>$ul-&gt;addStyles(array(
+    <span class="reteral">'width'</span> =&gt; <span class="reteral">'500px'</span>,
+    <span class="reteral">'margin-left'</span> =&gt; <span class="reteral">'10px'</span>
+));
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul class=&quot;list menu&quot;&gt;&lt;/ul&gt;
+</pre>
+</div>
+				<div class="sample_result">
+<pre>
+&lt;ul style=&quot;width:500px;margin-left:10px&quot;&gt;&lt;/ul&gt;
+</pre>
+</div>
+				<h4>メソッドチェーン</h4>
+<p class="exp">
+HtmlElementクラスのセッター系メソッドのほとんどは自分自身のインスタンスを返します。<br />
+このためメソッドチェーンを利用し、復数の処理を続けて実行することが可能です。<br />
+これとcreateメソッドを組み合わせることにより、流れるような記述が可能です。<br />
+<br />
+以下の3パターンの実装は同じ結果となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// パターン1：メソッドチェーンを利用しない実装
+</span>$ul = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'ul'</span>);
+$ul-&gt;setId(<span class="reteral">'menu'</span>);
+$ul-&gt;setClass(<span class="reteral">'list'</span>);
+
+$li1 = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'li'</span>);
+$li1-&gt;addText(<span class="reteral">'リスト1'</span>);
+$a = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'a'</span>);
+$a-&gt;setText(<span class="reteral">'リンク'</span>);
+$li1-&gt;addElement($a);
+$ul-&gt;addElement($li1);
+
+$li2 = <span class="reserved">new</span> <span class="class">HtmlElement</span>(<span class="reteral">'li'</span>);
+$li2-&gt;addText(<span class="reteral">'リスト2'</span>);
+$ul-&gt;addElement($li2);
+
+$ul-&gt;render();
+
+<span class="comment">// パターン2：メソッドチェーンを利用
+</span>$ul = <span class="class">HtmlElement</span>::create(<span class="reteral">'ul'</span>)-&gt;setId(<span class="reteral">'menu'</span>)-&gt;setClass(<span class="reteral">'list'</span>);
+$a = <span class="class">HtmlElement</span>::create(<span class="reteral">'a'</span>)-&gt;setText(<span class="reteral">'リンク'</span>);
+$li1 = <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)-&gt;addText(<span class="reteral">'リスト1'</span>)-&gt;addElement($a);
+$ul-&gt;addElement($li1);
+$li2 = <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)-&gt;addText(<span class="reteral">'リスト2'</span>);
+$ul-&gt;addElement($li2);
+$ul-&gt;render();
+
+<span class="comment">// パターン3：出力されるHTMLをイメージしやすく、階層構造が直感的にもわかりやすい記述
+</span><span class="class">HtmlElement</span>::create(<span class="reteral">'ul'</span>)-&gt;setId(<span class="reteral">'menu'</span>)-&gt;setClass(<span class="reteral">'list'</span>)-&gt;addElements(array(
+    <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)
+        -&gt;addText(<span class="reteral">'リスト1'</span>)
+        -&gt;addElement(
+            <span class="class">HtmlElement</span>::create(<span class="reteral">'a'</span>)-&gt;setText(<span class="reteral">'リンク'</span>)
+        ),
+    <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)
+        -&gt;addText(<span class="reteral">'リスト2'</span>)
+))-&gt;render();
+
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul id=&quot;menu&quot; class=&quot;list&quot;&gt;
+  &lt;li&gt;
+    リスト1
+    &lt;a&gt;リンク&lt;/a&gt;
+  &lt;/li&gt;
+  &lt;li&gt;リスト2&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+				
+	      <h3 id="5">HtmlElementのその他の機能</h3>
+    		<h4>自動インデント</h4>
+<p class="exp">
+HtmlElementには、出力HTMLに対して自動的にインデントを設定する機能が備わっています。インデントは階層に応じて付加されます。デフォルトではインデント幅はスペース２つ分に設定されています。<br />
+これを変更したい場合はsetIndentCharメソッドを実行します。<br />
+setIndentCharは静的メソッドのため、インスタンスごとにインデントを設定するのではなく、一度設定すればその後の出力全体に適用されます。そのためスクリプトの初期段階で初期設定として設定するのが基本となります・<br />
+<br />
+以下はインデントをタブ一つ分に設定する場合の例です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">HtmlElement</span>::setIndentChar(&quot;\t&quot;, 1);
+
+<span class="class">HtmlElement</span>::create(<span class="reteral">'ul'</span>)-&gt;addElements(array(
+    <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)-&gt;addNodes(array(
+        <span class="reteral">'リスト1'</span>,
+        <span class="class">HtmlElement</span>::create(<span class="reteral">'div'</span>)-&gt;setText(<span class="reteral">'テキスト'</span>)
+    )),
+    <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)-&gt;setText(<span class="reteral">'リスト2'</span>),
+));
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul&gt;
+	&lt;li&gt;
+		リスト1
+		&lt;div&gt;テキスト&lt;/div&gt;
+	&lt;/li&gt;
+	&lt;li&gt;リスト2&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+				<p class="exp">
+インデントを無しにしたい場合はsetIndentCharでfalseを指定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="class">HtmlElement</span>::setIndentChar(<span class="reserved">false</span>);
+
+<span class="class">HtmlElement</span>::create(<span class="reteral">'ul'</span>)-&gt;addElements(array(
+    <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)-&gt;addNodes(array(
+        <span class="reteral">'リスト1'</span>,
+        <span class="class">HtmlElement</span>::create(<span class="reteral">'div'</span>)-&gt;setText(<span class="reteral">'テキスト'</span>)
+    )),
+    <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)-&gt;setText(<span class="reteral">'リスト2'</span>),
+));
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul&gt;
+&lt;li&gt;
+リスト1
+&lt;div&gt;テキスト&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;リスト2&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+				<h4>タグ内部改行</h4>
+<p class="exp">
+HtmlElementでは、エレメント内にノードが存在しない場合や、存在してもテキストノードのみの場合はタグ内部に改行を挟みません。逆にエレメント内にエレメントが存在する場合は開始タグの直後と終了タグの直前、子ノード間に改行を自動的に挟みます。<br />
+しかしこのルールに反して改行を挟む、挟まないを設定したい場合はエレメント単位に設定することが可能です。<br />
+設定にはsetIsReturnInnerメソッドを実行します。<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+$ul = <span class="class">HtmlElement</span>::create(<span class="reteral">'ul'</span>);
+
+<span class="comment">// li1
+</span>$li1 = <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)-&gt;addClass(<span class="reteral">'li1'</span>)-&gt;addNodes(array(
+    <span class="reteral">'リスト1'</span>,
+    <span class="class">HtmlElement</span>::create(<span class="reteral">'div'</span>)-&gt;addText(<span class="reteral">'テキスト'</span>)
+));
+$li1-&gt;setIsReturnInner(<span class="reserved">false</span>);  <span class="comment">// 内部を改行しない
+</span>$ul-&gt;addElement($li1);
+
+<span class="comment">// li2
+</span>$li2 = <span class="class">HtmlElement</span>::create(<span class="reteral">'li'</span>)-&gt;addClass(<span class="reteral">'li2'</span>)-&gt;addNodes(array(
+    <span class="reteral">'リスト2'</span>,
+    <span class="class">HtmlElement</span>::create(<span class="reteral">'div'</span>)-&gt;addText(<span class="reteral">'テキスト'</span>)
+));
+$ul-&gt;addElement($li2);
+
+<span class="comment">// li3
+</span>$li3 = HtmlElement::create(<span class="reteral">'li'</span>)-&gt;addClass(<span class="reteral">'li3'</span>)-&gt;addText(<span class="reteral">'テキスト'</span>);
+$ul-&gt;addElement($li3);
+
+<span class="comment">// li4
+</span>$li4 = HtmlElement::create(<span class="reteral">'li'</span>)-&gt;addClass(<span class="reteral">'li4'</span>)-&gt;addText(<span class="reteral">'テキスト'</span>);
+$li4-&gt;setIsReturnInner(<span class="reserved">true</span>);  <span class="comment">// 強制的に内部改行
+</span>$ul-&gt;addElement($li4);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;ul&gt;
+  &lt;li class=&quot;li1&quot;&gt;リスト1&lt;div&gt;テキスト&lt;/div&gt;&lt;/li&gt;
+  &lt;li class=&quot;li2&quot;&gt;
+    リスト2
+    &lt;div&gt;テキスト&lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;li3&quot;&gt;テキスト&lt;/li&gt;
+  &lt;li class=&quot;li4&quot;&gt;
+    テキスト
+  &lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+				
+	      <h3 id="3">配列データからHTML階層を構築</h3>
+    		<p class="exp">
+HtmlElementクラスには、上記のような個々のタグのインスタンスを生成してHTML階層を構築していく方法の他に、タグの階層構造を配列データとして定義しておき、それを元に自動的にHtmlElementの階層構造を構築させる方法があります。<br />
+<br />
+配列からHTMLを生成する方法は2通りあります。<br />
+<br />
+一つはあらかじめHtmlElementのインスタンスを生成しておき、その子ノード情報を定義した配列を指定してインスタンス以下のエレメント群を自動生成する方法です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$childs = array(
+    <span class="comment">// liタグ1
+</span>    array(
+        <span class="reteral">'tag_name'</span> =&gt; <span class="reteral">'li'</span>,
+        <span class="reteral">'nodes'</span> =&gt; array(
+            <span class="comment">// テキストノード
+</span>            <span class="reteral">'リスト1'</span>,
+            <span class="comment">// aタグ
+</span>            array(
+                <span class="reteral">'tag_name'</span> =&gt; <span class="reteral">'a'</span>,
+                <span class="reteral">'text'</span> =&gt; <span class="reteral">'リンク'</span>,
+            ),
+        ),
+    ),
+    <span class="comment">// liタグ2
+</span>    array(
+        <span class="reteral">'tag_name'</span> =&gt; <span class="reteral">'li'</span>,
+        <span class="reteral">'text'</span> =&gt; <span class="reteral">'リスト2'</span>,
+    ),
+);
+$div = <span class="class">HtmlElement</span>::create(<span class="reteral">'ul'</span>)-&gt;setId(<span class="reteral">'menu'</span>)-&gt;addClass(<span class="reteral">'list'</span>);
+$div-&gt;addFromArray($childs);
+$div-&gt;render();
+</pre>
+</div></div>
+				<p class="exp">
+もう一つの方法は、ルートとなるエレメントの情報を含めた配列を指定して、静的メソッドであるfromArrayメソッドを利用してエレメント情報を得る方法です。<br />
+この場合、ルートとなるエレメントのHtmlElementクラスインスタンスが得られます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$root = array(
+    <span class="comment">// ulタグ
+</span>    <span class="reteral">'tag_name'</span> =&gt; <span class="reteral">'ul'</span>,
+    <span class="reteral">'attributes'</span> =&gt; array(
+        <span class="reteral">'id'</span> =&gt; <span class="reteral">'menu'</span>,
+        <span class="reteral">'class'</span> =&gt; <span class="reteral">'list'</span>,
+    ),
+    <span class="reteral">'nodes'</span> =&gt; array(
+        <span class="comment">// liタグ1
+</span>        array(
+            <span class="reteral">'tag_name'</span> =&gt; <span class="reteral">'li'</span>,
+            <span class="reteral">'nodes'</span> =&gt; array(
+                <span class="comment">// テキストノード
+</span>                <span class="reteral">'リスト1'</span>,
+                <span class="comment">// aタグ
+</span>                array(
+                    <span class="reteral">'tag_name'</span> =&gt; <span class="reteral">'a'</span>,
+                    <span class="reteral">'text'</span> =&gt; <span class="reteral">'リンク'</span>,
+                ),
+            ),
+        ),
+        <span class="comment">// liタグ2
+</span>        array(
+            <span class="reteral">'tag_name'</span> =&gt; <span class="reteral">'li'</span>,
+            <span class="reteral">'text'</span> =&gt; <span class="reteral">'リスト2'</span>,
+        ),
+    ),
+);
+$div = <span class="class">HtmlElement</span>::fromArray($root);
+$div-&gt;render();
+</pre>
+</div></div>
+				<p class="exp">
+この2つのパターンの実装は同じ結果となります。<br />
+場合によって使い分けるといいでしょう。<br />
+<br />
+エレメント情報を定義する配列に含める事が可能なキーは以下のとおりです。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>キー</th><th>意味</th><th>指定方法</th></tr>
+<tr>
+<td class="title">tag_name</td>
+<td>タグ名</td>
+<td>文字列</td>
+</tr>
+<tr>
+<td class="title">attributes</td>
+<td>タグの属性情報</td>
+<td>属性キーとその値の組み合わせの配列</td>
+</tr>
+<tr>
+<td class="title">nodes</td>
+<td>子ノード情報</td>
+<td>復数の子ノードの情報を表す配列。<br />個々のノードの指定は、テキストノードの場合は文字列で指定。<br />エレメントの場合は配列エレメント情報配列。</td>
+</tr>
+<tr>
+<td class="title">text</td>
+<td>テキストノード情報</td>
+<td>タグのテキストを指定。<br />空要素タグ（inputやimg等）に対しては指定することが出来ず。指定すると例外を発生します。<br />textの指定は、タグにテキストノードのみを含めたい場合に指定するもので、これを指定した場合はnodesの指定が無視されます。<br />エレメントとテキストノードを共存させたい場合はnodesの配列の1要素としてテキストを指定してください。</td>
+</tr>
+</table>
+</p>
+				
+	      <h3 id="4">TABLEタグの自動生成</h3>
+    		<p class="exp">
+HtmlElementクラスを利用すればどんなタグにも対応できますが、<br />
+TABLEタグについては特別に専用のHtmlTableクラスが用意されています。<br />
+これを利用することで、HtmlElementクラスを利用してTABLEタグを構築するよりも効率的なコーディングが可能になります。<br />
+<br />
+尚、HtmlTableクラスはHtmlElementクラスを継承したクラスのため、基本的にはHtmlElementクラスの持つ機能はほぼすべてを兼ね備えています。
+</p>
+				<h4>TABLEタグの構造</h4>
+<p class="exp">
+HtmlTableには列と行という概念が存在します。<br />
+さらに行にはヘッダとボディの２種類の概念が存在します。<br />
+ヘッダ行とボディ行はそれぞれテーブルに対して復数含まれます。<br />
+行には復数のセルが含まれます。<br />
+<br />
+HtmlTableには厳密には列という概念は存在しませんが、各行に含まれるの同一インデックスのセルに対する共通設定という意味合いが列です。<br />
+<br />
+タグ階層上、tableタグは以下のような構造になっています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+table
+  ∟thead
+     ∟tr 
+        ∟th
+        ∟th
+        ・
+        ・
+  ∟tbody
+     ∟tr 
+        ∟td
+        ∟td
+        ・
+        ・
+     ∟tr 
+        ∟td
+        ∟td
+        ・
+        ・
+    ・
+    ・
+</pre>
+</div></div>
+				<p class="exp">
+構造上は、theadタグがヘッダ行群の親要素となり、tbodyタグがボディ行群の親要素となります。そしてtableタグ自体はtheadとtbodyの２つのコンテナタグのみを子ノードとして保有します。<br />
+HtmlTableクラスでは、theadとtbodyの存在を意識することなく、テーブルに対して行を追加した場合は自動的に親となるコンテナに対して追加されます。
+</p>
+				<h4>HtmlTableの利用方法</h4>
+<p class="exp">
+HtmlTableを利用した基本的なコーディングは以下のとおりです。<br />
+HtmlTableクラスは標準では読み込まれませんので、明示的に読み込む必要があります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+Loader::load(<span class="reteral">'HtmlTable'</span>, <span class="reteral">'html'</span>);
+
+$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$table-&gt;addStyle(<span class="reteral">'border-collapse'</span>, <span class="reteral">'collapse'</span>);
+$table-&gt;setBorder(<span class="reteral">'1'</span>);
+$table-&gt;setCellpadding(<span class="reteral">'2'</span>);
+$table-&gt;addHeader(array(<span class="reteral">'名前'</span>, <span class="reteral">'年齢'</span>, <span class="reteral">'住所'</span>));
+$table-&gt;addRow(array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>));
+$table-&gt;addRow(array(<span class="reteral">'佐藤一郎'</span>, <span class="reteral">'47'</span>, <span class="reteral">'大阪府'</span>));
+$table-&gt;addRow(array(<span class="reteral">'鈴木花子'</span>, <span class="reteral">'28'</span>, <span class="reteral">'京都府'</span>));
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;table border=&quot;1&quot; cellpadding=&quot;2&quot; style=&quot;border-collapse:collapse&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名前&lt;/th&gt;
+      &lt;th&gt;年齢&lt;/th&gt;
+      &lt;th&gt;住所&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;山田太郎&lt;/td&gt;
+      &lt;td&gt;31&lt;/td&gt;
+      &lt;td&gt;東京都&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;佐藤一郎&lt;/td&gt;
+      &lt;td&gt;47&lt;/td&gt;
+      &lt;td&gt;大阪府&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;鈴木花子&lt;/td&gt;
+      &lt;td&gt;28&lt;/td&gt;
+      &lt;td&gt;京都府&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</div>
+				<p class="exp">
+これと同じ結果になるようにHtmlElementクラスのみで、極力わかりやすく記述しようとすると以下のようになります。<br />
+HtmlTableを利用するほうがいかに簡素であるかがわかります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$table-&gt;addStyle(<span class="reteral">'border-collapse'</span>, <span class="reteral">'collapse'</span>);
+$table-&gt;setBorder(<span class="reteral">'1'</span>);
+$table-&gt;setCellpadding(<span class="reteral">'2'</span>);
+$table-&gt;addElement( <span class="class">HtmlElement</span>::create(<span class="reteral">'thead'</span>)
+    -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'tr'</span>)
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'th'</span>)-&gt;addText(<span class="reteral">'名前'</span>))
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'th'</span>)-&gt;addText(<span class="reteral">'年齢'</span>))
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'th'</span>)-&gt;addText(<span class="reteral">'住所'</span>))
+    )
+);
+$table-&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'tbody'</span>)
+    -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'tr'</span>)
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'山田太郎'</span>))
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'31'</span>))
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'東京都'</span>))
+    )
+    -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'tr'</span>)
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'佐藤一郎'</span>))
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'47'</span>))
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'大阪府'</span>))
+    )
+    -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'tr'</span>)
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'鈴木花子'</span>))
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'28'</span>))
+        -&gt;addElement(<span class="class">HtmlElement</span>::create(<span class="reteral">'td'</span>)-&gt;addText(<span class="reteral">'京都府'</span>))
+    )
+);
+</pre>
+</div></div>
+				<p class="exp">
+セルデータの指定を配列とすることで、復数ノードを含めることも可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$table-&gt;addStyle(<span class="reteral">'border-collapse'</span>, <span class="reteral">'collapse'</span>);
+$table-&gt;setBorder(<span class="reteral">'1'</span>);
+$table-&gt;setCellpadding(<span class="reteral">'2'</span>);
+$table-&gt;addHeader(array(<span class="reteral">'名前'</span>, <span class="reteral">'年齢'</span>, <span class="reteral">'住所'</span>, <span class="reteral">'ホームページ'</span>));
+$table-&gt;addRow(array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>, array(<span class="reteral">'読書'</span>, HtmlElement::create(<span class="reteral">'br'</span>), <span class="reteral">'旅行'</span>)));
+$table-&gt;addRow(array(<span class="reteral">'佐藤一郎'</span>, <span class="reteral">'47'</span>, <span class="reteral">'大阪府'</span>, <span class="reteral">'なし'</span>));
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;table border=&quot;1&quot; cellpadding=&quot;2&quot; style=&quot;border-collapse:collapse&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名前&lt;/th&gt;
+      &lt;th&gt;年齢&lt;/th&gt;
+      &lt;th&gt;住所&lt;/th&gt;
+      &lt;th&gt;趣味&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;山田太郎&lt;/td&gt;
+      &lt;td&gt;31&lt;/td&gt;
+      &lt;td&gt;東京都&lt;/td&gt;
+      &lt;td&gt;
+        読書
+        &lt;br /&gt;
+        旅行
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;佐藤一郎&lt;/td&gt;
+      &lt;td&gt;47&lt;/td&gt;
+      &lt;td&gt;大阪府&lt;/td&gt;
+      &lt;td&gt;なし&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</div>
+				<h4>２次元の配列データからボディ行を一度に設定する</h4>
+<p class="exp">
+単純なデータ表示であれば、2次元の配列データを使用し、bindArrayメソッドを実行することで簡単にtableタグを構築することができます。<br />
+例えばデータベースのクエリ結果をそのままHTMLとして出力したい場合などに便利です。<br />
+<br />
+例えば上の例と同じ結果となる例は以下になります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$data = array(
+    array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>),
+    array(<span class="reteral">'佐藤一郎'</span>, <span class="reteral">'47'</span>, <span class="reteral">'大阪府'</span>),
+    array(<span class="reteral">'鈴木花子'</span>, <span class="reteral">'28'</span>, <span class="reteral">'京都府'</span>),
+);
+$table = <span class="class">HtmlTable</span>::create()
+    -&gt;addStyle(<span class="reteral">'border-collapse'</span>, <span class="reteral">'collapse'</span>)
+    -&gt;setBorder(<span class="reteral">'1'</span>)
+    -&gt;setCellpadding(<span class="reteral">'2'</span>);
+$table-&gt;addHeader(array(<span class="reteral">'名前'</span>, <span class="reteral">'年齢'</span>, <span class="reteral">'住所'</span>));
+$table-&gt;bindArray($data);
+</pre>
+</div></div>
+				<h4>行単位に細かく設定を行う</h4>
+<p class="exp">
+ここまでの説明では単純なtableタグの構築の場合を想定していますが、<br />
+行やセルの細かな設定、特に属性の指定などを行うには上記の実装では対応出来ません。<br />
+<br />
+これらを行うための実装方法の例を紹介します。<br />
+<br />
+まずは行の設定です。<br />
+行の設定を行うには行オブジェクトの取得が必要になります。<br />
+<br />
+HtmlTableのaddRowメソッドは行オブジェクトを生成してテーブルに追加します。<br />
+具体的にはtrタグのエレメントを生成し、tbodyタグのエレメントに追加します。<br />
+実はaddRowメソッドは、テーブルに行を追加しつつ、返り値として生成された行オブジェクトが得られます。<br />
+この行オブジェクトもHtmlElementのインスタンスなので、HtmlElementでできることは全て設定が可能です。<br />
+<br />
+またaddRowの他に、createRowメソッドが存在します。addRowとの違いは、行オブジェクトを生成後、テーブルオブジェクトへの追加を行わないことです。つまりtrのHtmlElementインスタンスを生成して返すのみです。そしてこのインスタンスに対して各種設定を行った後、addRowElementメソッドでテーブルへ追加することができます。<br />
+<br />
+例えば行にid属性を設定するには以下のようにしますが、この２パターンの実装は全く同じ意味になります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 通常の実装
+</span>$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$row = $table-&gt;addRow(array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>));
+$row-&gt;setId(<span class="reteral">'row1'</span>);
+
+<span class="comment">// メソッドチェーンを利用するパターン
+</span>$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$table-&gt;addRow(array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>))-&gt;setId(<span class="reteral">'row1'</span>);
+
+<span class="comment">// createRow→addRowElement
+</span>$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$row = $table-&gt;createRow(array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>));
+$row-&gt;setId(<span class="reteral">'row1'</span>);
+$table-&gt;addRowElement($row);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr id=&quot;row1&quot;&gt;
+      &lt;td&gt;山田太郎&lt;/td&gt;
+      &lt;td&gt;31&lt;/td&gt;
+      &lt;td&gt;東京都&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</div>
+				<h4>セル単位の設定</h4>
+<p class="exp">
+セルの設定方法です。<br />
+<br />
+セルの設定を行う一つの方法は、行オブジェクトのセル設定用メソッドを利用する方法です。<br />
+行オブジェクトにはセルの属性を設定するsetCellAttributesメソッドや、セルの値を設定するsetCellValueメソッドが存在するため、これらを使用します。<br />
+<br />
+もう一つの方法としてセルオブジェクトを取得して個別に設定する方法があります。<br />
+セルオブジェクトの取得には、行オブジェクトのgetCellメソッドを利用します。<br />
+<br />
+以下の２つの例は同じ結果となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 行オブジェクトのメソッド利用
+</span>$table = <span class="reserved">new</span> HtmlTable();
+$row = $table-&gt;addRow(array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>));
+$row-&gt;setCellAttributes(0, array(
+    <span class="reteral">'class'</span> =&gt; <span class="reteral">'cell1'</span>,
+    <span class="reteral">'style'</span> =&gt; <span class="reteral">'font-size:16px;'</span>
+));
+
+<span class="comment">// セルオブジェクトを取得し、個別に設定
+</span>$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$row = $table-&gt;addRow(array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>));
+$cell = $row-&gt;getCell(0);
+$cell-&gt;addClass(<span class="reteral">'cell1'</span>);
+$cell-&gt;addStyle(<span class="reteral">'font-size'</span>, <span class="reteral">'16px'</span>);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td class=&quot;cell1&quot; style=&quot;font-size:20px&quot;&gt;山田太郎&lt;/td&gt;
+      &lt;td&gt;31&lt;/td&gt;
+      &lt;td&gt;東京都&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</div>
+				<p class="exp">
+最初に空行を作成し、セルを追加していくという方法もとることができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$row = $table-&gt;createRow();
+$row-&gt;addCell(0, <span class="reteral">'山田太郎'</span>)-&gt;addClass(<span class="reteral">'cell1'</span>)-&gt;addStyle(<span class="reteral">'font-size'</span>, <span class="reteral">'20px'</span>);
+$row-&gt;addCell(1, <span class="reteral">'31'</span>);
+$row-&gt;addCell(2, <span class="reteral">'東京都'</span>);
+$table-&gt;addRowElement($row);
+$table-&gt;render();
+</pre>
+</div></div>
+				<p class="exp">
+addCellメソッドは第１引数に列インデックス、第２引数にセル値を指定します。<br />
+追加しようとする列インデックスが既に存在する場合は例外を発生します。<br />
+<br />
+似たメソッドにsetCellValueがあります。<br />
+こちらは指定インデックスのセルの値を設定するという意味合いのメソッドで、既に存在するインデックスの場合は値を上書きします。存在しない場合はセルを作成するため、addCellと同様の動きになります。<br />
+<br />
+また、addCellやsetCellValueの戻り値はセルオブジェトであるため、セルの属性設定なども行うことが可能です。
+</p>
+				<h4>列設定</h4>
+<p class="exp">
+HtmlTableにおける列設定は、列を表すキーに対してセルの属性のデフォルト値をあらかじめ設定することが可能なものです。<br />
+この列設定を行うためのメソッドとしてsetColumnsAttributesとsetColumnsAttributeが用意されており、列単位の設定、または複数列を一度に設定することが可能です。<br />
+<br />
+以下の2パターンは同じ結果になります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// setColumnAttributesで列単位に設定
+</span>$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$table-&gt;setColumnAttributes(0, array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'name'</span>));
+$table-&gt;setColumnAttributes(1, array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'age'</span>));
+$table-&gt;setColumnAttributes(2, array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'address'</span>));
+
+<span class="comment">// setColumnsAttributesで復数列を一度に設定
+</span>$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$table-&gt;setColumnsAttributes(array(
+    <span class="reteral">'0'</span> =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'name'</span>),
+    <span class="reteral">'1'</span> =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'age'</span>),
+    <span class="reteral">'2'</span> =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'address'</span>),
+));
+</pre>
+</div></div>
+				<p class="exp">
+列設定はセル設定のデフォルトとしての設定であるため、同じ属性がセルで設定された場合はそちらが優先されます。セル側で設定が行なわれなかった俗世については列設定が有効となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+<span class="comment">// 列設定
+</span>$table-&gt;setColumnsAttributes(array(
+    <span class="reteral">'0'</span> =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'name'</span>),
+    <span class="reteral">'1'</span> =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'age'</span>),
+    <span class="reteral">'2'</span> =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'address'</span>),
+));
+$table-&gt;addHeader(array(<span class="reteral">'名前'</span>, <span class="reteral">'年齢'</span>, <span class="reteral">'住所'</span>));
+$table-&gt;addRow(array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>));
+$table-&gt;addRow(array(<span class="reteral">'佐藤一郎'</span>, <span class="reteral">'47'</span>, <span class="reteral">'大阪府'</span>));
+<span class="comment">// 3行目の年齢セルだけにclass属性を指定
+</span>$row = $table-&gt;addRow(array(<span class="reteral">'鈴木花子'</span>, <span class="reteral">'28'</span>, <span class="reteral">'京都府'</span>));
+$row-&gt;setCellAttributes(<span class="reteral">'1'</span>, array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'under30_age'</span>));
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th class=&quot;name&quot;&gt;名前&lt;/th&gt;
+      &lt;th class=&quot;age&quot;&gt;年齢&lt;/th&gt;
+      &lt;th class=&quot;address&quot;&gt;住所&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td class=&quot;name&quot;&gt;山田太郎&lt;/td&gt;
+      &lt;td class=&quot;age&quot;&gt;31&lt;/td&gt;
+      &lt;td class=&quot;address&quot;&gt;東京都&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td class=&quot;name&quot;&gt;佐藤一郎&lt;/td&gt;
+      &lt;td class=&quot;age&quot;&gt;47&lt;/td&gt;
+      &lt;td class=&quot;address&quot;&gt;大阪府&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td class=&quot;name&quot;&gt;鈴木花子&lt;/td&gt;
+      &lt;td class=&quot;under30_age&quot;&gt;28&lt;/td&gt;
+      &lt;td class=&quot;address&quot;&gt;京都府&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</div>
+				<h4>列キーに意味のある文字列を指定する</h4>
+<p class="exp">
+上の例では列キーを０、１、２というような数値インデックスで指定しています。<br />
+addRowメソッドでセル値の指定を、
+</p>
+				<div class="sample_code"><div>
+<pre>
+array(<span class="reteral">'山田太郎'</span>, <span class="reteral">'31'</span>, <span class="reteral">'東京都'</span>)
+</pre>
+</div></div>
+				<p class="exp">
+というような指定をしているため、PHPの配列の性質上、前から０、１、２というインデックスが自動的についているわけです。つまり、以下の様な指定方法でも同じ意味となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+array(<span class="reteral">'0'</span> =&gt; <span class="reteral">'山田太郎'</span>, <span class="reteral">'1'</span> =&gt; <span class="reteral">'31'</span>, <span class="reteral">'2'</span> =&gt; <span class="reteral">'東京都'</span>)
+</pre>
+</div></div>
+				<p class="exp">
+列設定時の列インデックスと対象となるセルのインデックスはこの数値インデックスが一致するセルに対しての設定ということになります。<br />
+これを利用し、列インデックスに意味のある文字列を指定すると、少し冗長にはなりますが直感的にわかりやすいコーディングにすることができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$table = <span class="reserved">new</span> <span class="class">HtmlTable</span>();
+$table-&gt;setColumnsAttributes(array(
+    <span class="reteral">'name'</span>    =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'name'</span>),
+    <span class="reteral">'age'</span>     =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'age'</span>),
+    <span class="reteral">'address'</span> =&gt; array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'address'</span>),
+));
+$table-&gt;addHeader(array(<span class="reteral">'名前'</span>, <span class="reteral">'年齢'</span>, <span class="reteral">'住所'</span>));
+$table-&gt;addRow(array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'山田太郎'</span>,
+    <span class="reteral">'age'</span>     =&gt; <span class="reteral">'31'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'東京都'</span>,
+));
+$table-&gt;addRow(array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'佐藤一郎'</span>,
+    <span class="reteral">'age'</span>     =&gt; <span class="reteral">'47'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'大阪府'</span>,
+));
+$row = $table-&gt;addRow(array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'鈴木花子'</span>,
+    <span class="reteral">'age'</span>     =&gt; <span class="reteral">'28'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'京都府'</span>,
+));
+$row-&gt;setCellAttributes(<span class="reteral">'age'</span>, array(<span class="reteral">'class'</span> =&gt; <span class="reteral">'under30_age'</span>));
+</pre>
+</div></div>
+				<p class="exp">
+列キーは出力されるHTMLには現れず、意味のあるものではないですが、ソースコードの可読性の確保のためには有効な手法と言えます。
+</p>
+				<h4>追加済の全行オブジェクトに対して処理を行う</h4>
+<p class="exp">
+HtmlTableクラスはIteratorAggregateインターフェイスを実装しているので、foreachで順次処理を行うことが可能です。HtmlTableをforeachにかけるとボディの行オブジェクトが得られるようになっています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$table = <span class="reserved">new</span> HtmlTable();
+$table-&gt;addHeader(array(<span class="reteral">'名前'</span>, <span class="reteral">'年齢'</span>, <span class="reteral">'住所'</span>));
+$table-&gt;addRow(array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'山田太郎'</span>,
+    <span class="reteral">'age'</span>     =&gt; <span class="reteral">'31'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'東京都'</span>,
+));
+$table-&gt;addRow(array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'佐藤一郎'</span>,
+    <span class="reteral">'age'</span>     =&gt; <span class="reteral">'47'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'大阪府'</span>,
+));
+$row = $table-&gt;addRow(array(
+    <span class="reteral">'name'</span>    =&gt; <span class="reteral">'鈴木花子'</span>,
+    <span class="reteral">'age'</span>     =&gt; <span class="reteral">'28'</span>,
+    <span class="reteral">'address'</span> =&gt; <span class="reteral">'京都府'</span>,
+));
+<span class="comment">// foreachで行オブジェクトに順次処理
+</span><span class="reserved">foreach</span> ($table <span class="reserved">as</span> $rowIndex =&gt; $row) {
+    <span class="comment">// 行オブジェクト(tr)にidを設定
+</span>    $row-&gt;setId(<span class="reteral">'row'</span> . $rowIndex);
+    <span class="comment">// 年齢が30未満ならclassを設定
+</span>    $ageCell = $row-&gt;getCell(<span class="reteral">'age'</span>);
+    <span class="reserved">if</span> ($ageCell-&gt;getInnerHtml() &lt; 30) {
+        $ageCell-&gt;setClass(<span class="reteral">'under30_age'</span>);
+    }
+}
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名前&lt;/th&gt;
+      &lt;th&gt;年齢&lt;/th&gt;
+      &lt;th&gt;住所&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr id=&quot;row0&quot;&gt;
+      &lt;td&gt;山田太郎&lt;/td&gt;
+      &lt;td&gt;31&lt;/td&gt;
+      &lt;td&gt;東京都&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr id=&quot;row1&quot;&gt;
+      &lt;td&gt;佐藤一郎&lt;/td&gt;
+      &lt;td&gt;47&lt;/td&gt;
+      &lt;td&gt;大阪府&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr id=&quot;row2&quot;&gt;
+      &lt;td&gt;鈴木花子&lt;/td&gt;
+      &lt;td class=&quot;under30_age&quot;&gt;28&lt;/td&gt;
+      &lt;td&gt;京都府&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+</div>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

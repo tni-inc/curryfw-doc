@@ -1,0 +1,820 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li class="selected"><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>ビュー</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">ビューの概念</a></li>
+                        <li><a href="#2">標準のビュークラス</a></li>
+                        <li><a href="#3">任意のテンプレートの指定</a></li>
+                        <li><a href="#6">エラーテンプレート</a></li>
+                        <li><a href="#4">レイアウト</a></li>
+                        <li><a href="#5">Smartyの利用</a></li>
+                        <li><a href="#7">スタイルシート・Javascript</a></li>
+                        <li><a href="#8">出力文字コードの指定（ver.1.4.7以降）</a></li>
+              </ul>
+
+	      <h3 id="1">ビューの概念</h3>
+    		<p class="exp">
+ビューはMVCの中でHTML出力の役割を受け持ちます。<br />
+MVCに限らず最近のPHP実装においては、ロジックとビューを分離させる手法が一般的です。従来のようにPHPからHTMLソースを直接出力するのではなく、HTMLテンプレートを使って処理のメインロジックではHTMLを一切意識しないような構造にします。<br />
+<br />
+有名なテンプレートエンジンとしてSmartyがありますが、CurryではこのSmartyを利用したビュークラスを推奨しています。標準でもテンプレート形式の仕組みを持っていますが、Smartyとの連携が簡単に行えるように作られています。
+</p>
+				
+	      <h3 id="2">標準のビュークラス</h3>
+    		<p class="exp">
+まずはテンプレートファイルの取り扱いから見ていきます。テンプレートはapp/views/templatesの中にコントローラーと同名のディレクトリを作成し、その中にアクションと同名のテンプレートファイルを配置することで、リクエストのコントローラー・アクションに応じたテンプレートが自動的に出力される仕組みになっています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟controllers/
+            ∟cartcontroller.php
+        ∟views/
+            ∟templates/  ← テンプレート格納ディレクトリ
+                ∟cart/      ←コントローラーと同名ディレクトリ
+                    ∟products.php   ←アクションと同名テンプレートファイル
+</pre>
+</div></div>
+				<div class="file_name">
+app/controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/templates/cart/products.php
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;p&gt;Too hot!&lt;/p&gt;
+</pre>
+</div></div>
+				<p class="exp">
+上記のような状態で、<br />
+<br />
+http://www.xxxx.com/cart/products<br />
+<br />
+へアクセスすると以下のようにブラウザに表示される結果となります。
+</p>
+				<div class="sample_result">
+<pre>
+Too hot!
+</pre>
+</div>
+				<h4>コントローラーサブディレクトリへの対応</h4>
+<p class="exp">
+コントローラーにサブディレクトリを利用している場合、それに応じてビューテンプレートのディレクトリもコントローラーと同じ階層にする必要があります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟controllers/
+            ∟admin/
+                ∟product_controller.php
+            ∟cart_controller.php
+        ∟views/
+            ∟templates/
+                ∟admin/
+                    ∟product/
+                        ∟index.php
+                ∟cart/
+                    ∟products.php
+
+</pre>
+</div></div>
+				<p class="exp">
+この例では、controllers/admin/product_controller.phpが存在するため、それに対応するビューディレクトリはviews/templates/admin/product/になります。
+</p>
+				<h4>変数の割り当て</h4>
+<p class="exp">
+テンプレートに変数を持たせ、コントローラーからテンプレートの変数へ値を割り当てる例です。
+</p>
+				<div class="file_name">
+app/controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $this-&gt;view-&gt;message = <span class="reteral">'Too hot!'</span>;
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/templates/cart/products.php
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;p&gt;&lt;?php echo $message; ?&gt;&lt;/p&gt;
+</pre>
+</div></div>
+				<p class="exp">
+コントローラーはビュークラスのインスタンスを保持しています。単純に$this->viewで利用可能です。このビュークラスのインスタンスに対して適当な名前のフィールドに直接値をセットすると、テンプレートで同名の変数に値が割り当てられ、echo等によってその値が出力できます。
+</p>
+				<div class="sample_result">
+<pre>
+Too hot!
+</pre>
+</div>
+				<h4>配列の利用</h4>
+<p class="exp">
+テンプレート変数に配列を割り当てると、テンプレート側で制御構造を利用して例えば表の行を動的に出力することなどが可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $products = array(
+            <span class="reteral">'magazine'</span>   =&gt; array(<span class="reteral">'price'</span> =&gt; 200, <span class="reteral">'num'</span> =&gt; 1),
+            <span class="reteral">'dictionary'</span> =&gt; array(<span class="reteral">'price'</span> =&gt; 1800, <span class="reteral">'num'</span> =&gt; 1),
+            <span class="reteral">'comic'</span>      =&gt; array(<span class="reteral">'price'</span> =&gt; 300, <span class="reteral">'num'</span> =&gt; 3)
+        );
+        $this-&gt;view-&gt;products = $products;
+    }
+}
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+&lt;table border=1&gt;
+  &lt;tr&gt;&lt;th&gt;商品&lt;/th&gt;&lt;th&gt;価格&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;/tr&gt;
+&lt;?php foreach ($products as $name =&gt; $product) { ?&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;?php echo $name; ?&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $product['price']; ?&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $product['num']; ?&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;?php } ?&gt;
+&lt;/table&gt;
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+&lt;table border=1&gt;
+  &lt;tr&gt;&lt;th&gt;商品&lt;/th&gt;&lt;th&gt;価格&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;magazine&lt;/td&gt;
+    &lt;td&gt;200&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;dictionary&lt;/td&gt;
+    &lt;td&gt;1800&lt;/td&gt;
+    &lt;td&gt;1&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;comic&lt;/td&gt;
+    &lt;td&gt;300&lt;/td&gt;
+    &lt;td&gt;3&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+</div>
+				
+	      <h3 id="3">任意のテンプレートの指定</h3>
+    		<p class="exp">
+デフォルトではリクエストのコントローラーとアクションに応じて自動的にテンプレートが決まりますが、任意に指定したい場合もあるでしょう。<br />
+ビュークラスには使用するテンプレートを任意に指定できるメソッドが用意されています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟controllers/
+            ∟cartcontroller.php
+        ∟views/
+            ∟templates/
+                ∟cart/
+                     ∟index.php
+
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $this-&gt;view-&gt;message = <span class="reteral">'Too hot!'</span>;
+        $this-&gt;view-&gt;setTemplate(<span class="reteral">'index'</span>);
+    }
+}
+
+</pre>
+</div></div>
+				<p class="exp">
+アクションは"products"ですが、テンプレートは"index.php"を使って出力したい場合はこのようになります。<br />
+基本的にテンプレートのパスはコントローラーとアクションの組み合わせなので、setTemplateの引数は下記のようにコントローラーとアクションで指定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$this-&gt;view-&gt;setTemplate(アクション名[, コントローラー名]):
+</pre>
+</div></div>
+				<p class="exp">
+第2引数がコントローラー名ですが、これは省略可能で、省略した場合は同じコントローラー内の、第1引数で指定したアクションのテンプレートということになります。別のコントローラーのテンプレートを利用したい場合は第2引数でし指定します。別のコントローラーとは言っても、テンプレートのディレクトリ内にその名前のディレクトリがあればよいだけで、それに対応するコントローラークラスが存在しなければならないわけではありません。setTemplateで指定するのはあくまで単純にテンプレートファイル名、ディレクトリ名ということです。
+</p>
+				
+	      <h3 id="6">エラーテンプレート</h3>
+    		<h4>例外テンプレート</h4>
+<p class="exp">
+何らかの例外発生時、既定のエラー表示用テンプレートが表示されます。デフォルトではtemplates/error/error.phpがエラーテンプレートです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟views/
+            ∟templates/
+                ∟error/
+                     ∟error.php   ← エラー表示用テンプレート
+                     ∟not_found.php
+</pre>
+</div></div>
+				<p class="exp">
+既定のエラーテンプレートが存在しないと更に例外が発生しますので、エラーテンプレートは必ず配置してください。<br />
+<br />
+エラーテンプレートには例外情報をもとにしたいくつかの変数がデフォルトで割り当てられます。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>変数名</th><th>内容</th></tr>
+<tr>
+<td class="title">file</td>
+<td>例外が発生したPHPファイルのパス</td>
+</tr>
+<tr>
+<td class="title">line</td>
+<td>PHPファイルの例外発生行番号</td>
+</tr>
+<tr>
+<td class="title">message</td>
+<td>例外メッセージ</td>
+</tr>
+<tr>
+<td class="title">trace</td>
+<td>例外のトレース情報</td>
+</tr>
+</table>
+</p>
+				<p class="exp">
+これらの情報はサイト閲覧者に見せるべきものではありません。サイト運用時はエラーテンプレートにはお決まりのエラーメッセージ、例えば「システムエラーが発生しました」等を出力するだけの固定の内容にするのがよいでしょう。<br />
+開発中のデバッグなどには出力された例外情報が見えるようにすると便利です。
+</p>
+				<h4>NotFoundテンプレート</h4>
+<p class="exp">
+URLをもとにしたコントローラー・アクションのルーティングが失敗した場合、error/not_found.phpが出力されます。<br />
+デフォルトでは「Not Found」という文字が表示されるだけのものですので、カスタマイズしたい場合はこのテンプレートを直接編集すれば可能です。
+</p>
+				
+	      <h3 id="4">レイアウト</h3>
+    		<p class="exp">
+大抵のWebサイトでは、サイトの基本となるデザインやヘッダ、メニューなど、サイト全体で共通となる部分が存在します。全てのページのテンプレートで共通部分をいちいち書いていては、共通部分に何か変更があったときに全てのテンプレートを修正しなければなりません。<br />
+Curryのビューでは共通部分を抜き出して別テンプレートとし、これを共通の枠組みとして利用するレイアウトの仕組みが利用できます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/curryfw/htdocs/css/layout.css&quot; /&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/curryfw/htdocs/js/common.js&quot;&gt;&lt;/script&gt;
+&lt;title&gt;通販サイト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;frame&quot;&gt;
+  &lt;div id=&quot;header&quot;&gt;
+    &lt;!-- ヘッダソース --&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;side_menu&quot;&gt;
+    &lt;!-- サイドメニュー --&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;main&quot;&gt;
+    &lt;!-- メインコンテンツ↓ --&gt;
+    &lt;h1&gt;カート&lt;/h1&gt;
+    &lt;table&gt;
+      &lt;tr&gt;&lt;th&gt;商品名&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;th&gt;価格&lt;/th&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Spices&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;900&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Meets&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;800&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Vegetables&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;500&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;Total&lt;/td&gt;&lt;td&gt;2,200&lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;!-- メインコンテンツ↑ --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+</div></div>
+				<p class="exp">
+たとえばこのHTMLでは「メインコンテンツ」の部分が各ページごとに異なる内容の部分です。そのほかの部分はサイト共通の部分なので共通化が出来ると考えられます。なのでこのHTMLを共通部分とメインコンテンツ部分に分けてみます。
+</p>
+				<div class="file_name">
+views/layouts/default.php
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/curryfw/htdocs/css/layout.css&quot; /&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/curryfw/htdocs/js/common.js&quot;&gt;&lt;/script&gt;
+&lt;title&gt;通販サイト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;frame&quot;&gt;
+  &lt;div id=&quot;header&quot;&gt;
+    &lt;!-- ヘッダソース --&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;side_menu&quot;&gt;
+    &lt;!-- サイドメニュー --&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;main&quot;&gt;
+    &lt;!-- メインコンテンツ↓ --&gt;
+    &lt;?php echo $inner_contents; ?&gt;
+    &lt;!-- メインコンテンツ↑ --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div></div>
+				<div class="file_name">
+views/templates/cart/index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+    &lt;table&gt;
+      &lt;tr&gt;&lt;th&gt;商品名&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;th&gt;価格&lt;/th&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Spices&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;900&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Meets&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;800&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Vegetables&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;500&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;Total&lt;/td&gt;&lt;td&gt;2,200&lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+</pre>
+</div></div>
+				<p class="exp">
+上が共通部分である「レイアウト」です。<br />
+レイアウトの中では、"$inner_contents"という変数にメインコンテンツのソースが割り当てられます。レイアウトの中で適当な位置にこれを出力するわけです。<br />
+<br />
+レイアウトは専用のディレクトリに配置します。配置先ディレクトリは、views/layoutsです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟controllers/
+            ∟cartcontroller.php
+        ∟views/
+            ∟layouts/          ← レイアウト格納ディレクトリ
+                ∟default.php
+            ∟templates/
+                ∟cart/
+                     ∟products.php
+</pre>
+</div></div>
+				<h4>任意のレイアウトの指定</h4>
+<p class="exp">
+レイアウトのファイル名は"default.php"がデフォルトになっており、何も指定しなければこの名前でlayoutsフォルダに配置するだけです。ただ、ページによって複数のレイアウトを使い分けたいと言う場合はあると思います。例えば通販サイトでユーザーのマイページのようなものがある場合、そこに関しては少し違ったレイアウトにしたいと思うかもしれません。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site/
+    ∟app/
+        ∟controllers/
+            ∟cartcontroller.php
+        ∟views/
+            ∟layouts/
+                ∟default.php
+                ∟my.php
+            ∟templates/
+                ∟cart/
+                     ∟products.php
+                ∟my/
+                     ∟index.php
+                     ∟history.php
+
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">MyController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+        $this-&gt;view-&gt;setLayout(<span class="reteral">'my'</span>);
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> history()
+    {
+
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+ビュークラスのsetLayoutメソッドでこれが実現できます。<br />
+レイアウトディレクトリに任意の名前でレイアウトのテンプレートを配置し、コントローラーでビューのsetLayoutを実行します。引数には使いたいレイアウトテンプレートのファイル名を拡張子なしで指定します。この例ではpreProcessで指定しているため、Myコントローラーの全アクションでこの設定が適用されることにります。もし、特定のアクションでのみ違うレイアウトを利用したい場合は、そのアクションメソッド内でsetLayoutします。
+</p>
+				<h4>レイアウトの無効化</h4>
+<p class="exp">
+レイアウトを無効にすることも可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">MyController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $this-&gt;view-&gt;enabledLayout(<span class="reserved">false</span>);
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> history()
+    {
+
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+例えばこの例ではMyControllerのindexアクション時のみレイアウトを無効化しています。<br />
+preProcessメソッドに記述すればMyController全体でレイアウトが無効になります。<br />
+サイト全体でレイアウトを一切使用したくない場合には、<a href="/manual/controller#13">Plugiｎ</a>の:preProcessに記述します。<br />
+もしくは、ViewAbstractクラスの静的メソッド、setDefaultLayoutEnabledでfalseを指定することにより、レイアウトの仕組みが一切無効になるので、このメソッドをindex.phpで実行します。
+</p>
+				<div class="file_name">
+index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="class">ViewAbstract</span>::setDefaultLayoutEnabled(<span class="reserved">false</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+またはcurry.iniでの初期設定でも対応可能です。
+</p>
+				<div class="file_name">
+curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[view]
+;--If you want to disable view layout, set this flag &quot;0&quot;.
+layout_enabled = 0
+</pre>
+</div></div>
+				
+	      <h3 id="5">Smartyの利用</h3>
+    		<p class="exp">
+CurryではビュークラスにSmartyを利用することを推奨しています。なぜなら標準のビュークラスの仕組みでは、テンプレートとは言えやはりPHPファイルであり、書こうと思えばPHPのロジックをいくらでも書けてしまいます。これはメリットも取れますが、ビューとロジックの分離の観点からは好ましくありません。<br />
+Smartyのテンプレートの変数はよりシンプルです。直接のPHPファイルではないし、ロジックも基本的には書けません。その意味ではより純粋なHTMLに近いといえます。
+</p>
+				<div class="file_name">
+app/views/templates/cart/products.tpl
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;p&gt;<span class="reteral">{$message}</span>&lt;/p&gt;
+
+</pre>
+</div></div>
+				<p class="exp">
+Smartyの場合、変数記述はこのように単純です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;商品&lt;/th&gt;&lt;th&gt;価格&lt;/th&gt;&lt;th&gt;数量&lt;/th&gt;&lt;/tr&gt;
+<span class="reteral">{foreach from=$products item=product}</span>
+  &lt;tr&gt;
+    &lt;td&gt;<span class="reteral">{$product.name}</span>&lt;/td&gt;
+    &lt;td&gt;<span class="reteral">{$product.price}</span>&lt;/td&gt;
+    &lt;td&gt;<span class="reteral">{$product.num}</span>&lt;/td&gt;
+  &lt;/tr&gt;
+<span class="reteral">{/foreach}</span>
+&lt;/table&gt;
+</pre>
+</div></div>
+				<p class="exp">
+配列の出力でもこのように分かりやすい記述になります。
+</p>
+				<h4>Smartyとの連携設定</h4>
+<p class="exp">
+CurryではSmartyとの連携が非常に簡単に行えます。<br />
+まずはSmartyをダウンロードする必要があります。<a href="http://www.smarty.net/download" target="_blank">Smartyのダウンロードサイト</a>からダウンロードしてください。<br />
+<br />
+ダウンロードしたものを展開して出来た「Smarty-x.x.x」ディレクトリを「Smarty」という名前にリネームし、任意のディレクトリに置きます。例ではCurryのフレームワークディレクトリ直下に置いています。<br />
+（※バージョン1.3.0以降はパッケージに同梱しています。）
+</p>
+				<div class="sample_code"><div>
+<pre>
+curry
+    ∟db/
+    ∟exception/
+            ・
+            ・
+            ・
+    ∟Smarty/
+</pre>
+</div></div>
+				<p class="exp">
+次に、Smartyと連携するためにcurry.iniで設定、またはInitializerで設定を行います。
+</p>
+				<div class="file_name">
+configs/curry.ini
+</div>
+<div class="sample_code"><div>
+<pre>
+[view]
+;--If you want to specify view class, set this.
+class_name = &quot;ViewSmarty&quot;
+</pre>
+</div></div>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        $this-&gt;dispatcher-&gt;setViewClass(<span class="reteral">'ViewSmarty'</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+設定はこれだけです。<br />
+<br />
+あと、Smartyは処理高速化のために、キャッシュやコンパイルという仕組みが存在します。サイトへのアクセス時、Smartyはテンプレートを一旦、PHPで解釈しやすい形に変えた物を特定ディレクトリに保管します。これがコンパイルです。更に変数を値に置き換え、完全に静的なHTMLになった状態のものを保管します。これがキャッシュです。Smartyのデフォルトではコンパイルは有効、キャッシュは無効になっています。<br />
+<br />
+このキャッシュやコンパイルの保管先ディレクトリが必要になりますが、Curryではそれぞれviewsの中のcompileとcacheというディレクトリに出力するように設定されているので、これらを用意しておく必要があります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+        ∟views/
+            ∟cache/       ← Smartyテンプレートキャッシュディレクトリ
+            ∟compile/     ← Smartyテンプレートコンパイルディレクトリ
+            ∟layouts/
+                ∟default.tpl
+                ∟my.tpl
+            ∟templates/
+                ∟cart/
+                     ∟products.tpl
+                ∟my/
+                     ∟index.tpl
+                     ∟history.tpl
+
+
+</pre>
+</div></div>
+				<p class="exp">
+views以下のディレクトリ構成はこんな感じになります。<br />
+compileやcacheはシステムから書き込みが行われるのでそれが可能なようにパーミッションを設定しておく必要があります。777にしておけば間違いがないでしょう。
+</p>
+				<h4>Smarty利用の場合の違い</h4>
+<p class="exp">
+Smartyを利用する場合、基本的にはテンプレートの拡張子は"tpl"になります。<br />
+また当然テンプレートの書き方は変わります。Smartyに関しては<a href="http://www.smarty.net/docsv2/ja/index.tpl" target="_blank">本家のマニュアル</a>他、解説サイトが多数存在するのでそちらを参照してください。<br />
+<br />
+それ以外の違いは一切ありません。標準のビュークラスはViewStandardというクラスで、Smarty連携の場合はViewSmartyというクラスです。これらのクラスは共通の抽象クラス、ViewAbstractを継承しているため、基本的に利用できるメソッドやメソッドの働きも同じになるように設計されています。なので、Smarty連携だからといって何も意識する必要はなく、例えば既にViewStandardクラスで運用中のサイトのビューをViewSmartyに変えることも簡単にできます。
+</p>
+				
+	      <h3 id="7">スタイルシート・Javascript</h3>
+    		<h4>スタイルシート</h4>
+<p class="exp">
+スタイルシートは基本的に外部スタイルシートとしてファイルを作成し、既定のディレクトリに配置したうえでテンプレートに読み込みのタグを記述します。レイアウト利用時はレイアウトのテンプレートにこれを記述することになるでしょう。サイト全体の共通のスタイルシートなら問題ありませんが、ページごとに違うものを読み込みたい場合はレイアウト利用時は対応が難しくなります。<br />
+<br />
+そこでCurryではコントローラー名.cssという名前でcssファイルを既定のcssディレクトリに配置すれば、そのコントローラーのリクエスト時に自動的に読み込まれる仕組みを取っています。<br />
+Curryのパッケージに付属されているサンプルディレクトリ構成に、デフォルトのビューレイアウトファイルが存在します。そのヘッダ部分に以下のような箇所があります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+&lt;?php foreach ($stylesheets as $css) { ?&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&lt;?php echo $request['base_path']; ?&gt;/css/&lt;?php echo $css; ?&gt;&quot; /&gt;
+&lt;?php } ?&gt;
+</pre>
+</div></div>
+				<p class="exp">
+$stylesheetsという変数には配列でcssファイル名が格納されています。<br />
+この配列には、common.cssが存在する場合はcommon.cssが格納されています。<br />
+更に(リクエストのコントローラー名).cssの名前のファイルが存在する場合はそれも格納されています。<br />
+つまり、common.cssと(コントローラー名).cssの２つのCSSファイルについては、htdocs/cssに配置するだけで読み込まれて適用されるわけです。
+</p>
+				<h4>Javascript</h4>
+<p class="exp">
+Javascriptもスタイルシートと全く同じ考え方です。<br />
+common.jsと(コントローラー名).jsが存在すれば読み込まれる仕組みです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+&lt;?php foreach ($javascripts as $js) { ?&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;?php echo $request['base_path']; ?&gt;/js/&lt;?php echo $js; ?&gt;&quot;&gt;&lt;/script&gt;
+&lt;?php } ?&gt;
+</pre>
+</div></div>
+				<h4>任意のcss、jsの読み込み</h4>
+<p class="exp">
+"common"やコントローラー名でcssやjsファイルを配置すると自動的に読み込まれるのは前述のとおりですが、ユーザーが任意のcssやjsを読み込みたい場合ですが、<br />
+ひとつの方法として、レイアウトに直接記述する方法が考えられます。しかしレイアウト自体がサイト共通の仕組みなので、レイアウトに記述してしまうとサイト全体に対して適用されてしまうことになり、ある特定のページだけで読み込みたいスタイルシートなどには対応できません。<br />
+<br />
+これを実現するにはビュークラスのaddCssメソッドやaddJsメソッドを利用します。<br />
+ViewStandardやViewSmartyクラスに存在するaddCssやaddJsは、引数にファイル名を指定することで、上記で説明しているテンプレート変数、$stylesheetsや$javascriptsという配列変数に任意のファイル名を追加することができます。
+</p>
+				<div class="file_name">
+controllers/cart_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+        <span class="comment">// 任意のstylesheet、javascriptを追加読み込み
+</span>        $this-&gt;view-&gt;addJs(<span class="reteral">'thickbox.js'</span>);
+        $this-&gt;view-&gt;addCss(<span class="reteral">'thickbox.css'</span>);
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> products()
+    {
+        $this-&gt;view-&gt;message = <span class="reteral">'Too hot!'</span>;
+        $this-&gt;view-&gt;setTemplate(<span class="reteral">'index'</span>);
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+テンプレート出力結果
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/common.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/cart.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/thickbox.css&quot; /&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/common.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/cart.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/thickbox.js&quot;&gt;&lt;/script&gt;
+&lt;title&gt;通販サイト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+                  ・
+                  ・
+                  ・
+</pre>
+</div></div>
+				<p class="exp">
+この例ではpreProcessでaddJsやaddCssを実行しているため、cartコントローラーへのリクエストは全てに対して有効になりますが、アクションメソッドの中で実行すれば、特定のアクションでのみ適用することが可能です。
+</p>
+				
+	      <h3 id="8">出力文字コードの指定（ver.1.4.7以降）</h3>
+    		<p class="exp">
+通常、レスポンスとして出力するHTMLの文字コードはテンプレートファイルの文字コードで決まり、それに合わせてHTMLヘッダで文字コードを宣言します。しかし、様々なクライアント環境に対応するため、ユーザーエージェントなどによって出力の文字コードを切り分けたい場合があるかもしれません。<br />
+このような場合、ビュークラスのsetOutputEncodingメソッドによって文字コードを指定することで対応が可能です。<br />
+<br />
+注意が必要なのは、php.iniでdefault_charsetが設定されているとHTMLヘッダの文字コード宣言が無視されることです。<br />
+基本的にはphp.iniのdefault_charsetはコメントアウトして指定しないことをおすすめします。<br />
+<br />
+以下にユーザーエージェントにより、文字コードを切り分ける例を示します。
+</p>
+				<div class="file_name">
+app/controllers/plugin.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Plugin</span> <span class="reserved">extends</span> <span class="class">PluginAbstract</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+        $ua = $this-&gt;request-&gt;getServer(<span class="reteral">'HTTP_USER_AGENT'</span>);
+        <span class="reserved">if</span> (preg_match(<span class="reteral">'/example/'</span>, $ua)) {
+            $this-&gt;view-&gt;header_encoding = <span class="reteral">'euc-jp'</span>;
+            $this-&gt;view-&gt;setOutputEncoding(<span class="reteral">'EUC-JP'</span>);
+        }        
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/layoutd/default.php
+</div>
+<div class="sample_code"><div>
+<pre>
+　　　　　・
+　　　　　・
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=&lt;?php echo $header_encoding; ?&gt;&quot;&gt;
+　　　　　・
+　　　　　・
+</pre>
+</div></div>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

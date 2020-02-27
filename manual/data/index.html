@@ -1,0 +1,1116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li class="selected"><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>データアクセス</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">データベース接続オブジェクト</a></li>
+                        <li><a href="#2">SQLを直接実行</a></li>
+                        <li><a href="#3">Modelクラスの利用</a></li>
+                        <li><a href="#4">SELECT文の構築</a></li>
+                        <li><a href="#5">SELECT文の実行</a></li>
+                        <li><a href="#6">テーブル結合</a></li>
+                        <li><a href="#7">INSERTの実行</a></li>
+                        <li><a href="#8">UPDATEの実行</a></li>
+                        <li><a href="#9">DELETEの実行</a></li>
+                        <li><a href="#10">サブクエリの利用</a></li>
+                        <li><a href="#11">キー項目指定でクエリ結果を取得する</a></li>
+              </ul>
+
+	      <h3 id="1">データベース接続オブジェクト</h3>
+    		<p class="exp">
+Curryのデータベースアクセスの最も核となるのがDbクラスです。基本的な役目としてはデータベースとの接続を確立し、接続オブジェクトを返すだけです。<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+$dbconf = array(
+    <span class="reteral">'type'</span>     =&gt; <span class="reteral">'mysql'</span>
+    <span class="reteral">'host'</span>     =&gt; <span class="reteral">'localhost'</span>,
+    <span class="reteral">'dbname'</span>   =&gt; <span class="reteral">'ec'</span>,
+    <span class="reteral">'user'</span>     =&gt; <span class="reteral">'ec_user'</span>,
+    <span class="reteral">'password'</span> =&gt; <span class="reteral">'xxxxxxxx'</span> 
+);
+<span class="class">Db</span>::setConfig($dbconf);
+$db = <span class="class">Db</span>::factory();
+
+var_dump($db);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+object(DbAdapterMysql)#1 (0) { } 
+</pre>
+</div>
+				<h4>接続情報の設定</h4>
+<p class="exp">
+Dbクラスは実はPDOを内包するラッパー的なクラスです。得られる接続オブジェクトはPDOを継承したクラスのインスタンスになります。上のとおり、Dbクラスを利用する上で必ず必要なのは、setConfigメソッドです。これにより、接続するデータベースの情報をDbクラスに伝えます。<br />
+<br />
+setConfigメソッドの引数はハッシュです。受け付けるキーとその内容は以下の通りです。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr><th>キー</th><th>内容</th><th>備考</th></tr>
+<tr>
+<td class="title">type</td>
+<td>データベース種別</td>
+<td>必須指定。"mysql"、"pgsql"、"sqlite"のいずれか</td>
+</tr>
+<tr>
+<td class="title">host</td>
+<td>データベースサーバーのＩＰまたはホスト名</td>
+<td>mysql、pgsqlの場合は必須指定。"localhost"など。</td>
+</tr>
+<tr>
+<td class="title">dbname</td>
+<td>データベース名</td>
+<td>mysql、pgsqlの場合は必須指定</td>
+</tr>
+<tr>
+<td class="title">user</td>
+<td>データベースのログインユーザー名</td>
+<td>mysql、pgsqlの場合は必須指定</td>
+</tr>
+<tr>
+<td class="title">password</td>
+<td>データベースのログインパスワード</td>
+<td>mysql、pgsqlの場合は必須指定</td>
+</tr>
+<tr>
+<td class="title">port</td>
+<td>データベースサーバーの接続ポート</td>
+<td>指定は任意。mysqlの場合デフォルト3306。pgsqlの場合デフォルト5432。</td>
+</tr>
+<tr>
+<td class="title">charset</td>
+<td>データベース文字コード</td>
+<td>指定は任意。未指定の場合のデフォルトはutf8。EUC-JPの場合は"ujis"、SHIFT-JISの場合は"sjis"</td>
+</tr>
+<tr>
+<td class="title">source_directory</td>
+<td>SQLiteデータディレクトリ</td>
+<td>sqliteの場合のみ指定可能で、指定は任意。未指定の場合のデフォルトは"site/data/sqlite"</td>
+</tr>
+<tr>
+<td class="title">source_file</td>
+<td>SQLiteデータファイル名</td>
+<td>sqliteの場合のみ指定可能で、指定は任意。未指定の場合のデフォルトは"data.sqlite"</td>
+</tr>
+</table>
+</p>
+				<h4>MySQL、PostgreSQL</h4>
+<p class="exp">
+接続情報の最も基本的な設定方法はdatabase.iniでの設定です。<br />
+以下はMySQLの場合の設定例です。PostgreSQLの場合はほぼ同様です。
+</p>
+				<div class="file_name">
+mysqlの場合のdatabase.ini設定例
+</div>
+<div class="sample_code"><div>
+<pre>
+[connection]
+type     = mysql
+host     = localhost
+dbname   = ec
+user     = ec_user
+password = xxxxxxxx
+</pre>
+</div></div>
+				<h4>SQLite</h4>
+<p class="exp">
+SQLiteは単一ファイルのみでデータベースが利用できる、アプリケーション型のRDBMSで、MySQLなどと比べてはるかに手軽に利用できるのが特徴です。<br />
+<br />
+SQLiteはdatabase.iniでtype=sqliteを指定するだけで利用可能です。<br />
+デフォルトでは(サイトルート)/data/sqlite/内にデータファイルを作成します。<br />
+dataディレクトリが存在する前提となっていますので、dataディレクトリが存在しない場合は作成しておく必要があります。<br />
+デフォルトの挙動ではdataディレクトリ内にsqliteディレクトリを作成し、その中にdata.sqliteという名前でデータファイルの作成を試みます。そのためdataディレクトリにはシステムからの書き込みが可能なようにパーミッション設定が必要になります。<br />
+<br />
+またdatabase.iniでデータ格納ディレクトリやデータファイル名を任意に指定することも可能です。
+</p>
+				<div class="file_name">
+SQLiteの場合の設定例
+</div>
+<div class="sample_code"><div>
+<pre>
+[connection]
+type = sqlite
+
+;通常は指定不要
+;source_directory = &quot;/var/www/public_html/site/data/sqlite&quot;
+;source_file = &quot;data.sqlite&quot;
+</pre>
+</div></div>
+				<div class="file_name">
+SQLite利用時の標準の関連ファイル構成
+</div>
+<div class="sample_code"><div>
+<pre>
+(site)
+    ∟config
+        ∟database.ini
+    ∟data
+        ∟sqlite
+             ∟data.sqlite
+</pre>
+</div></div>
+				<h4>シングルトンコネクション</h4>
+<p class="exp">
+モデルの章でも触れていますが、factoryメソッドを実行すると、そのたびに新たなデータベースコネクションが作られ、得られるインスタンスも個別のものになります。<br />
+DbクラスにはsetIsSingletonというメソッドが用意されており、この引数にtrueを指定することで、factoryメソッドによって得られるインスタンスは常に同一のものとなります。つまり、データベース接続が行われるのは最初の一回だけになります。<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+$db1 = <span class="class">Db</span>::factory();
+$db2 = <span class="class">Db</span>::factory();
+var_dump($db1 === $db2);
+
+<span class="class">Db</span>::setIsSingleton(<span class="reserved">true</span>);
+$db1 = <span class="class">Db</span>::factory();
+$db2 = <span class="class">Db</span>::factory();
+var_dump($db1 === $db2);
+</pre>
+</div></div>
+				<div class="sample_result">
+<pre>
+bool(<span class="reserved">false</span>)
+bool(<span class="reserved">true</span>)
+</pre>
+</div>
+				<p class="exp">
+これにより、トランザクション処理の管理がしやすくなる上、データベースサーバーへの負担の軽減にも貢献します。
+</p>
+				
+	      <h3 id="2">SQLを直接実行</h3>
+    		<p class="exp">
+Dbクラスのfactoryメソッドで得られるのはPDOインスタンスのため、PDOで出来ることは全てそのまま同じ事ができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$db = <span class="class">Db</span>::factory();
+$stmt = $db-&gt;query(&quot;SELECT * FROM cart&quot;);
+$rows = $stmt-&gt;fetchAll();
+</pre>
+</div></div>
+				<p class="exp">
+queryメソッドなどにより、生のSQL文の実行が可能です。<br />
+PDOの機能についてはPDOのマニュアルサイトの方を参照してください。
+</p>
+				<h4>SQLインジェクションに適切に対策する</h4>
+<p class="exp">
+入力フォームなどからユーザーの入力値がそのままテーブルのフィールドに保存されるような場合、一般的にデータのサニタイジングが行われます。これは、悪意を持ったユーザーがSQL構文を悪用し、データの改ざんなどを防ぐために適切にエスケープ処理などを施すものです。<br />
+<br />
+しかしPDOにはプレースホルダの仕組みが備わっており、これを利用して条件指定などをパラメータ化することで、サニタイジングなど意識せずに安全にSQLが実行できます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 危険
+</span>$stmt = $db-&gt;query(&quot;SELECT * FROM products WHERE product_name = <span class="reteral">'&quot; . $word . &quot;'</span>&quot;);
+$rows = $stmt-&gt;fetchAll();
+
+<span class="comment">// プレースホルダ機構を利用して条件指定をパラメータ化
+</span>$stmt = $db-&gt;prepare(&quot;SELECT * FROM products WHERE product_name = :product_name&quot;);
+$stmt-&gt;bindValue(<span class="reteral">':product_name'</span>, $word);
+$stmt-&gt;execute();
+$rows = $stmt-&gt;fetchAll();
+</pre>
+</div></div>
+				
+	      <h3 id="3">Modelクラスの利用</h3>
+    		<p class="exp">
+CurryのModelクラスはテーブルアクセスをサポートしてくれます。<br />
+最も有効な利用方法は、Modelクラスを継承したサブクラスを定義することです。Modelクラスを継承すると、参照するテーブルの名前をクラス名から判断してくれます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartProduct</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="comment">// テーブル&quot;cart_product&quot;と関連付けられる
+</span>}
+</pre>
+</div></div>
+				<p class="exp">
+クラス名に、テーブル名との関連の名前規則を適用したくない場合もあるでしょう。その場合はフィールドでテーブル名を指定することで可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartProduct</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">protected</span> $name = <span class="reteral">'tbl_cart_product'</span>;
+}
+</pre>
+</div></div>
+				<p class="exp">
+ModelクラスはコンストラクタでDb::factoryメソッドを実行し、接続インスタンスをフィールドに保持します。Modelクラスを利用する際は接続インスタンスの事は意識せずに処理を行うことができます。<br />
+しかしこのため、複数のModelのサブクラスを利用する場合、それぞれに別々の接続インスタンスを保持することになります。そうすると複数のテーブルを絡めたトランザクション処理が出来なくなるため、基本的にはModel利用時は事前にModel::setDefaultConnectionメソッドによってデフォルトの接続を設定しておくか、Db::setIsSingleton(true);を実行しておくことをお勧めします。<br />
+
+</p>
+				<h4>Modelクラスの直接利用</h4>
+<p class="exp">
+Modelクラスのもう一つの利用方法があります。<br />
+それは、継承をせずにModelクラスを直接利用することです。<br />
+Modelクラスのコンストラクタの第1引数にはテーブル名を指定することができます。これにより、継承したのと同じ事ができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartProduct</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+}
+
+<span class="comment">// この二つはまったく同じ意味
+</span>$cartProduct1 = <span class="reserved">new</span> <span class="class">CartProduct</span>();
+$cartProduct2 = <span class="reserved">new</span> <span class="class">Model</span>(<span class="reteral">'cart_product'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+ちなみに第2引数には接続インスタンスが指定できます。この場合、コンストラクタで新たに接続インスタンスの生成は行わずに、引数で受け取った接続で処理を行わせることが出来ます。
+</p>
+				
+	      <h3 id="4">SELECT文の構築</h3>
+    		<p class="exp">
+Modelクラスの持つselectメソッドはDbSelectクラスのインスタンスを返します。<br />
+DbSelectクラスは、SELECT文の生成～実行を行うクラスです。まずは単純なSELECTの例を見てみましょう。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Product</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> searchProduct($word)
+    {
+        <span class="comment">// SELECT * FROM product WHERE (product_name = :product_name)
+</span>        $sel = $this-&gt;select();
+        $sel-&gt;where(<span class="reteral">'product_name'</span>, $word);
+        $rows = $sel-&gt;fetchAll();
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+単純な条件による抽出のクエリです。<br />
+DbSelectのwhereメソッドによる条件指定は全て内部でプレースホルダ化されますので、SQLインジェクション対策は意識をする必要がありません。
+</p>
+				<h4>WHERE条件の指定方法</h4>
+<p class="exp">
+上の例では第1引数にフィールド名、第2引数に値を指定しています。続けて複数のwhereメソッドを指定すると、条件は追加されていきます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// SELECT * FROM product WHERE (product_name = :product_name) AND (price = :price)
+</span>$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'product_name'</span>, $word);
+$sel-&gt;where(<span class="reteral">'price'</span>, 1000);
+</pre>
+</div></div>
+				<p class="exp">
+whereメソッドの指定方法は他にもあります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$sel = $this-&gt;select();
+$sel-&gt;where(array(
+    <span class="reteral">'product_name'</span> =&gt; $word,
+    <span class="reteral">'price'</span> =&gt; 1000
+));
+</pre>
+</div></div>
+				<p class="exp">
+ハッシュにより、複数条件を一度に指定する方法です。<br />
+<br />
+WHERE条件文を直接指定することもできます。上のような例では対応できないような複雑なWHERE条件の場合はこの指定方法になるでしょう。<br />
+この場合でプレースホルダを利用するには、後からparamsメソッドでパラメータを指定します。<br />
+直接、フォームよりの入力値をそのまま条件文に文字列結合により埋め込むのはSQLインジェクションに対して脆弱になるため、避けるべきです。<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'product_name = :product_name AND price = :price'</span>);
+$sel-&gt;params(array(
+    <span class="reteral">'product_name'</span> =&gt; $word,
+    <span class="reteral">'price'</span> =&gt; 1000
+));
+</pre>
+</div></div>
+				<p class="exp">
+whereメソッドによって複数条件を指定した場合、各条件はANDで接続されます。それに対してORで条件をつなぎたい場合はorWhereメソッドによって条件指定します。条件指定が１つだけの場合、whereもorWhereも同じ働きをしますが、2つ目以降の条件にorWhereを使用すると、その条件はORで接続されます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'product_name'</span>, $word1);
+$sel-&gt;orWhere(<span class="reteral">'product_name'</span>, $word2);
+
+<span class="comment">// WHERE (product_name = :product_name1) OR (product_name = :product_name2)
+</span>
+</pre>
+</div></div>
+				<p class="exp">
+それではANDとORの複合条件はどのようにするかですが、whereとorWhereは無造作に混用してもANDとORが入り混じるだけで条件指定がうまくいきませんので以下のようにします。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'product_name = :product_name1 OR product_name = :product_name2'</span>);
+$sel-&gt;where(<span class="reteral">'price &lt; 1000'</span>);
+
+<span class="comment">// WHERE (product_name = :product_name1 OR product_name = :product_name2) AND (price &lt; 100)
+</span>
+</pre>
+</div></div>
+				<h4>抽出対象フィールドの指定</h4>
+<p class="exp">
+抽出対象フィールドはfieldsメソッドで指定します。<br />
+指定方法は3種類あります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 以下の3パターンはいずれも同じ結果です。
+</span><span class="comment">// SELECT product_name,price FROM product
+</span>
+<span class="comment">// SELECT句をそのまま指定
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields(<span class="reteral">'product_name, price'</span>);
+
+<span class="comment">// 1フィールドずつ指定
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields(<span class="reteral">'product_name'</span>);
+$sel-&gt;fields(<span class="reteral">'price'</span>);
+
+<span class="comment">// 配列で指定
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields(array(<span class="reteral">'product_name'</span>, <span class="reteral">'price'</span>));
+</pre>
+</div></div>
+				<p class="exp">
+フィールドの指定をしなかった場合には"*"になります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// SELECT * FROM product
+</span>
+$sel  = $this-&gt;select();
+$rows = $sel-&gt;fethAll();
+</pre>
+</div></div>
+				<h4>ORDER BY</h4>
+<p class="exp">
+ORDER BYはorderメソッドによって指定します。<br />
+指定方法はfieldsメソッドと同様に3種類あります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 以下の3パターンはいずれも同じ結果です。
+</span><span class="comment">// SELECT * FROM product ORDER BY product_name, price DESC
+</span>
+<span class="comment">// ORDER BY条件文をそのまま指定
+</span>$sel = $this-&gt;select();
+$sel-&gt;order(<span class="reteral">'product_name, price DESC'</span>);
+
+<span class="comment">// 1フィールドずつ指定
+</span>$sel = $this-&gt;select();
+$sel-&gt;order(<span class="reteral">'product_name'</span>);
+$sel-&gt;order(<span class="reteral">'price DESC'</span>);
+
+<span class="comment">// 配列で指定
+</span>$sel = $this-&gt;select();
+$sel-&gt;order(array(<span class="reteral">'product_name'</span>, <span class="reteral">'price DESC'</span>));
+</pre>
+</div></div>
+				<h4>GROUP BY</h4>
+<p class="exp">
+GROUP BYの指定はgroupメソッドで行います。<br />
+GROUP BYの指定方法もORDER BYとほぼ同様です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 以下の3パターンはいずれも同じ結果です。
+</span><span class="comment">// SELECT product_type, publisher, MAX(price) FROM product GROUP BY product_type, pulisher
+</span>
+$fields = array(<span class="reteral">'product_type'</span>, <span class="reteral">'pulisher'</span>, <span class="reteral">'MAX(price)'</span>);
+
+<span class="comment">// GROUP BY条件文をそのまま記述
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields($fields);
+$sel-&gt;group(<span class="reteral">'product_type, pulisher'</span>);
+
+<span class="comment">// 1フィールドずつ指定
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields($fields);
+$sel-&gt;group(<span class="reteral">'product_type'</span>);
+$sel-&gt;group(<span class="reteral">'pulisher'</span>);
+
+<span class="comment">// 配列で指定
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields($fields);
+$sel-&gt;group(array(<span class="reteral">'product_type'</span>, <span class="reteral">'pulisher'</span>));
+</pre>
+</div></div>
+				<h4>LIMIT、OFFSET</h4>
+<p class="exp">
+LIMITやOFFSETの指定はそれぞれlimitメソッド、offsetメソッドによって行います。<br />
+ただしOFFSETの指定はLIMITも指定されている必要があります。OFFSETのみ指定の場合には無視されます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// SELECT * FROM product ORDER BY price LIMIT 10 OFFSET 20
+</span>$sel = $this-&gt;select();
+$sel-&gt;order(<span class="reteral">'price'</span>);
+$sel-&gt;limit(10);
+$sel-&gt;offset(20)
+</pre>
+</div></div>
+				<h4>メソッドチェーンによる連続的な条件指定</h4>
+<p class="exp">
+SqlSelectクラスの条件指定メソッドは全てインスタンス自身を返します。つまり、メソッドチェーンが利用できます。単純な条件であれば1行で記述してしまうことも可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// SELECT * FROM product WHERE product_name = :product_name ORDER BY price 
+</span>$sel = $this-&gt;select()-&gt;where(<span class="reteral">'product_name'</span>, $word)-&gt;order(<span class="reteral">'price'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+コーディング的には複数行に分けてもいいでしょう。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// SELECT product_name FROM product WHERE product_name = :product_name
+</span><span class="comment">// ORDER BY price, product_name LIMIT 10 OFFSET 20
+</span>$sel = $this-&gt;select()
+    -&gt;fields(<span class="reteral">'product_name'</span>)
+    -&gt;where(<span class="reteral">'product_name'</span>, $word)
+    -&gt;order(<span class="reteral">'price'</span>)
+    -&gt;order(<span class="reteral">'product_name'</span>)
+    -&gt;limit(10)
+    -&gt;offset(20);
+</pre>
+</div></div>
+				
+	      <h3 id="5">SELECT文の実行</h3>
+    		<p class="exp">
+条件の指定後、実際にクエリを実行して結果を取得します。SqlSelectクラスには実行メソッドがいくつか用意されています。
+</p>
+				<h4>複数行の結果取得</h4>
+<p class="exp">
+条件に合致する複数行を得る場合はfetchAllメソッドを使用します。得られる結果は行×列の2次元配列になります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$sel = $this-&gt;select();
+$sel-&gt;order(<span class="reteral">'price'</span>);
+$sel-&gt;limit(10);
+<span class="comment">// 複数行の2次元配列を取得
+</span>$rows = $sel-&gt;fetchAll();
+</pre>
+</div></div>
+				<h4>単一行の結果取得</h4>
+<p class="exp">
+例えばテーブルのプライマリーキーのフィールドをWHERE条件で指定すれば、結果は必ず1行になるはずです。そのような場合、fetchAllで実行するよりも、最初から結果が1行のみ、つまり1次元配列である方が便利です。そのような場合はfetchRowを使用します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'product_id'</span>, $productId);
+<span class="comment">// 単一行の1次元配列を取得
+</span>$row = $sel-&gt;fetchRow();
+</pre>
+</div></div>
+				<h4>単一行の単一項目の値を取得</h4>
+<p class="exp">
+結果が配列ではなく、単純なスカラー値で取得したい場合があります。例えばキーフィールドで絞りこんだ上でその行の単一項目のみが欲しい場合などです。そのような場合にはfetchScalarを使用します。fetchScalarは取得したい値のフィールド名を引数に指定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'product_id'</span>, $productId);
+<span class="comment">// 単一行から指定項目の値のみを取得
+</span>$productName = $sel-&gt;fetchScalar(<span class="reteral">'product_name'</span>);
+</pre>
+</div></div>
+				<h4>行数をカウント</h4>
+<p class="exp">
+条件に合致する行の行数を取得するにはfetchCountメソッドを利用します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 条件に合致する行数を取得
+</span><span class="comment">// 以下の2パターンの処理は同じ結果です。
+</span>
+<span class="comment">// fetchCountメソッドを使用
+</span>$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'price &lt; 1000'</span>);
+$cnt = $sel-&gt;fetchCount();
+
+<span class="comment">// fetchScalarメソッドを使用
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields(<span class="reteral">'COUNT(*) AS cnt'</span>);
+$sel-&gt;where(<span class="reteral">'price &lt; 1000'</span>);
+$cnt = $sel-&gt;fetchScalar(<span class="reteral">'cnt'</span>);
+</pre>
+</div></div>
+				<h4>指定項目の最大値を取得</h4>
+<p class="exp">
+条件に合致する行の中の特定のフィールドの最大値を得るにはfetchMaxメソッドを利用します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 以下の2パターンの処理は同じ結果です。
+</span>
+<span class="comment">// fetchMaxメソッドを使用
+</span>$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'price &lt; 1000'</span>);
+$price = $sel-&gt;fetchMax(<span class="reteral">'price'</span>);
+
+<span class="comment">// fetchScalarメソッドを使用
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields(<span class="reteral">'MAX(price) AS price'</span>);
+$sel-&gt;where(<span class="reteral">'price &lt; 1000'</span>);
+$price = $sel-&gt;fetchScalar(<span class="reteral">'price'</span>);
+</pre>
+</div></div>
+				<h4>指定項目の最小値を取得</h4>
+<p class="exp">
+条件に合致する行の中の特定のフィールドの最小値を得るにはfetchMinメソッドを利用します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 以下の2パターンの処理は同じ結果です。
+</span>
+<span class="comment">// fetchMinメソッドを使用
+</span>$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'price &gt; 1000'</span>);
+$price= $sel-&gt;fetchMin(<span class="reteral">'price'</span>);
+
+<span class="comment">// fetchScalarメソッドを使用
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields(<span class="reteral">'MIN(price) AS price'</span>);
+$sel-&gt;where(<span class="reteral">'price &gt; 1000'</span>);
+$price = $sel-&gt;fetchScalar(<span class="reteral">'price'</span>);
+</pre>
+</div></div>
+				<h4>指定項目の合計値を取得</h4>
+<p class="exp">
+条件に合致する全ての行の特定フィールドの合計値を取得するにはfetchSumメソッドを利用します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">// 以下の2パターンの処理は同じ結果です。
+</span>
+<span class="comment">// fetchMinメソッドを使用
+</span>$sel = $this-&gt;select();
+$sel-&gt;where(<span class="reteral">'price &lt; 1000'</span>);
+$price = $sel-&gt;fetchSum(<span class="reteral">'price'</span>);
+
+<span class="comment">// fetchScalarメソッドを使用
+</span>$sel = $this-&gt;select();
+$sel-&gt;fields(<span class="reteral">'SUM(price) AS price'</span>);
+$sel-&gt;where(<span class="reteral">'price &lt; 1000'</span>);
+$price = $sel-&gt;fetchScalar(<span class="reteral">'price'</span>);
+</pre>
+</div></div>
+				
+	      <h3 id="6">テーブル結合</h3>
+    		<p class="exp">
+複数テーブルを結合するSELECT文を構築するにはjoinInnerメソッドやjoinLeftメソッドを利用します。<br />
+複数のテーブルを利用する処理の場合はサービスクラスを利用することをおすすめします。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartService</span> <span class="reserved">extends</span> <span class="class">Service</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> getProducts()
+    {
+        $cartPrd= $this-&gt;model(<span class="reteral">'CartProduct'</span>, <span class="reteral">'CP'</span>);
+        $prd = $this-&gt;model(<span class="reteral">'Product'</span>, <span class="reteral">'P'</span>);
+
+        <span class="comment">// SELECT PR.product_name, PR.price FROM cart_product AS CP
+</span>        <span class="comment">// INNER JOIN product AS PR ON PR.product_id = CP.product_id
+</span>        $sel = $cartPrd-&gt;select();
+        $sel-&gt;fields(array(
+            <span class="reteral">'P.product_name'</span>,
+            <span class="reteral">'P.price'</span>
+        ));
+        $sel-&gt;joinInner($prd, array(
+            <span class="reteral">'P.product_id = CP.product_id'</span>
+        ));
+        $rows = $sel-&gt;fetchAll();
+
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+join系のメソッドの第一引数に結合したいテーブルのモデルクラスのインスタンスを指定し、第二引数にON条件を指定します。<br />
+ON条件はそのままON句に書くべき条件文を書いてもいいですが、配列で複数条件を指定すると、自動的にANDで結合して条件文を組み立ててくれます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+    <span class="comment">// 以下の二つは同じ結果です。
+</span>
+        <span class="comment">// 配列で指定
+</span>        $on = array(
+            <span class="reteral">'P.product_id = CP.product_id'</span>,
+            <span class="reteral">'P.sales_flg = 1'</span>
+        ));
+   　   $sel-&gt;joinInner($prd, $on);
+
+        <span class="comment">// 条件文そのままを文字列で指定
+</span>        $on = <span class="reteral">'P.product_id = CP.product_id AND P.sales_flg = 1'</span>;
+   　   $sel-&gt;joinInner($prd, $on);
+</pre>
+</div></div>
+				<p class="exp">
+テーブル結合を行う場合、SQL文が冗長にならないように、テーブル名にエイリアス（別名）をつけることが出来ますが、コントローラーやサービスのmodelメソッドの第2引数で、テーブルエイリアスを設定することが出来ます。<br />
+第2引数は未指定でModelクラスのインスタンスを得た後、ModelクラスのインスタンスのsetAliasメソッドで設定しても同様です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+    <span class="comment">// 以下の2つのパターンは同じ結果です。
+</span>
+        <span class="comment">// modelメソッドの第2引数で指定
+</span>        $cartPrd = $this-&gt;model(<span class="reteral">'CartProduct'</span>, <span class="reteral">'CP'</span>);
+        $prd = $this-&gt;model(<span class="reteral">'Product'</span>, <span class="reteral">'P'</span>);
+
+        <span class="comment">// ModelのインスタンスのsetAliasメソッドで指定
+</span>        $cartPrd = $this-&gt;model(<span class="reteral">'CartProduct'</span>);
+        $cartPrd-&gt;setAlias(<span class="reteral">'CP'</span>);
+        $prd = $this-&gt;model(<span class="reteral">'Product'</span>);
+        $prd -&gt;setAlias(<span class="reteral">'P'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+ちなみにjoin系メソッドの第一引数はテーブル名を文字列で指定することも可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+    <span class="comment">// 以下の2つのパターンは同じ結果です。
+</span>
+        <span class="comment">// 結合対象テーブルをModelインスタンスで指定
+</span>        $cartPrd = $this-&gt;model(<span class="reteral">'CartProduct'</span>, <span class="reteral">'CP'</span>);
+        @@B$prd = $this-&gt;model(<span class="reteral">'Product'</span>, <span class="reteral">'P'</span>);@
+        $sel = $cartPrd -&gt;select();
+        $sel-&gt;joinInner(<span class="bold">$prd</span>, array(
+            <span class="reteral">'P.product_id = CP.product_id'</span>
+        ));
+
+        <span class="comment">// テーブル名を文字列で直接指定
+</span>        $cartPrd = $this-&gt;model(<span class="reteral">'CartProduct'</span>, <span class="reteral">'CP'</span>);
+        $sel = $cartPrd -&gt;select();
+        $sel-&gt;joinInner(<span class="bold"><span class="reteral">'product AS P'</span></span>, array(
+            <span class="reteral">'P.product_id = CP.product_id'</span>
+        ));
+</pre>
+</div></div>
+				
+	      <h3 id="7">INSERTの実行</h3>
+    		<p class="exp">
+INSERT文の実行は、SqlInsertクラスを利用します。ModelクラスのinsertメソッドはSqlInsertクラスのインスタンスを返します。これによってえられたインスタンスは、モデルクラスと関連づけられたテーブルに対するINSERT文の構築～実行を行います。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">User</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> addUser($name, $address)
+    {
+        $values = array(
+            <span class="reteral">'name'</span> =&gt; $name,
+            <span class="reteral">'address'</span> =&gt; $address,
+            <span class="reteral">'regist_date'</span> =&gt; date(<span class="reteral">'YmdHis'</span>)
+        );
+        $ins = $this-&gt;insert();
+        $ins-&gt;values($values);
+        $res = $ins-&gt;execute();
+
+        <span class="comment">// INSERT INTO user (name, address, regist_date)
+</span>        <span class="comment">// VALUES (:name, :address, :regist_date)
+</span>    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+SqlSelectと同じくチェーンによってもっと簡略記述することも可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$values = array(
+    <span class="reteral">'name'</span> =&gt; $name,
+    <span class="reteral">'address'</span> =&gt; $address,
+    <span class="reteral">'regist_date'</span> =&gt; date(<span class="reteral">'YmdHis'</span>)
+);
+$res = $this-&gt;insert()-&gt;values($values)-&gt;execute();
+</pre>
+</div></div>
+				<p class="exp">
+valuesメソッドの引数は上の例のように配列で指定が可能ですが、フィールド名と値の組み合わせで個別に指定することも可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$ins = $this-&gt;insert();
+$ins-&gt;values(<span class="reteral">'name'</span>, $name);
+$ins-&gt;values(<span class="reteral">'address'</span>, $address);
+$ins-&gt;values(<span class="reteral">'regist_date'</span>, date(<span class="reteral">'YmdHis'</span>));
+$res = $ins-&gt;execute();
+</pre>
+</div></div>
+				
+	      <h3 id="8">UPDATEの実行</h3>
+    		<p class="exp">
+UPDATE文の実行は、SqlUpdateクラスを利用します。ModelクラスのupdateメソッドはSqlUpdateクラスのインスタンスを返します。これによってえられたインスタンスは、モデルクラスと関連づけられたテーブルに対するUPDATE文の構築～実行を行います。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">User</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> updateInfo($userId, $name, $address)
+    {
+        $values = array(
+            <span class="reteral">'name'</span>    =&gt; $name,
+            <span class="reteral">'address'</span> =&gt; $address
+        );
+        $upd = $this-&gt;update();
+        $upd-&gt;values($values);
+        $upd-&gt;where(<span class="reteral">'user_id'</span>, $userId);
+        $res = $upd-&gt;execute();
+
+        <span class="comment">// UPDATE user SET cart_id = :cart_id, product_id = :product_id
+</span>        <span class="comment">// WHERE user_id = :user_id
+</span>    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+whereの指定方法はSELECTの場合と同じです。valuesメソッドによる更新データの設定はINSERTと同様です。<br />
+また同じくメソッドチェーンにより、以下のように簡略的な記述も可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$values = array(
+    <span class="reteral">'name'</span>    =&gt; $name,
+    <span class="reteral">'address'</span> =&gt; $address
+);
+$where = array(
+    <span class="reteral">'user_id'</span> =&gt; $userId
+);
+$res = $this-&gt;update()
+    -&gt;values($values)
+    -&gt;where($where)
+    -&gt;execute();
+</pre>
+</div></div>
+				
+	      <h3 id="9">DELETEの実行</h3>
+    		<p class="exp">
+DELETE文の実行は、SqlDeleteクラスを利用します。ModelクラスのdeleteメソッドはSqlDeleteクラスのインスタンスを返します。これによってえられたインスタンスは、モデルクラスと関連づけられたテーブルに対するDELETE文の構築～実行を行います。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">User</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> deleteUser($userId)
+    {
+        $del= $this-&gt;delete();
+        $del-&gt;where(<span class="reteral">'user_id'</span>, $userId);
+        $res = $del-&gt;execute();
+
+        <span class="comment">// DELETE FROM user WHERE user_id = :user_id
+</span>    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+whereの指定方法はSELECTの場合と同じです。<br />
+また同じくメソッドチェーンにより、以下のように簡略的な記述も可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$where = array(<span class="reteral">'user_id'</span> =&gt; $userId);
+$res = $this-&gt;delete()-&gt;where($where)-&gt;execute();
+</pre>
+</div></div>
+				
+	      <h3 id="10">サブクエリの利用</h3>
+    		<p class="exp">
+Curryではサブクエリを含むSQL構築に対応しています。
+</p>
+				<h4>SELECTのテーブル結合にサブクエリを利用する</h4>
+<p class="exp">
+SqlSelectのjoin系メソッドの第一引数に更にSqlSelectのインスタンスを指定することで、サブクエリの結合が可能です。<br />
+サブクエリには必ずエイリアスを指定する必要があるため、元となるテーブルへエイリアス指定は必須となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Product</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> getSalesProducts()
+    {
+        $this-&gt;setAlias(<span class="reteral">'PR'</span>);
+        $subQuery = $this-&gt;select();
+        $subQuery-&gt;where(<span class="reteral">'sales_flg = 1'</span>);
+                
+        $this-&gt;setAlias(<span class="reteral">'CP'</span>);
+        $sel = $this-&gt;select();
+        $sel-&gt;fields(array(<span class="reteral">'PR.product_name'</span>, <span class="reteral">'PR.price'</span>));
+        $sel-&gt;joinInner($subQuery, array(
+            <span class="reteral">'PR.product_id = CP.product_id'</span>
+        ));
+        $rows = $sel-&gt;fetchAll();
+        
+        <span class="comment">/*
+        SELECT * FROM cart_product AS CP
+        INNER JOIN (SELECT * FROM product WHERE sales_flg = 1) AS PR
+        ON PR.product_id = CP.product_id
+        */</span>
+    }
+}
+</pre>
+</div></div>
+				<h4>INSERT文でサブクエリを利用する</h4>
+<p class="exp">
+INSERT文にサブクエリを利用したい場面は時折発生します。例えば数値のID項目などでデータベースのオートインクリメントに頼らない場合などです。これを実現するには更新値にSqlSelectのインスタンスを設定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">User</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> add($name, $address)
+    {
+        $this-&gt;setAlias(<span class="reteral">'SUB'</span>);      <span class="comment">// エイリアスの指定は必須です
+</span>        $subQuery = $this-&gt;select();
+        $subQuery-&gt;fields(<span class="reteral">'IFNULL(MAX(user_id), 0) + 1 AS user_id'</span>);
+
+        $values = array(
+            <span class="reteral">'user_id'</span> =&gt; $subQuery,
+            <span class="reteral">'name'</span> =&gt; $name,
+            <span class="reteral">'address'</span> =&gt; $address,
+            <span class="reteral">'regist_date'</span> =&gt; date(<span class="reteral">'YmdHis'</span>)
+        );
+        $res = $this-&gt;insert()-&gt;values($values)-&gt;execute();
+
+        <span class="comment">// INSERT INTO user (user_id, name, address, regist_date)
+</span>        <span class="comment">// VALUES (
+</span>        <span class="comment">//     (SELECT IFNULL(MAX(user_id), 0) + 1 AS user_id FROM user AS SUB1),
+</span>        <span class="comment">//     :name,
+</span>        <span class="comment">//     :address,
+</span>        <span class="comment">//     :regist_date
+</span>        <span class="comment">// )
+</span>    }
+}
+</pre>
+</div></div>
+				<h4>UPDATE文でサブクエリを利用する</h4>
+<p class="exp">
+UPDATEの場合もINSERTと同じく更新値にSqlSelectのインスタンスを設定することでサブクエリが利用可能です。<br />
+例ではフラグ項目の値の切り替えをサブクエリで実現しています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">User</span> <span class="reserved">extends</span> <span class="class">Model</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> switchBlackFlag($userId)
+    {
+        $this-&gt;setAlias(<span class="reteral">'SUB'</span>);      <span class="comment">// エイリアスの指定は必須です
+</span>        $subQuery = $this-&gt;select();
+        $subQuery-&gt;fields(<span class="reteral">'CASE WHEN black_flg = 1 THEN 0 ELSE 1 END'</span>);
+        $subQuery-&gt;where(<span class="reteral">'SUB.user_id = UPD.user_id'</span>);
+
+        $this-&gt;setAlias(<span class="reteral">'UPD'</span>);      <span class="comment">// エイリアスの指定は必須です
+</span>        $res = $this-&gt;update()
+            -&gt;values(<span class="reteral">'black_flg'</span>, $subQuery)
+            -&gt;where(<span class="reteral">'user_id'</span>, $userId)
+            -&gt;execute();
+
+        <span class="comment">// UPDATE user AS UPD SET black_flg = (
+</span>        <span class="comment">//     SELECT CASE WHEN black_flg = 1 THEN 0 ELSE 1 END
+</span>        <span class="comment">//     FROM (SELECT * FROM user) AS SUB
+</span>        <span class="comment">//     WHERE SUB.user_id = UPD.user_id
+</span>        <span class="comment">// )
+</span>        <span class="comment">// WHERE user_id = :user_id
+</span>    }
+}
+</pre>
+</div></div>
+				
+	      <h3 id="11">キー項目指定でクエリ結果を取得する</h3>
+    		<h4>findメソッド</h4>
+<p class="exp">
+Modelクラスを継承したクラスでは、基本的にはselectメソッドにより、SELECT文オブジェクトを取得し、それにいろいろな条件を指定した上で実行、という形になりますが、findメソッドを使用することにより、このような手続きを踏まずにいきなり結果の行データを得ることが出来ます。<br />
+<br />
+findメソッドはテーブルの主キー項目の数だけ引数で値を指定し、条件に合致する単一行を取得するメソッドです。なので、テーブルによって指定すべき引数の数は可変となります。単一フィールドで主キーをなすテーブルの場合は引数一つ、2フィールドで主キーをなす複合キーのテーブルの場合は引数二つです。
+</p>
+				<div class="sample_code"><div>
+<pre>
+CREATE TABLE user
+(
+    user_id varchar(20) primary key,
+    name varchar(50),
+    address varchar(100)
+          ・
+          ・
+          ・
+)
+</pre>
+</div></div>
+				<p class="exp">
+このようなテーブルがあったとしましょう。<br />
+これに対し、モデルクラス"User"で、以下のような2パターンの処理は同じ結果となります。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">UserService</span> <span class="reserved">extends</span> <span class="class">Service</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> getUserInfo($userId)
+    {
+        $user = $this-&gt;model(<span class="reteral">'User'</span>);
+
+    <span class="comment">// 以下の2つのパターンは同じ結果です。
+</span>
+        <span class="comment">// findメソッド利用
+</span>        $row = $user-&gt;find($userId);
+
+        <span class="comment">// selectメソッドを利用したの通常の方法
+</span>        $sel = $user-&gt;select();
+        $sel-&gt;where(<span class="reteral">'user_id'</span>, $userId);
+        $row = $sel-&gt;fetchRow();
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+findメソッドでは、そのテーブルの定義情報をデータベースより取り出し、主キーフィールドを検出してその項目に対して引数で指定された値をWHERE条件を指定します。そのため、テーブルに主キーが設定されていないとか、主キーフィールドの数と引数の数があっていないような場合にはfindメソッドはfalseを返します。また複合キーの場合、引数指定の順番は機械的にテーブル定義上のフィールドの順番で割り当てるため、順番も正しく指定する必要があります。<br />
+また、手軽に利用できる反面、定義情報の取得のためのSQLが一旦発行されるため、わずかながらパフォーマンス的に不利になります。
+</p>
+				<h4>条件つきfindメソッド</h4>
+<p class="exp">
+findメソッドは主キーフィールドの値を指定する事により、単一行を返しますが、主キー以外のフィールドの値を指定して単一行を取得したい場合があります。この場合、メソッド名に条件を指定したいフィールド名を付加することで可能になります。指定したいフィールドが複数の場合はフィールド名をAndでつなげます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">UserService</span> <span class="reserved">extends</span> <span class="class">Service</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> getUserInfo($name, $address)
+    {
+        $user = $this-&gt;model(<span class="reteral">'User'</span>);
+
+    <span class="comment">// 以下の2つのパターンは同じ結果です。
+</span>
+        <span class="comment">// findBy～メソッドを利用
+</span>        $row = $user-&gt;findByNameAndAddress($name, $address);
+
+        <span class="comment">// selectメソッドを利用した通常の方法
+</span>        $sel = $user-&gt;select();
+        $sel-&gt;where(<span class="reteral">'name'</span>, $name);
+        $sel-&gt;where(<span class="reteral">'address'</span>, $address);
+        $row = $sel-&gt;fetchRow();
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+このfindByNameAndAddressというメソッドは実際には存在しない、仮想のメソッドです。メソッド名は必ず"findBy"で始まり、以降、フィールド名を先頭大文字で接尾し、複数フィールドの場合は更にAndを付加した上で、次のフィールド名を追加していきます。<br />
+findBy以降の名前をもとにWHERE文を組み立てるため、指定するフィールド名が実際には存在しない場合にはSQLエラーによる例外が発生します。<br />
+<br />
+また仮に条件に合致する行が複数存在する場合でも、このメソッドはその第一行目のみを返します。
+</p>
+				<h4>条件付きselectメソッド</h4>
+<p class="exp">
+条件付きfindメソッドでは必ず単一行を返しますが、複数行の結果が欲しい場合もあります。<br />
+この場合、条件付きfindメソッドのfindをselectに置き換えるだけで、実現可能です。<br />
+更に、メソッド名で指定したフィールド名より一つ引数を多くし、フィールド名を指定することで、その最後の引数はORDER BYフィールドとして指定することができます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">UserService</span> <span class="reserved">extends</span> <span class="class">Service</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> searchUsers($pref, $age)
+    {
+        $user = $this-&gt;model(<span class="reteral">'User'</span>);
+
+    <span class="comment">// 以下の2つのパターンは同じ結果です。
+</span>
+        <span class="comment">// selectBy～メソッドを利用
+</span>        $rows = $user-&gt;selectByPrefAndAge($pref, $age, <span class="reteral">'name'</span>);
+
+        <span class="comment">// selectメソッドを利用した通常の方法
+</span>        $sel = $user-&gt;select();
+        $sel-&gt;where(<span class="reteral">'pref'</span>, $pref);
+        $sel-&gt;where(<span class="reteral">'age'</span>, $age);
+        $sel-&gt;order(<span class="reteral">'name'</span>);
+        $rows = $sel-&gt;fetchAll();
+    }
+}
+</pre>
+</div></div>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

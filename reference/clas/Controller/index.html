@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li class="selected"><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>Controller</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">コントローラークラスはリクエスト情報を直接処理し、モデルやビューを制御します。<br />
+リクエストに対してはURIに含まれるコントローラー、アクションのキーを元にルーティングが行われ、処理対象とするコントローラークラス・アクションメソッドが決まり、実行されます。<br />
+そこまでの処理はフレームワークによって行われるため、実装者にとってはアクションメソッドが処理の起点となります。<br />
+そのため、コントローラークラスは実装者がインスタンスを生成してメソッドを実行するという性質のものではなく、特殊なクラスと言えます。<br />
+<br />
+このようなコントローラーとしての機能を持たせるクラスは必ずControllerクラスを継承します。<br />
+そしてコントローラーディレクトリ内にControllerを継承したクラスを定義します。コントローラーディレクトリはデフォルトでは"app/controllers/"です。<br />
+<br />
+実装方法は実装者の自由ですが、MVCの観点からはコントローラーはモデルやビューの制御に徹するのが良いでしょう。システムのメインとなるロジックを記述すべきではありません。そのようなロジックはモデルに記述し、コントローラーはそのメソッドを呼び出す程度にとどめます。</div>
+    
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/core/controller.php</div>
+
+    
+    <h3>フィールド</h3>
+        <table class="contents">
+      <tr>
+        <th>フィールド名</th>
+        <th>アクセス</th>
+        <th>型</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">$autoValidate</td>
+        <td>protected</td>
+        <td>boolean</td>
+        <td>オートバリデートを有効にするか否か。<br />
+trueに設定するとGETやPOSTなどののリクエストパラメーターに対して自動的に検証が実行されます。検証のルールは別途、$validateRulesフィールドで設定します。<br />
+懸賞はアクションメソッドやpreProcessよりも前のタイミングで行われるため、アクション単位で有効・無効を設定することはできず、コントローラーのフィールドとして設定し、そのコントローラー共通の設定となります。<br /><br /><span class="version">※バージョン1.2.0以降</span></td>
+      </tr>
+          <tr>
+        <td class="title">$post</td>
+        <td>protected</td>
+        <td>array</td>
+        <td>読み取り専用のフィールドで、POSTパラメーターを配列で取得します。<br />
+$request->getPost()と同等です。</td>
+      </tr>
+          <tr>
+        <td class="title">$query</td>
+        <td>protected</td>
+        <td>array</td>
+        <td>読み取り専用のフィールドで、GETパラメーターを配列で取得します。<br />
+$request->getQuery()と同等です。</td>
+      </tr>
+          <tr>
+        <td class="title">$params</td>
+        <td>protected</td>
+        <td>array</td>
+        <td>読み取り専用のフィールドで、URIパラメーターを配列で取得します。<br />
+$request->getParams()と同等です。</td>
+      </tr>
+          <tr>
+        <td class="title">$controller</td>
+        <td>protected</td>
+        <td>string</td>
+        <td>読み取り専用で、リクエストのコントローラーキーを取得します。<br />
+$request->getController()と同等です。<br /><br /><span class="version">※バージョン1.2.0以降</span></td>
+      </tr>
+          <tr>
+        <td class="title">$action</td>
+        <td>protected</td>
+        <td>string</td>
+        <td>読み取り専用で、リクエストのアクションキーを取得します。<br />
+$request->getAction()と同等です。<br /><br /><span class="version">※バージョン1.2.0以降</span></td>
+      </tr>
+          <tr>
+        <td class="title">$session</td>
+        <td>protected</td>
+        <td>Session</td>
+        <td>同一コントローラー内でのみ有効なセッションとしてのSessionクラスのインスタンスを取得します。</td>
+      </tr>
+          <tr>
+        <td class="title">$request</td>
+        <td>protected</td>
+        <td>Request</td>
+        <td>リクエスト情報を格納するRequestクラスのインスタンスを取得します。<br />
+読み取り専用フィールドです。</td>
+      </tr>
+          <tr>
+        <td class="title">$view</td>
+        <td>protected</td>
+        <td>ViewStandaｒdまたはViewSmarty</td>
+        <td>ビュークラスのインスタンスを取得します。<br />
+読み取り専用です。</td>
+      </tr>
+          <tr>
+        <td class="title">$validateRules</td>
+        <td>protected</td>
+        <td>array</td>
+        <td>オートバリデート用の検証ルールを設定保持します。<br />
+ルールは、アクション→リクエスト変数のキー→ルールという階層の配列で指定指定します。<br />
+ルールの部分は検証内容を示すルールキーと、それに対するオプションで構成される配列です。<br />
+検証ルールとして指定できるルールキーには以下が存在します。<br />
+<br />
+■required<br />
+　検証内容：必須入力<br />
+<br />
+■length<br />
+　検証内容：最大文字列長<br />
+　オプション：max（最大桁数）<br />
+<br />
+■length_range<br />
+　検証内容：文字列長範囲<br />
+　オプション：max（最大桁数）　min（最小桁数）<br />
+<br />
+■numeric<br />
+　検証内容：算術数値<br />
+<br />
+■number_string<br />
+　検証内容：数字文字列（0～9）	<br />
+<br />
+■alpha	<br />
+　検証内容：アルファベット	<br />
+<br />
+■alpha_num<br />
+　検証内容：アルファベット・数字文字列<br />
+<br />
+■singlebyte<br />
+　検証内容：シングルバイト	<br />
+<br />
+■regex	<br />
+　検証内容：正規表現<br />
+　オプション：pattern（正規表現パターン）<br />
+<br />
+<br />
+以下に指定例を示します。<br />
+<br />
+$validateRules = array(<br />
+　'regist' => array(<br />
+　　'name' => array(<br />
+　　　array('rule' => 'required'),<br />
+　　　array('rule' => 'length', 'max' => 30)<br />
+　　),<br />
+　　'address' => array(<br />
+　　　array('rule' => 'required')<br />
+　　),<br />
+　　'age' => array(<br />
+　　　array('rule' => 'required'),<br />
+　　　array('rule' => 'number_string')<br />
+　　)<br />
+　)<br />
+);</td>
+      </tr>
+          <tr>
+        <td class="title">$validator</td>
+        <td>protected</td>
+        <td>Validator</td>
+        <td>リクエスト検証クラスのインスタンス。<br />
+別途、$validateRulesを設定しておくと、そのルールがあらかじめセットされた状態のバリデーターとして機能します。</td>
+      </tr>
+          <tr>
+        <td class="title">$plugin</td>
+        <td>protected</td>
+        <td>Plugin</td>
+        <td>コントローラーディレクトリ内にPluginクラスが存在する場合、そのインスタンスが格納されます。<br /><br /><span class="version">※バージョン1.0.2以降</span></td>
+      </tr>
+          <tr>
+        <td class="title">$response</td>
+        <td>protected</td>
+        <td>Response</td>
+        <td>レスポンスクラスのインスタンス。<br />
+読み取り専用です。<br /><br /><span class="version">※バージョン1.1.0以降</span></td>
+      </tr>
+          <tr>
+        <td class="title">$dispatched</td>
+        <td>public</td>
+        <td>boolean</td>
+        <td>アクションメソッドの実行が完了したか否か。<br />
+アクションメソッドの実行より前のタイミングでこのフィールドをtrueに設定するとアクションメソッドの実行がスキップされます。<br />
+またアクションメソッドの実行より前のタイミングでtransferメソッドにより、他のアクションメソッドを強制的に実行した場合は自動的にこのフィールドがtrueに設定され、本来のアクションメソッドは実行されません。<br /><br /><span class="version">※バージョン1.1.0以降</span></td>
+      </tr>
+        </table>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/model">model</a></td>
+        <td>public</td>
+        <td>
+		            引数で指定されたクラス名のモデルクラスのインスタンスを取得します。<br />
+通常は指定されたクラス名に対して、以下の条件を満たす場合、そのクラスのインスタンスを返します。<br />
+<br />
+・モデル格納ディレクトリ内に名前規則に従ったモデルクラス定義ファイルが存在する<br />
+・そのファイル内に引数で指定された名前のクラスが定義されている<br />
+・Modelクラスを継承している<br />
+<br />
+定義ファイルが存在しない場合、指定されたクラス名から命名規則によって導き出される、対応するテーブル名がセットされた状態でModelクラスのそのもののインスタンスが返ります。Curryではこれを空想モデルクラスと呼び、モデルクラスを定義しないでもテーブルアクセスが可能な仕組みになっています。詳しくは<a href="/manual/model#5">マニュアル</a>を参照してください。<br />
+<br />
+ただし、定義ファイルが存在するのに、中のクラス定義が正しくない場合は例外を発生します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/service">service</a></td>
+        <td>public</td>
+        <td>
+		            引数で指定されたクラス名のサービスクラスのインスタンスを取得します。<br />
+正しくインスタンスが返るのは以下の条件をすべて満たす場合です。<br />
+<br />
+・サービス格納ディレクトリ内に名前規則に従ったサービスクラス定義ファイルが存在する<br />
+・そのファイル内に、引数で指定された名前のクラスが定義されている<br />
+・Serviceクラスを継承している<br />
+<br />
+以上の一つでも満たさない場合は例外を発生します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/preProcess">preProcess</a></td>
+        <td>public</td>
+        <td>
+		            アクションメソッドの直前のタイミングで必ず呼び出されるメソッドです。コントローラー中のすべてのアクションメソッドに対して共通の前処理を行いたい場合などにこの名前でメソッドを作成するだけで実行されます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/postProcess">postProcess</a></td>
+        <td>public</td>
+        <td>
+		            アクションメソッドの直後のタイミングで必ず呼び出されるメソッドです。コントローラー中のすべてのアクションメソッドに対して共通の後処理を行いたい場合などにこの名前でメソッドを作成するだけで実行されます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/redirect">redirect</a></td>
+        <td>public</td>
+        <td>
+		            サイト内の他のページへリダイレクトします。このメソッドでは他のドメインのサイトへのリダイレクトはできません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/transfer">transfer</a></td>
+        <td>public</td>
+        <td>
+		            リダイレクトは行わず、特定のアクションへ処理を委譲します。<br />
+アクションメソッド内でこのメソッドが呼び出された場合、指定されたアクションを実行した後、元のアクションメソッドの続きの処理が実行されます。<br />
+preProcessなど、アクションメソッドより前のタイミングで呼び出された場合は本来のアクションメソッドは実行されません。
+                  </td>
+      </tr>
+          <tr class="deleted">
+        <td class="title">
+        <a href="/reference/method/Controller/output">output</a></td>
+        <td>public</td>
+        <td>
+		  <span class="version"><strong>※バージョン1.3.0で削除されました。</strong></span><br /><br />          コントローラークラスの最終処理として、ビュークラスによるHTMLの描画を行うメソッドです。通常はこのメソッドで自動的に描画処理を実行するため、このメソッドの存在を意識する必要はありませんが、描画処理を独自に実装したい場合はコントローラークラス内でこのメソッドをオーバーライドします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/getRequest">getRequest</a></td>
+        <td>public</td>
+        <td>
+		            リクエスト情報を含んだRequestクラスのインスタンスを取得します。このインスタンスからはPOST・GETを始めとした様々なリクエスト情報を取得することができます。<br />
+コントローラークラス内では$this->requestとしても同じ働きをします。<br />
+Requestクラスの詳細は<a href="/reference/clas/Request">リファレンス</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/getView">getView</a></td>
+        <td>public</td>
+        <td>
+		            ビュークラスのインスタンスを取得します。<br />
+コントローラークラス内では$this->viewとしても同じ働きをします。
+                  </td>
+      </tr>
+          <tr class="deleted">
+        <td class="title">
+        <a href="/reference/method/Controller/initView">initView</a></td>
+        <td>public</td>
+        <td>
+		  <span class="version"><strong>※バージョン1.3.0で削除されました。</strong></span><br /><br />          ビュークラスの初期化を行うメソッドです。<br />
+通常はこのメソッド内で自動的に初期化処理が行われるため、意識する必要はありませんが、ビュークラスの初期化処理を独自に行いたい場合はこのメソッドをオーバーライドします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/initValidator">initValidator</a></td>
+        <td>public</td>
+        <td>
+		            リクエスト検証クラスの初期化を行うメソッドです。<br />
+通常はこのメソッド内で自動的に初期化処理が行われるため、意識する必要はありませんが、初期化処理を独自に行いたい場合はこのメソッドをオーバーライドします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/setAutoValidate">setAutoValidate</a></td>
+        <td>public</td>
+        <td>
+		            オートバリデートの有効・無効を設定します。<br />
+デフォルトではオートバリデートは無効になっています。<br />
+オートバリデートの実行タイミングはpreProcessなどよりも先になるため、有効にする場合はコントローラークラスのフィールド定義で対応するしかありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/Controller/getEnv">getEnv</a></td>
+        <td>public</td>
+        <td>
+		            Webサーバーの環境変数"APP_ENV"の値を取得します。<br />
+例えばApacheであればhttpd.confや.htaccessファイルなどで環境変数"APP_ENV"を定義し、その値をコントローラーで参照して環境によって処理を切り分けたいなどの事が可能です。
+          <br /><br /><span class="version">※バージョン1.4.12以降</span>        </td>
+      </tr>
+        </table>
+	
+    
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

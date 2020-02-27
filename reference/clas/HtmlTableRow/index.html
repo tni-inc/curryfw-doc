@@ -1,0 +1,715 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/reference.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li class="selected"><a href="/reference">リファレンス</a></li>
+          <li><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+
+	<h3>core</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Controller">Controller</a></li>
+        <li><a href="/reference/clas/Dispatcher">Dispatcher</a></li>
+        <li><a href="/reference/clas/ErrorHandlerStandard">ErrorHandlerStandard</a></li>
+        <li><a href="/reference/clas/Ini">Ini</a></li>
+        <li><a href="/reference/clas/InitializerStandard">InitializerStandard</a></li>
+        <li><a href="/reference/clas/Loader">Loader</a></li>
+        <li><a href="/reference/clas/Model">Model</a></li>
+        <li><a href="/reference/clas/NameManager">NameManager</a></li>
+        <li><a href="/reference/clas/PathManager">PathManager</a></li>
+        <li><a href="/reference/clas/PluginAbstract">PluginAbstract</a></li>
+        <li><a href="/reference/clas/Request">Request</a></li>
+        <li><a href="/reference/clas/Response">Response</a></li>
+        <li><a href="/reference/clas/RestController">RestController</a></li>
+        <li><a href="/reference/clas/Router">Router</a></li>
+        <li><a href="/reference/clas/Service">Service</a></li>
+        <li><a href="/reference/clas/Session">Session</a></li>
+        <li><a href="/reference/clas/Validator">Validator</a></li>
+        <li><a href="/reference/clas/ViewAbstract">ViewAbstract</a></li>
+        <li><a href="/reference/clas/ViewScript">ViewScript</a></li>
+        <li><a href="/reference/clas/ViewSmarty">ViewSmarty</a></li>
+        <li><a href="/reference/clas/ViewStandard">ViewStandard</a></li>
+      </ul>
+	<h3>db</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/Db">Db</a></li>
+        <li><a href="/reference/clas/DbAdapterAbstract">DbAdapterAbstract</a></li>
+        <li><a href="/reference/clas/DbAdapterMysql">DbAdapterMysql</a></li>
+        <li><a href="/reference/clas/DbAdapterPgsql">DbAdapterPgsql</a></li>
+        <li><a href="/reference/clas/DbAdapterSqlite">DbAdapterSqlite</a></li>
+        <li><a href="/reference/clas/SqlAbstract">SqlAbstract</a></li>
+        <li><a href="/reference/clas/SqlDelete">SqlDelete</a></li>
+        <li><a href="/reference/clas/SqlInsert">SqlInsert</a></li>
+        <li><a href="/reference/clas/SqlSelect">SqlSelect</a></li>
+        <li><a href="/reference/clas/SqlUpdate">SqlUpdate</a></li>
+      </ul>
+	<h3>html</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/FormElement">FormElement</a></li>
+        <li><a href="/reference/clas/FormElementSet">FormElementSet</a></li>
+        <li><a href="/reference/clas/FormLayoutAbstract">FormLayoutAbstract</a></li>
+        <li><a href="/reference/clas/FormLayoutDiv">FormLayoutDiv</a></li>
+        <li><a href="/reference/clas/FormLayoutDl">FormLayoutDl</a></li>
+        <li><a href="/reference/clas/FormLayoutTable">FormLayoutTable</a></li>
+        <li><a href="/reference/clas/HtmlElement">HtmlElement</a></li>
+        <li><a href="/reference/clas/HtmlForm">HtmlForm</a></li>
+        <li><a href="/reference/clas/HtmlTable">HtmlTable</a></li>
+        <li class="selected"><a href="/reference/clas/HtmlTableRow">HtmlTableRow</a></li>
+      </ul>
+	<h3>utility</h3>
+    <ul id="side_menu">
+        <li><a href="/reference/clas/BasicAuth">BasicAuth</a></li>
+        <li><a href="/reference/clas/Crypter">Crypter</a></li>
+        <li><a href="/reference/clas/Dir">Dir</a></li>
+        <li><a href="/reference/clas/File">File</a></li>
+        <li><a href="/reference/clas/FileReader">FileReader</a></li>
+        <li><a href="/reference/clas/FileWriter">FileWriter</a></li>
+        <li><a href="/reference/clas/Logger">Logger</a></li>
+        <li><a href="/reference/clas/Pager">Pager</a></li>
+      </ul>
+
+  </div>
+  
+  <div id="right_frame">
+  
+    <h2>HtmlTableRow</h2>
+    
+    <h3>クラス概要</h3>
+    <div class="explanation">HtmlTableの各行を表現するクラスで、TRタグのエレメントインスタンスです。<br />
+ArrayAccessインターフェイスを実装しているため、行に含まれるセルのエレメントに対してオブジェクト的にアクセスすることが可能です。<br />
+またIteratorAggregateを実装しているため、foreachなどでこの行オブジェクトを指定することで行に含まれる全てのセルに順次処理を行うことができます。</div>
+    
+        <h3>Curry対応バージョン</h3>
+    <div class="version">バージョン 1.4.0 以降</div>
+        <h3>クラスファイル位置</h3>
+    <div class="package">curry/html/html_table_row.php</div>
+
+    
+    <h3>フィールド</h3>
+        <div class="explanation">公開されるフィールドはありません。</div>
+        
+    <h3>メソッド</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/__construct">__construct</a></td>
+        <td>public</td>
+        <td>
+		            コンストラクタ。<br />
+引数として親テーブルのHtmlTableインスタンスが指定可能です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/__set">__set</a></td>
+        <td>public</td>
+        <td>
+		            setCellValueのエイリアスとして機能します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/__get">__get</a></td>
+        <td>public</td>
+        <td>
+		            getCellValueのエイリアスとして機能します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/setCellTagName">setCellTagName</a></td>
+        <td>public</td>
+        <td>
+		            セルオブジェクトのタグ名を設定します。<br />
+これはTDまたはTHのどちらかの指定になりますが、通常はヘッダ行かボディ行かによって自動的に設定されるため、実装者が意識して設定する必要はありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/setCellValue">setCellValue</a></td>
+        <td>public</td>
+        <td>
+		            セルの値を設定します。<br />
+指定の列キーのセルが存在しない場合はセルを作成し、値を設定します。<br />
+存在する場合はそのセルの値を更新します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/addCell">addCell</a></td>
+        <td>public</td>
+        <td>
+		            指定の列キーセルを生成し追加します。<br />
+既に指定のキーのセルが存在する場合は例外を発生します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/getCell">getCell</a></td>
+        <td>public</td>
+        <td>
+		            指定の列キーのセルオブジェクトを取得します。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/getCellValue">getCellValue</a></td>
+        <td>public</td>
+        <td>
+		            指定の列キーのセルオブジェクトの子ノードをHTMLとして取得します。<br />
+子ノードがHtmlElementであってもHTMLとして取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/existsCell">existsCell</a></td>
+        <td>public</td>
+        <td>
+		            指定の列キーのセルが存在するか否かを確認します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/removeCell">removeCell</a></td>
+        <td>public</td>
+        <td>
+		            指定の列キーのセルを削除します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/setCellAttributes">setCellAttributes</a></td>
+        <td>public</td>
+        <td>
+		            指定の列キーのセルのエレメントの属性を設定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+        <a href="/reference/method/HtmlTableRow/setCellsAttributes">setCellsAttributes</a></td>
+        <td>public</td>
+        <td>
+		            復数のセルのエレメントの属性を一度に設定します。 
+                  </td>
+      </tr>
+        </table>
+	
+    
+      <h3>継承メソッド（）</h3>
+    <table class="contents">
+      <tr>
+        <th>メソッド名</th>
+        <th>アクセス</th>
+        <th>概要</th>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/__call">__call</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HtmlElementにおける__callは、エレメント属性の設定または取得の役割を果たします。<br />
+実際にクラスメソッドとして定義されているメソッド以外で"set"や"get"で始まるメソッドを呼び出すと、"set"や"get"に続く部分を属性名として扱い、その属性に値をセット、または値の取得を行います。<br />
+<br />
+例えばsetIdメソッドを実行すると、id属性に対して引数で指定した値を設定します。<br />
+つまり、setId('example_id')と、setAttribute('id', 'example_id')は全く同じ動作となります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/create">create</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HtmlElementのインスタンスを生成して返します。<br />
+このメソッドはPHP5.3で追加されている関数を使用しているため、PHP5.2以下では使用出来ません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/setIndentChar">setIndentChar</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HTML生成の際の自動インデントに使用する文字種を指定します。<br />
+初期値は半角スペース2個です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getClone">getClone</a>
+		</td>
+        <td>public</td>
+        <td>
+		            自信のインスタンスのコピーを生成し、新規インスタンスとして取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/setTagName">setTagName</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのタグ名を指定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getTagName">getTagName</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのタグ名として設定されている値を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addClass">addClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのclass属性として設定したい値を追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getClass">getClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            現在設定されている、エレメントのclass属性値を取得します。<br />
+復数設定されている場合は全ての値が居半角スペースで区切られた文字列となります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/hasClass">hasClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            指定された値がclass属性値に含まれているかを確認します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/removeClass">removeClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            指定された値を、現在設定されているclass属性値から削除します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/clearClass">clearClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            クラス属性値の設定をクリアします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addStyle">addStyle</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのstyle属性値を追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addStyles">addStyles</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントのstyle属性値を復数一度に追加します。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getStyle">getStyle</a>
+		</td>
+        <td>public</td>
+        <td>
+		            現在設定されているstyle属性値を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addNode">addNode</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントの子ノードを追加します。<br />
+追加できるのはHtmlElementのインスタンスまたはテキストです。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addNodes">addNodes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントの子ノードを配列で指定し、復数一度に追加します。<br />
+追加できるのはHtmlElementのインスタンスまたはテキストです。 <br />
+これはaddNodeメソッドを複数回実行するの同じ意味になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/insertNode">insertNode</a>
+		</td>
+        <td>public</td>
+        <td>
+		            既に存在する子ノード群の任意の位置に新たなノードを挿しこむ用に追加します。<br />
+指定方法は数値インデックスまたは既に存在する子ノードに含まれるHtmlElementのインスタンスを指定します。前者の場合は指定したインデックス位置に既に存在する子ノードの手前に追加します。後者の場合は指定したインスタンスと同一のインスタンスが存在する場合に、そのインスタンスの手前に追加します。<br />
+指定したインデックスが存在しない、または指定したHtmElementのインスタンスが存在しない場合は末尾に追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getNode">getNode</a>
+		</td>
+        <td>public</td>
+        <td>
+		            指定したインデックス位置に存在する子ノードを取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getNodes">getNodes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            全ての子ノードを配列として取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addElement">addElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードとしてエレメントを追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addElements">addElements</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードとしてエレメントを配列で指定し、復数一度に追加します。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/insertElement">insertElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            既に存在する子ノード群の任意の位置に新たなエレメントを挿しこむように追加します。<br />
+指定方法は数値インデックスまたは既に存在する子ノードに含まれるHtmlElementのインスタンスを指定します。前者の場合は指定したインデックス位置に既に存在する子ノードの手前に追加します。後者の場合は指定したインスタンスと同一のインスタンスが存在する場合に、そのインスタンスの手前に追加します。<br />
+指定したインデックスが存在しない、または指定したHtmElementのインスタンスが存在しない場合は末尾に追加します。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getElement">getElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            インデックスを指定し、子ノードからエレメントを取得します。<br />
+指定したインデックスが存在しない、または指定したインデックスのノードがHtmlElementのインスタンスではない場合はfalseが返ります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getElementById">getElementById</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードの中からid属性指定で単一のエレメントを取得します。<br />
+指定したid属性のエレメントが存在しない、またはエレメントではない場合はnullを返します。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getElementsByTagName">getElementsByTagName</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードの中からタグ名指定でエレメントを取得します。タグ名が合致するエレメント全てを配列で返します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getElementsByClass">getElementsByClass</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードの中からクラス属性指定でエレメントを取得します。エレメントの持つクラス属性値のうち一つでも合致するエレメント全てを配列で返します。 
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getElements">getElements</a>
+		</td>
+        <td>public</td>
+        <td>
+		            すべての子ノードのうち、HtmlElementのインスタンスである物のみを全て配列として取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/removeElement">removeElement</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードから特定のエレメントを削除します。<br />
+削除対象は子ノードに含まれるHtmlElementのインスタンスを引数として指定します。同一インスタンスが存在すれば削除します。<br />
+
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addText">addText</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードとしてテキストノードを追加します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/setText">setText</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノードとしてテキストノードを設定します。<br />
+addTextとの違いは一旦全ての子ノードをクリアするということです。setTextは子ノードの追加という概念ではなく、エレメントのコンテンツとしてテキストを設定するという考え方です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/clearNodes">clearNodes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            設定されている全ての子ノードをクリアし、何もない状態にします。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/setAttribute">setAttribute</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメントの属性値を設定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/setAttributes">setAttributes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメエントの属性値を復数一度に設定します。<br />
+パラメーターには属性名と属性値の組み合わせの配列を指定します。<br />
+これは個々の属性の設定をsetAttributeメソッドにより複数回実行するの同じいみになります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getAttribute">getAttribute</a>
+		</td>
+        <td>public</td>
+        <td>
+		            設定されている属性の属性値を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getAttributes">getAttributes</a>
+		</td>
+        <td>public</td>
+        <td>
+		            設定されている全ての属性値を取得します。<br />
+得られるのは属性名をキー、属性値が値として定義された配列です。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/setIsEmptyTag">setIsEmptyTag</a>
+		</td>
+        <td>public</td>
+        <td>
+		            空要素タグであるか否かを設定します。<br />
+空要素タグとは要素を持たないタグで、通常のタグが開始タグと終了タグで構成されるのに対し、空要素タグでは閉じタグが必要ありません。<br />
+空要素タグはHTMLの仕様として規定されたものであり、また主要な空要素はインスタンス生成時（タグ名指定時）に自動的に空要素として設定されるため、通常は実装者が意識する必要はありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/isEmptyTag">isEmptyTag</a>
+		</td>
+        <td>public</td>
+        <td>
+		            空要素タグであるか否かを取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addEmptyTags">addEmptyTags</a>
+		</td>
+        <td>public</td>
+        <td>
+		            HtmlElementが内部的に持っている空要素タグのリストにタグ名を追加します。<br />
+静的メソッドであるため、設定を行う場合は初期化処理としてあらかじめ行います。<br />
+指定はタグ名を文字列で、または復数のタグ名を配列で指定します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/setIsReturnInner">setIsReturnInner</a>
+		</td>
+        <td>public</td>
+        <td>
+		            出力するHTMLで、開始タグの直後と終了タグの直前、子ノード間に改行を挿入するか否かを指定します。<br />
+これは人間の目に視覚的な見やすさのための設定であるため、処理内容やブラウザの表示に影響をあたえるものではありません。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/isReturnInner">isReturnInner</a>
+		</td>
+        <td>public</td>
+        <td>
+		            開始タグの直後と終了タグの直前、子ノード間に改行を挿入するか否かの設定を取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addReturnInnerNgTags">addReturnInnerNgTags</a>
+		</td>
+        <td>public</td>
+        <td>
+		            デフォルトでタグの内部に改行の挿入を禁止するタグ名を設定します。<br />
+これは、対象のタグ名の個々のHtmlElementに都度、setIsReturnInnerを実行するのと同じ意味になり、あらかじめ内部に改行を挿入したくないタグが決まっている場合はこのメソッドによりデフォルト設定として設定しておきます。<br />
+静的メソッドであるため、初期設定としてあらかじめ実行しておきます。<br />
+<br />
+以下のタグはデフォルトで改行禁止に設定されています。<br />
+・a<br />
+・textarea<br />
+・label<br />
+・strong<br />
+・em<br />
+・object
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getInnerHtml">getInnerHtml</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノード全てのHTMLを生成し、取得します。<br />
+得られるHTMLに自身のエレメントは含まれず、子ノード以下の最下層までHTMLとして取得することができます。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/getHtml">getHtml</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメント以下、エレメント自身を含む全ての子ノードを最下層までを含めてHTMLを生成し、取得します。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/render">render</a>
+		</td>
+        <td>public</td>
+        <td>
+		            エレメント以下、エレメント自身を含む全ての子ノードを最下層までを含めてHTMLを生成し、出力します。<br />
+これはgetHtmlで取得したHTMLをそのままechoするのと同じ意味になります。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/addFromArray">addFromArray</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノード情報を定義した配列を元に子ノードを追加します。<br />
+このメソッドの詳細は<a href="/manual/html/#3">マニュアル</a>を参照してください。
+                  </td>
+      </tr>
+          <tr>
+        <td class="title">
+          <a href="/reference/method/HtmlTableRow/fromArray">fromArray</a>
+		</td>
+        <td>public</td>
+        <td>
+		            子ノード情報を含むエレメント情報を定義した配列を元にHtmlElementのインスタンスを生成し、返します。<br />
+静的メソッドであるため、既に存在するインスタンスに子ノードを設定するaddFromArrayメソッドとは違い、親となるエレメント自身を新規インスタンスとして生成します。<br />
+このメソッドの詳細は<a href="/manual/html/#3">マニュアル</a>を参照してください。
+                  </td>
+      </tr>
+        </table>
+    
+		
+
+    
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li class="selected"><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>ディレクトリ構成</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">標準のディレクトリ構成</a></li>
+                        <li><a href="#2">カスタマイズ</a></li>
+              </ul>
+
+	      <h3 id="1">標準のディレクトリ構成</h3>
+    		<p class="exp">
+Curryはシステムのディレクトリ構成が既定の状態である上で動作するように設計されています。<br />
+標準のディレクトリ構成は以下のような状態です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site
+    ∟app
+        ∟controllers
+        ∟models
+        ∟services
+        ∟views
+            ∟(cache)
+            ∟(compile)
+            ∟layouts
+            ∟templates
+    ∟configs
+    ∟htdocs
+        ∟css
+        ∟images
+        ∟js
+        ∟.htaccess
+        ∟index.php
+    ∟logs
+    ∟library
+</pre>
+</div></div>
+				<p class="exp">
+各ディレクトリの役割を以下に示します。
+</p>
+				<p class="exp">
+<table class="dirs">
+<tr>
+<td class="dir">app</td>
+<td>MVCを構成するディレクトリ群を格納するディレクトリです。基本的にこの直下にファイルは配置しません。</td>
+</tr>
+<tr>
+<td class="dir">app/controllers</td>
+<td>コントローラークラスのphpファイルを配置するディレクトリです。<br/>
+コントローラーを階層化する場合はこの中にさらにサブディレクトリを作成します。</td>
+</tr>
+<tr>
+<td class="dir">app/models</td>
+<td>モデルクラスのphpファイルを配置するディレクトリです。</td>
+</tr>
+<tr>
+<td class="dir">app/services</td>
+<td>サービスクラスのphpファイルを配置するディレクトリです。サービスはモデルを取りまとめたり、メインロジックなどを担当したりします。</td>
+</tr>
+<tr>
+<td class="dir">app/views</td>
+<td>ビューテンプレートを配置するディレクトリです。<br/>
+実際は更に分類化されたディレクトリを格納しており、この直下に直接テンプレートファイルは配置しません。</td>
+</tr>
+<tr>
+<td class="dir">app/views/cache</td>
+<td>CurryではテンプレートエンジンとしてSmartyを利用することを推奨していますが、
+Smartyを利用した場合にSmartyのテンプレートキャッシュを保存するディレクトリです。<br/>
+システムより書き込みが行われる為、パーミッションをシステムよりの書き込みが行える状態に適切に設定する必要があります。<br/>
+このディレクトリはSmartyを利用しない場合は不要です。</td>
+</tr>
+<tr>
+<td class="dir">app/views/compile</td>
+<td>Smartyを利用した場合にSmartyのコンパイル済みテンプレートを保存するディレクトリです。
+システムより書き込みが行われる為、パーミッションをシステムよりの書き込みが行える状態に適切に設定する必要があります。<br/>
+このディレクトリはSmartyを利用しない場合は不要です。</td>
+</tr>
+<tr>
+<td class="dir">app/views/layouts</td>
+<td>ビューのレイアウトを格納するディレクトリです。</td>
+</tr>
+<tr>
+<td class="dir">app/views/templates</td>
+<td>ビューテンプレートを格納するディレクトリです。<br/>
+直下にコントローラーごとのサブディレクトリを配置し、その中にアクションごとのテンプレートファイルを配置します。</td>
+</tr>
+<tr>
+<td class="dir">configs</td>
+<td>iniファイルなどの設定ファイルを配置します。</td>
+</tr>
+<tr>
+<td class="dir">htdocs</td>
+<td>Web公開ルートディレクトリを想定したディレクトリです。<br/>
+apacheのDocumentRootまたは、VirtualHostによってここをルートディレクトリに設定します。</td>
+</tr>
+<tr>
+<td class="dir">htdocs/css</td>
+<td>cssファイルを配置するディレクトリです。この中に「コントローラー名.css」の名前でcssファイルを配置することで、対象のコントローラーのページ表示時に自動的に読み込まれます。</td>
+</tr>
+<tr>
+<td class="dir">htdocs/js</td>
+<td>javascriptファイルを配置するディレクトリです。この中に「コントローラー名.js」の名前でjavascriptファイルを配置することで、対象のコントローラーのページ表示時に自動的に読み込まれます。</td>
+</tr>
+<tr>
+<td class="dir">htdocs/images</td>
+<td>サイトで使用する画像を格納するディレクトリです。</td>
+</tr>
+<tr>
+<td class="dir">htdocs/.htaccess</td>
+<td>apacheのmod_rewriteを利用する場合に必要な.htaccessファイルです。<br/>
+ここのmod_rewriteの設定を行います。</td>
+</tr>
+<tr>
+<td class="dir">htdocs/index.php</td>
+<td>スクリプトの起点としてかならず最初に処理が開始されるphpファイルです。<br/>
+システム共通の基本設定などを行う場合はここに書きます。</td>
+</tr>
+<tr>
+<td class="dir">logs</td>
+<td>ログ出力を行う場合にここへ出力します。<br/>
+システムより書き込みが行われる為、パーミッションをシステムよりの書き込みが行える状態に適切に設定する必要があります。</td>
+</tr>
+<tr>
+<td class="dir">library</td>
+<td>システム共通で使用する独自の汎用的なライブラリクラスのphpファイルを配置するディレクトリです。必要に応じてクラスを作成し、LoaderクラスのloadLibraryなどで読み込むことが可能です。</td>
+</tr>
+</table>
+</p>
+				
+	      <h3 id="2">カスタマイズ</h3>
+    		<p class="exp">
+ディレクトリ構成はカスタマイズすることができます。<br />
+Curryのディレクトリ構成はPathManagerというクラスで集約管理されています。<br />
+このクラスはサイトのさまざまなディレクトリのパスを保持しており、フレームワークはここに設定されたパスを参照しているので、各ディレクトリの設定メソッドによって設定を変更してやることでサイトのディレクトリ構成を自由に変えることができます。<br />
+<br />
+PathManagerクラスの詳細については<a href="/reference/clas/PathManager">PathManagerのリファレンス</a>を参照してください。<br />
+<br />
+以下に一つの例を示します。
+</p>
+				<div class="file_name">
+index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="comment">//define(<span class="reteral">'CURRY_PATH'</span>, realpath(dirname(__FILE__) . <span class="reteral">'/../../curry'</span>));
+</span><span class="comment">//define(<span class="reteral">'SITE_PATH'</span>, realpath(dirname(__FILE__) . <span class="reteral">'/..'</span>));
+</span>define(<span class="reteral">'CURRY_PATH'</span>, realpath(dirname(__FILE__) . <span class="reteral">'/../curry'</span>));
+define(<span class="reteral">'SITE_PATH'</span>, realpath(dirname(__FILE__)));
+　　　　　　　　・
+　　　　　　　　・
+　　　　　　　　・
+PathManager::setSystemRoot(SITE_PATH);
+PathManager::setControllerDirectory(SITE_PATH . <span class="reteral">'/controllers'</span>);
+PathManager::setModelDirectory(SITE_PATH . <span class="reteral">'/models'</span>);
+PathManager::setViewDirectory(SITE_PATH . <span class="reteral">'/views'</span>);
+PathManager::setHtdocsDirectory(SITE_PATH);
+$dispatcher = <span class="reserved">new</span> Dispatcher();
+　　　　　　　　・
+　　　　　　　　・
+　　　　　　　　・
+</pre>
+</div></div>
+				<p class="exp">
+この例では、標準ではappというディレクトリの下に置くコントローラー、モデル、ビューのディレクトリをサイトのルート直下に置くように設定しています。<br />
+そしてWebルートとして設定するべきhtodcs以下のディレクトリ、ファイルも全てのサイトルート直下に配置しています。<br />
+すなわち、以下のようなディレクトリ構成の場合の設定となります。<br />
+標準の構成と比較してみてください。
+</p>
+				<div class="sample_code"><div>
+<pre>
+∟site
+    ∟controllers
+    ∟models
+    ∟services
+    ∟views
+        ∟(cache)
+        ∟(compile)
+        ∟layouts
+        ∟templates
+    ∟configs
+    ∟css
+    ∟images
+    ∟js
+    ∟.htaccess
+    ∟index.php
+    ∟logs
+    ∟library
+
+</pre>
+</div></div>
+				<p class="exp">
+このようなディレクトリ構成の場合、サイトを構成する全てのファイルはWebルート配下に存在することになり、セキュリティ上は好ましくはありませんが、レンタルサーバー等でWebルートを設定できない場合にはこのようにする必要があるかもしれません。
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

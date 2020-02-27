@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li class="selected"><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>導入</h2>  
+    <ul id="title_list">
+                  <li><a href="#3">動作環境</a></li>
+                        <li><a href="#1">インストール</a></li>
+                        <li><a href="#2">初期設定</a></li>
+              </ul>
+
+	      <h3 id="3">動作環境</h3>
+    		<p class="exp">
+CurryはPHP5.1.2以上の環境が必要です。PHP5.1.1以下では動作しません。<br />
+PHP5.3以上を推奨します。<br />
+一部のライブラリ（htmlパッケージ）はPHP5.3以上でないと動作しません。<br />
+
+</p>
+				
+	      <h3 id="1">インストール</h3>
+    		<p class="exp">
+まずは最新版パッケージを<a href="#">ダウンロード</a>してください。<br />
+ダウンロードしたzip形式のパッケージを解答すると、curryとsiteという2つのディレクトリが存在します。<br />
+curryの方はフレームワークのソースです。<br />
+siteの方は実際のサイトシステムを想定した典型的なディレクトリ構成の雛形です。<br />
+siteというディレクトリ名は自由に変えて問題ありません。あなたのサイトの内容が判別しやすい名前がよいでしょう。<br />
+ただし基本的に中のディレクトリ構成は変更しないでください。<br />
+<br />
+インストールはこれらのディレクトリをWebサーバー上のWeb公開ディレクトリ以下に配置するだけです。ただしフレームワークのソース（curry）は公開ディレクトリ以外に配置しても問題ありません。
+</p>
+				
+	      <h3 id="2">初期設定</h3>
+    		<h4>1、データベース接続設定</h4>
+<p class="exp">
+まずはデータベースの接続情報の設定を行います。設定はiniファイルを利用します。<br />
+設定ファイルの位置はsite/configs/database.iniです。<br />
+CurryでサポートしているデータベースはMySQL、PostgreSQL、SQLiteです。<br />
+あなたのシステムでデータベースを必要としない場合はこの設定は不要です。
+</p>
+				<h4>2、.htaccessの設定</h4>
+<p class="exp">
+mod_rewriteを利用する場合は.htaccessの設定が必要です。.htaccessはsite/htdocs/.htaccessの位置にあります。<br />
+基本的にはパッケージに同梱の.htaccessをそのまま変更なしで問題ないですが、環境に合わせて設定の変更が必要な場合もあります。<br />
+<br />
+アプリケーションの基点となるindex.phpは、site/htdocsの中に存在します。<br />
+このhtdocsディレクトリをWebルートに設定することが前提ですが、そうは行かない場合もあるでしょう。<br />
+その場合は.htaccessのRewriteBaseの設定を変える必要があります。<br />
+例えばサーバー上にpublic_htmlというディレクトリがあり、これがWebルートに設定されている状態で、この直下にsiteディレクトリを配置した場合です。Webルートから見ると、index.phpの位置は<br />
+<br />
+/site/htdocs/index.php<br />
+<br />
+になります。<br />
+この場合、.htaccessのRewriteBaseを以下のように設定する必要があります。<br />
+
+</p>
+				<div class="sample_code"><div>
+<pre>
+RewriteBase /site/htdocs
+</pre>
+</div></div>
+				<h4>3、index.phpの設定</h4>
+<p class="exp">
+Curryでは全てのアクセスはindex.phpをスクリプトの基点とします。<br />
+index.phpではシステム共通の初期設定等を行っています。<br />
+基本的にはindex.phpは設定変更の必要はありませんが、フレームワークのディレクトリ(curry)と、サイトのディレクトリの位置関係を変えた場合は少し変更が必要です。<br />
+<br />
+index.phpではフレームワークの位置を相対パスで設定しています。デフォルトではサイトのルートディレクトリと同じ階層に存在する場合を想定していますので、この位置関係を変えた場合はフレームワークの位置を正しく設定してやる必要があります。<br />
+<br />
+具体的には以下の一行です。
+</p>
+				<div class="file_name">
+index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+define(<span class="reteral">'CURRY_PATH'</span>, realpath(dirname(__FILE__) . <span class="reteral">'/../../curry'</span>) . <span class="reteral">'/'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+デフォルトではフレームワークとサイトの位置関係は以下のようになっています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+  ∟public_html  ←Web公開ルート
+ 　　 ∟curry    ←フレームワークディレクトリ
+  　　∟site     ←サイトシステムディレクトリ
+</pre>
+</div></div>
+				<p class="exp">
+これを例えば以下のように変更したとしましょう。
+</p>
+				<div class="sample_code"><div>
+<pre>
+  ∟curry          ←フレームワークディレクトリ
+  ∟public_html    ←Web公開ルート
+　　　　∟site     ←サイトシステムディレクトリ
+</pre>
+</div></div>
+				<p class="exp">
+つまり、フレームワークディレクトリを一つ上の階層へ移し、Web公開ルート外に置いた例です。<br />
+この場合、index.phpでのフレームワークの位置指定も一つ上の階層にしなければなりません。すなわち以下のようにします。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="comment">//define(<span class="reteral">'CURRY_PATH'</span>, realpath(dirname(__FILE__) . <span class="reteral">'/../../curry'</span>) . <span class="reteral">'/'</span>);
+</span>define(<span class="reteral">'CURRY_PATH'</span>, realpath(dirname(__FILE__) . <span class="reteral">'/../../../curry'</span>) . <span class="reteral">'/'</span>);
+</pre>
+</div></div>
+				<p class="exp">
+デフォルトでは相対パスを元に絶対パスに変換するような形になっていますが、直接絶対パスで指定してもかまいません。その方がパフォーマンス的にも優れているでしょう。
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

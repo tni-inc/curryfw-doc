@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li class="selected"><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>サービス</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">MVCの問題点</a></li>
+                        <li><a href="#3">サービスの定義方法</a></li>
+                        <li><a href="#4">複数モデルを対象にした処理</a></li>
+                        <li><a href="#5">コントローラーよりの実行</a></li>
+              </ul>
+
+	      <h3 id="1">MVCの問題点</h3>
+    		<p class="exp">
+MVCというアーキテクチャは非常によくできていますが、問題点もあります。<br />
+簡単に言うとモデルとコントローラーの守備範囲の境界が曖昧であることです。モデルを置かずにロジックを全てコントローラーに書くような実装は論外ですが、コントローラーに記述すべきかモデルに記述すべきかを迷う場面があります。
+</p>
+				<h4>メインロジックの扱い</h4>
+<p class="exp">
+一般的な認識は、モデルはデータ操作を含めたロジックを担当するというものでしょう。しかしCurryでも推奨しているようにモデルをテーブルオブジェクトとしての位置づけにした場合、モデル＝データという構図が出来てしまい、メインロジックの行き場がなくなります。そのロジックというのがテーブルより取得したデータを加工する意味合いのロジックであればモデルに含めてしまえばよいですが、データに一切かかわらない処理ロジックがある場合に困ります。そうするとロジックの行き場としてコントローラーという、MVCの本来の有るべき姿から逸脱してしまう事になってしまいがちです。
+</p>
+				<h4>トランザクション処理</h4>
+<p class="exp">
+複数のテーブルの更新を一連の処理として整合を保つ「トランザクション」という考え方が存在しますが、普通に考えればテーブル一つ一つに対する処理を統括するのはモデルより一層上となるはずです。しかしモデルクラスとテーブルを1：1とした場合、それを統括するロジックはどこに書くかという問題が出てきます。そうすると最もメインとなりそうなモデルを選んでその中に記述するのか、あるいはコントローラーで統括するのか、という妥協を含んだ判断になってきます。これはどちらも得策とは言えません。
+</p>
+				<h4>コントローラーとモデルの中間に位置する層</h4>
+<p class="exp">
+モデルクラスとテーブルを1：1とし、モデル＝データと位置づけてしまうと、そもそもモデルとコントローラーという２層しかないことに無理がある事は否めません。<br />
+そこで、モデルとコントローラーの中間に位置する層を置くことで対応するという事が考えられます。<br />
+Curryではこれを「サービス」と呼び、その仕組みを組み込んでいます。<br />
+<br />
+前提としてモデルはテーブルオブジェクトとし、モデル＝データという位置づけに固定化します。<br />
+その上でのサービスはデータのトランザクション管理とロジックという2つの役割を持たせます。<br />
+Curryではサービスもクラスで表現します。
+</p>
+				
+	      <h3 id="3">サービスの定義方法</h3>
+    		<p class="exp">
+まずサービスクラスはapp/servicesの中に定義します。<br />
+そしてサービスクラスは"Service"クラスを継承することを推奨します。サービスはあくまで概念的なものなので、必ずしも継承する必要はありませんが、継承することでサービスとしての役割を果たす為の便利な機能の恩恵が受けられます。
+</p>
+				<div class="file_name">
+app/services/cart_service.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartService</span> <span class="reserved">extends</span> <span class="class">Service</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> buy()
+    {
+
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+クラス名の命名規則も特にありませんが、モデルとの区別のため、末尾に"Service"などを付加することをお勧めします。<br />
+サービスではモデルを操作するのがひとつの役割のため、ServiceクラスにはControllerと同じ働きをするmodelメソッドが用意されています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartService</span> <span class="reserved">extends</span> <span class="class">Service</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> buy()
+    {
+        $cart = $this-&gt;model(<span class="reteral">'Cart'</span>);
+
+    }
+}
+</pre>
+</div></div>
+				
+	      <h3 id="4">複数モデルを対象にした処理</h3>
+    		<p class="exp">
+複数モデルが絡み合ったデータ取得はサービスに記述するのがよいでしょう。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartService</span> <span class="reserved">extends</span> <span class="class">Service</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> getCartInfo($userId)
+    {
+        $cart = $this-&gt;model(<span class="reteral">'Cart'</span>, <span class="reteral">'C'</span>);
+        $cartPrd = $this-&gt;model(<span class="reteral">'CartProduct'</span>, <span class="reteral">'CP'</span>);
+
+        $sel = $cart-&gt;select();
+        $sel-&gt;joinInner($cartPrd, array(
+            <span class="reteral">'CP.cart_id = C.cart_id'</span>
+        ));
+        $sel-&gt;where(<span class="reteral">'C.user_id'</span>, userId);
+        $sel-&gt;order(<span class="reteral">'CP.add_date DESC'</span>);
+        $rows = $sel-&gt;fetchAll();
+
+        <span class="reserved">return</span> $rows;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+また、複数のモデルを統括してトランザクションを統括することもサービスの役割の一つです。<br />
+次の例はショッピングサイトにおいてユーザーがカートに入れた商品を購入する処理を想定しています。ここでは一連の処理として購入履歴への記録と、カートのクリアというトランザクション処理を行っています。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartService</span> <span class="reserved">extends</span> <span class="class">Service</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> buy($cartId)
+    {
+        $cart = $this-&gt;model(<span class="reteral">'Cart'</span>);
+        $cartPrd = $this-&gt;model(<span class="reteral">'CartProduct'</span>);
+        $buyHist = $this-&gt;model(<span class="reteral">'BuyHistory'</span>);
+        
+        $this-&gt;begin();
+        <span class="reserved">try</span> {
+
+            $userId = $cart-&gt;getUserId($cartId);
+            $products = $cartPrd-&gt;getProducts($cartId);
+            $buyHist-&gt;write($userId, $products);
+            $cartPrd-&gt;remove($cartId);
+            $cart-&gt;remove($cartId);
+            
+            $this-&gt;commit();
+            <span class="reserved">return</span> <span class="reserved">true</span>;
+
+        } <span class="reserved">catch</span> (<span class="class">Exception</span> $e) {
+            $this-&gt;rollback();
+            <span class="reserved">throw</span> $e;
+        }
+    }
+} 
+</pre>
+</div></div>
+				<p class="exp">
+Serviceクラスにはトランザクション関連メソッドが存在します。<br />
+beginメソッドでトランザクションを開始し、commitでコミット。エラー発生時にはrollbackによってロールバックします。
+</p>
+				
+	      <h3 id="5">コントローラーよりの実行</h3>
+    		<p class="exp">
+サービスクラスはコントローラークラスより利用します。コントローラーでのサービスクラスを呼び出すにはいくつかの方法がありますが、基本的にはモデルクラスと同様です。
+</p>
+				<h4>serviceメソッドを利用</h4>
+<p class="exp">
+Controllerクラスにはserviceメソッドが存在し、指定したクラス名のサービスクラスのインスタンスを返します。これが最も効率的な利用方法と言えます。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $svc = $this-&gt;service(<span class="reteral">'CartService'</span>);
+        $cartInfo = $svc-&gt;getCartInfo($this-&gt;params[<span class="reteral">'user_id'</span>]);
+        $this-&gt;view-&gt;cart_info = $cartInfo;
+    }
+}
+</pre>
+</div></div>
+				<h4>インクルードした上でnew</h4>
+<p class="exp">
+require_onceなどにより事前にクラスファイルを読み込んだ上でnewによるインスタンス生成という、PHPとして最も標準的な手順を踏むことは当然可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+require_once APP_PATH . <span class="reteral">'services/cart_service.php'</span>;
+
+<span class="reserved">class</span> <span class="class">CartController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        $svc = <span class="reserved">new</span> <span class="class">CartService</span>();
+    }
+}
+</pre>
+</div></div>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

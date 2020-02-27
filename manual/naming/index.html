@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+  <div id="left_frame">
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li class="selected"><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>名前規則</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">Curryの動作条件</a></li>
+                        <li><a href="#2">接頭語・接尾語・拡張子の規則</a></li>
+                        <li><a href="#3">名前規則のカスタマイズ</a></li>
+              </ul>
+
+	      <h3 id="1">Curryの動作条件</h3>
+    		<p class="exp">
+Curryではクラス名やメソッド名などの名前規則が重要です。これによりフレームワークとして成り立っています。<br />
+一般的にクラス名等の名前付け規則には以下の3パターンが存在します。<br />
+
+</p>
+				<ul class="kajo">
+    <li>パスカルケース　- 先頭文字が大文字で単語の区切りの先頭も大文字（例：IndexController）</li>
+    <li>キャメルケース　- 先頭文字が小文字で単語の区切りの先頭は大文字（例：indexController）</li>
+    <li>スネークケース　- 全て小文字で単語の区切りに&quot;_&quot;を挟む（例：index_controller）</li>
+</ul>
+				<p class="exp">
+Curryでもこの3パターンを使い分けます。
+</p>
+				<h4>クラス名</h4>
+<p class="exp">
+パスカルケース<br />
+例：IndexController
+</p>
+				<h4>メソッド名</h4>
+<p class="exp">
+キャメルケース<br />
+例：getRequest
+</p>
+				<h4>ファイル名</h4>
+<p class="exp">
+スネークケース<br />
+例：index_controller.php<br />
+<br />
+クラス定義のphpファイルの場合、ファイルとクラスは必ず1対にし、1ファイルに複数クラスを定義することは決してしません。これは、クラスの定義位置を探しやすくするためです。<br />
+クラス名とその定義ファイル名は一定の規則で結びつくようにします。<br />
+すなわち、ファイル名は中に定義されているクラス名を全て小文字に直し、単語の区切りに"_"をはさんだ形にになるようにします。<br />
+<br />
+PHPファイルの場合は拡張子は全て"php"です。
+</p>
+				<h4>URL</h4>
+<p class="exp">
+スネークケース<br />
+例：http://www.xxxx.com/user_cart/add_product<br />
+<br />
+URLに含まれるコントローラー名とアクション名は、全て小文字で単語の区切りに"_"をはさみます。<br />
+上記の例のURLの場合、UserCartControllerのaddProductメソッドが呼び出されます。<br />
+
+</p>
+				<h4>データベーステーブル名</h4>
+<p class="exp">
+スネークケース<br />
+例：cart_product<br />
+<br />
+モデルクラス名とテーブル名も一定の規則性の上に成り立ちます。<br />
+モデルクラス名の命名規則は他のクラスと同じ、先頭と単語の頭を大文字にします。対応するテーブル名は全て小文字で単語の区切りに"_"をはさみます。<br />
+<br />
+テーブル名：cart_product　→　モデルクラス名：CartProduct<br />
+<br />
+
+</p>
+				
+	      <h3 id="2">接頭語・接尾語・拡張子の規則</h3>
+    		<p class="exp">
+例えばコントローラークラスであればクラス名の接尾語として"Controller"をつけるといったような規則も存在します。<br />
+以下に挙げるものはデフォルトの規則は存在しますが、設定を変更することが可能です。
+</p>
+				<p class="exp">
+<table class="contents">
+<tr>
+<td>コントローラークラスの接尾語</td>
+<td>"Controller"</td>
+</tr>
+<tr>
+<td>アクションメソッドの接尾語</td>
+<td>なし</td>
+</tr>
+<tr>
+<td>PHPファイルの拡張子</td>
+<td>"php"</td>
+</tr>
+<tr>
+<td>ビューテンプレートの拡張子</td>
+<td>"php"</td>
+</tr>
+<tr>
+<td>Smarty利用の場合のビューテンプレートの拡張子</td>
+<td>"tpl"</td>
+</tr>
+</table>
+</p>
+				
+	      <h3 id="3">名前規則のカスタマイズ</h3>
+    		<p class="exp">
+名前規則はカスタマイズが可能です。<br />
+Curryの名前規則はNameManagerというクラスで集約管理されています。<br />
+NameManagerクラスにはあらゆる命名規則の設定メソッドが用意されており、自由に設定が可能です。<br />
+NameManagerクラスの詳細は<a href="/reference/clas/NameManager">NameManagerのリファレンス</a>を参照してください。<br />
+<br />
+以下に一例を示します。
+</p>
+				<div class="file_name">
+site/app/initializer.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="class">NameManager</span>::setClassType(<span class="class">NameType</span>::SNAKE);
+        <span class="class">NameManager</span>::setMethodType(<span class="class">NameType</span>::SNAKE);
+        <span class="class">NameManager</span>::setActionSuffix(<span class="reteral">'action'</span>);
+    }
+}
+
+</pre>
+</div></div>
+				<p class="exp">
+この場合、URLと呼び出されるクラスの関係は以下のようになります。<br />
+<br />
+URL：<br />
+http://www.xxxx.com/user_cart/add_product<br />
+<br />
+呼び出されるメソッド<br />
+user_cart_controller::add_product_action()
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

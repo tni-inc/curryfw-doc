@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li class="selected"><a href="/manual/validate">バリデーション</a></li>
+                <li><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>バリデーション</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">リクエストの検証</a></li>
+                        <li><a href="#2">Validatorクラスの利用</a></li>
+                        <li><a href="#4">検証ルールの種類</a></li>
+                        <li><a href="#3">コントローラーに組み込まれたValidatorを利用する</a></li>
+                        <li><a href="#5">オートバリデート</a></li>
+              </ul>
+
+	      <h3 id="1">リクエストの検証</h3>
+    		<p class="exp">
+入力フォームなどによってユーザーの入力をPOSTやGETなどの形式で受け付けるアプリケーションの場合、想定外の入力はエラー扱いとして入力を受け付けないようにする必要があります。<br />
+Validatorクラスを利用するとこの仕組が容易に実装可能です。
+</p>
+				
+	      <h3 id="2">Validatorクラスの利用</h3>
+    		<p class="exp">
+例えばユーザー情報の入力フォームを想定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+&lt;form method=&quot;post&quot;&gt;
+  名前：&lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;&lt;br /&gt;
+  住所：&lt;input type=&quot;text&quot; name=&quot;address&quot; /&gt;&lt;br /&gt;
+  年齢：&lt;input type=&quot;text&quot; name=&quot;age&quot; /&gt;&lt;br /&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;送信&quot;&gt;
+&lt;/form&gt;
+</pre>
+</div></div>
+				<p class="exp">
+名前、住所、年齢を入力するだけの簡単なフォームです。<br />
+全ての項目は必須入力とします。<br />
+そして名前は３０文字以内、年齢は数字のみというルールにしようとします。<br />
+<br />
+Validatorクラスでこれらのルールに従って検証を行います。<br />
+まず検証ルールを設定する必要があります。検証ルールの設定はsetRulesメソッドを利用し、配列で指定します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$rules = array(
+    <span class="reteral">'name'</span> =&gt; array(
+        array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+        array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'length'</span>, <span class="reteral">'max'</span> =&gt; 30)
+    ),
+    <span class="reteral">'address'</span> =&gt; array(
+        array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>)
+    ),
+    <span class="reteral">'age'</span> =&gt; array(
+        array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+        array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'number_string'</span>)
+    )
+)
+$validator = <span class="reserved">new</span> <span class="class">Validator</span>();
+$validator-&gt;setRules($rules);
+</pre>
+</div></div>
+				<p class="exp">
+項目名をキーとする配列とし、各キーの下には複数の検証ルールを配列で指定します。<br />
+更に各ルールは検証条件を配列で指定します。<br />
+このように全ての検証条件を階層的な配列として設定します。<br />
+<br />
+設定したうえでvalidateメソッドによって検証を実行します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$result = $validator-&gt;validate($this-&gt;post);
+<span class="reserved">if</span> ($result == <span class="reserved">false</span>) {
+    $errors = $validator-&gt;getError();
+}
+</pre>
+</div></div>
+				<p class="exp">
+validateメソッドを実行するとsetRulesで設定したルールにもとづいて検証が行われ、一つでもエラーが存在する場合はvalidateはfalseを返します。<br />
+この場合、getErrorによって項目ごとのエラーメッセージが取得できます。このエラーメッセージを入力フォームに表示することにより、ユーザーに訂正を促します。
+</p>
+				
+	      <h3 id="4">検証ルールの種類</h3>
+    		<p class="exp">
+検証ルールは以下の物が用意されています。
+</p>
+				<p class="exp">
+<table class="contents">
+  <tr><th>ルールキー</th><th>検証内容</th><th>オプション</th></tr>
+  <tr><td>required</td><td>必須入力</td><td></td></tr>
+  <tr><td>length</td><td>文字列長範囲</td><td>max、min</td></tr>
+  <tr><td>length_range</td><td>lengthのエイリアスです。lengthと同一動作です。<br /><span style="color:#cc0000;">※このルールは削除予定のため、lengthで代用するようにしてください。</span></td><td>max、min</td></tr>
+  <tr><td>numeric</td><td>算術数値</td><td></td></tr>
+  <tr><td>number_string</td><td>数字文字列（0～9）</td><td></td></tr>
+  <tr><td>alpha</td><td>アルファベット</td><td></td></tr>
+  <tr><td>alphanum</td><td>アルファベット・数字文字列</td><td></td></tr>
+  <tr><td>singlebyte</td><td>シングルバイト</td><td></td></tr>
+  <tr><td>regex</td><td>正規表現</td><td>pattern</td></tr>
+</table>
+</p>
+				<h4>ユーザー定義ルール</h4>
+<p class="exp">
+Validatorの内部では、ルールキーをキャメルケースに変換したメソッド名が呼び出され、ルールキーごとの検証処理を行なっています。<br />
+例えばlength_rangeの場合、ValidatorのlengthRangeメソッドによって実際の検証が行われています。<br />
+<br />
+ユーザーが任意の検証ルールを追加したいと考えた場合、Validatorを継承したクラスを定義し、そこにユーザー定義メソッドを追加すれば、そのメソッド名をスネークケースに変換した名前のルールキーを指定することにより、validateメソッドで利用可能になります。<br />
+<br />
+例えば郵便番号を検証するzipCodeというメソッドをValidatorの継承クラスに定義します。
+</p>
+				<div class="file_name">
+library/validator_ex.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">ValidatorEx</span> <span class="reserved">extends</span> <span class="class">Validator</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> __construct()
+    {
+        <span class="reserved">self</span>::$_messages[<span class="reteral">'zip_code'</span>] = <span class="reteral">'invalid zip code'</span>;
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> zipCode($value, $options)
+    {
+        <span class="reserved">if</span> (!preg_match(<span class="reteral">'/^[0-9]{3}-[0-9]{4}$/'</span>, $value)) {
+            <span class="reserved">return</span> <span class="reserved">false</span>;
+        }
+        <span class="reserved">return</span> <span class="reserved">true</span>;
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+この場合、setRulesメソッドに設定するルールで、ルールキーとして"zip_code"を指定することで、zipCodeメソッドを利用しての検証が行われます。<br />
+ただし、ユーザー定義メソッドは必ず引数を2つとり、第1引数に検証対象値、第2引数に検証オプションとする必要があります。第2引数は引数としての定義は必要ですが、不要な場合はメソッド内部では利用する必要はありません。
+</p>
+				<div class="sample_code"><div>
+<pre>
+$validator-&gt;setRules(array(
+    <span class="reteral">'zip'</span> =&gt; array(
+        array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+        array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'zip_code'</span>)
+    )
+));
+
+$post = array(<span class="reteral">'zip'</span> =&gt; <span class="reteral">'000-000'</span>);
+$res = $validator-&gt;validate($post);
+<span class="reserved">if</span> ($res == <span class="reserved">false</span>) {
+    <span class="comment">// array(<span class="reteral">'zip'</span> =&gt; <span class="reteral">'invalid zip code'</span>)
+</span>    $errors = $validator-&gt;getError();
+}
+</pre>
+</div></div>
+				
+	      <h3 id="3">コントローラーに組み込まれたValidatorを利用する</h3>
+    		<p class="exp">
+ControllerはフィールドとしてValidatorのインスタンスを保持しています。<br />
+これを利用しての検証が可能です。<br />
+<br />
+setRulesメソッドによるルールの設定は自動的に行われます。<br />
+ただしコントローラークラスの$validateRulesフィールドにルールを定義しておく必要があります。<br />
+$validateRulesは、setRulesメソッドに指定する配列を、更にアクション名をキーとした配列の下に格納します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">UserController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">protected</span> $validateRules = array(
+        <span class="reteral">'regist'</span> =&gt; array(
+            <span class="reteral">'name'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'length'</span>, <span class="reteral">'max'</span> =&gt; 30)
+            ),
+            <span class="reteral">'address'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>)
+            ),
+            <span class="reteral">'age'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'number_string'</span>)
+            )
+        )
+    );
+
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> regist()
+    {
+        <span class="comment">// $this-&gt;validateRules[<span class="reteral">'regist'</span>]のルールで検証が行われる
+</span>        $res = $this-&gt;validator-&gt;validate($this-&gt;post);
+        <span class="reserved">if</span> ($res == <span class="reserved">false</span>) {
+            $this-&gt;session-&gt;errors = $this-&gt;validator-&gt;getError();
+            $this-&gt;redirect(<span class="reteral">'/user/index'</span>);
+        }
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+アクションメソッドではvalidateメソッドを呼び出すだけです。<br />
+
+</p>
+				<h4>ユーザー定義のValidator継承クラス</h4>
+<p class="exp">
+Validatorクラスを継承したクラスをコントローラーの$this->validatorとして利用したい場合、index.phpで以下の２行の設定が必要です。<br />
+例えばlibraryディレクトリにValidatorExクラスを定義した場合は以下のようにします。
+</p>
+				<div class="file_name">
+htdocs/index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+　　　　　　・
+　　　　　　・
+　　　　　　・
+@@Brequire_once SITE_PATH . <span class="reteral">'library/validator_ex.php'</span>;@
+
+$dispatcher = <span class="reserved">new</span> <span class="class">Dispatcher</span>();
+@@B$dispatcher-&gt;setValidatorClass(<span class="reteral">'ValidatorEx'</span>);@
+　　　　　　・
+　　　　　　・
+　　　　　　・
+</pre>
+</div></div>
+				
+	      <h3 id="5">オートバリデート</h3>
+    		<p class="exp">
+コントローラーにはバリデーションを自動的に行う機能が備わっています。<br />
+通常はValidatorクラスのvalidateメソッドにより、アクションメソッドの中で明示的にバリデーションを行いますが、Controllerクラスの$autoValidateをtrueに設定すると、それすらも必要なく、アクションメソッドより前のタイミングで自動的に検証が行われ、エラーがある時にはリクエスト送信元のアクションへリダイレクトし、エラーを表示します。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">UserController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="bold"><span class="reserved">protected</span> $autoValidate = <span class="reserved">true</span>;</span>
+
+    <span class="reserved">protected</span> $validateRules = array(
+        <span class="reteral">'regist'</span> =&gt; array(
+            <span class="reteral">'name'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'length'</span>, <span class="reteral">'max'</span> =&gt; 30)
+            ),
+            <span class="reteral">'address'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>)
+            ),
+            <span class="reteral">'age'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'number_string'</span>)
+            )
+        )
+    );
+
+</pre>
+</div></div>
+				<p class="exp">
+Controllerを継承したクラスで$autoValidateフィールドをtrueに指定した上で、<br />
+$validateRulesを設定すると、設定されたアクションへのリクエスト時、自動的に検証が実行されます。<br />
+検証の結果、エラーが存在しない場合はアクションまで処理が到達します。<br />
+エラーが存在した場合、リクエスト元のアクションへリダイレクトします。<br />
+このリダイレクト時、リダイレクト先（リクエスト元）のアクションでは、ビューへ"errors"というキーでエラー情報が出力されます。<br />
+errorsは、エラー対象となったPOSTやGETの項目のキーにエラーメッセージが格納された配列となっており、ビューテンプレートでこれを表示するようにすることで、エラーが表示が可能です。
+</p>
+				<div class="file_name">
+app/controllers/user_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">UserController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">protected</span> $autoValidate = <span class="reserved">true</span>;
+
+    <span class="reserved">protected</span> $validateRules = array(
+        <span class="reteral">'regist'</span> =&gt; array(
+            <span class="reteral">'name'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'length'</span>, <span class="reteral">'max'</span> =&gt; 30)
+            ),
+            <span class="reteral">'address'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>)
+            ),
+            <span class="reteral">'age'</span> =&gt; array(
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'required'</span>),
+                array(<span class="reteral">'rule'</span> =&gt; <span class="reteral">'number_string'</span>)
+            )
+        )
+    );
+
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> regist()
+    {
+        <span class="comment">// 登録処理
+</span>    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/templates/user/index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;form method=&quot;post&quot; action=&quot;/user/regist&quot;&gt;
+  名前：&lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;&lt;span class=&quot;error&quot;&gt;&lt;?php echo $errors['name'] ?&gt;&lt;/span&gt;&lt;br /&gt;
+  住所：&lt;input type=&quot;text&quot; name=&quot;address&quot; /&gt;&lt;span class=&quot;error&quot;&gt;&lt;?php echo $errors['address'] ?&gt;&lt;/span&gt;&lt;br /&gt;
+  年齢：&lt;input type=&quot;text&quot; name=&quot;age&quot; /&gt;&lt;span class=&quot;error&quot;&gt;&lt;?php echo $errors['age'] ?&gt;&lt;/span&gt;&lt;br /&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;送信&quot;&gt;
+&lt;/form&gt;
+</pre>
+</div></div>
+				<p class="exp">
+例えば上の例のようなコントローラークラスとビューテンプレートを用意すれば、これだけで検証が自動的に行われ、エラー表示までが行われます。<br />
+こうすることでアクションメソッド内にはバリデーションコードを一切記述せずにバリデーション機能を持たせることが可能になり、コードがシンプルになります。
+</p>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>

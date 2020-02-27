@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache"> 
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="keywords" content="PHP,フレームワーク,MVC,軽量">
+<meta name="description" content="軽量でシンプルなPHPのMVCフレームワーク">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/manual.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<title>軽量シンプルPHPフレームワーク | Curry</title>
+</head>
+<body>
+
+<div id="header_frame">
+  <div id="header_frame_inner">
+
+    <div class="clear"></div>
+    <h1 class="logo">Curry<br /><span>PHP Framework</span></h1>
+    <ul id="main_menu">
+          <li><a href="/reference">リファレンス</a></li>
+          <li class="selected"><a href="/manual">マニュアル</a></li>
+          <li><a href="/index">ホーム</a></li>
+        </ul>
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<div id="main_frame">
+
+
+
+  <div id="left_frame">
+
+  <ul id="side_menu">
+            <li><a href="/manual/about">Curryの特徴</a></li>
+                <li><a href="/manual/introduction">導入</a></li>
+                <li><a href="/manual/url">URL</a></li>
+                <li><a href="/manual/dirs">ディレクトリ構成</a></li>
+                <li><a href="/manual/naming">名前規則</a></li>
+                <li><a href="/manual/init">初期設定</a></li>
+                <li><a href="/manual/controller">コントローラー</a></li>
+                <li><a href="/manual/validate">バリデーション</a></li>
+                <li class="selected"><a href="/manual/error">エラー制御</a></li>
+                <li><a href="/manual/model">モデル</a></li>
+                <li><a href="/manual/data">データアクセス</a></li>
+                <li><a href="/manual/view">ビュー</a></li>
+                <li><a href="/manual/viewscript">ビュースクリプト</a></li>
+                <li><a href="/manual/service">サービス</a></li>
+                <li><a href="/manual/config">設定ファイル</a></li>
+                <li><a href="/manual/customize">カスタマイズ</a></li>
+                <li><a href="/manual/pager">ページング処理</a></li>
+                <li><a href="/manual/log">ログ出力</a></li>
+                <li><a href="/manual/rest">REST</a></li>
+                <li><a href="/manual/html">HTML自動生成</a></li>
+                <li><a href="/manual/form">フォーム自動生成</a></li>
+          </ul>
+  </div>
+  
+  <div id="right_frame">
+    <h2>エラー制御</h2>  
+    <ul id="title_list">
+                  <li><a href="#1">例外発生時の処理</a></li>
+                        <li><a href="#2">URLルーティング失敗時の例外</a></li>
+                        <li><a href="#3">通常の例外</a></li>
+                        <li><a href="#4">例外処理のカスタマイズ</a></li>
+                        <li><a href="#5">例外情報のログ出力</a></li>
+              </ul>
+
+	      <h3 id="1">例外発生時の処理</h3>
+    		<p class="exp">
+Curryでは、発生した例外のインスタンスを捕捉し、規定の処理を行う仕組みが組み込まれています。<br />
+例外は実装者によって意図的にcatchされない限り、curryによってcatchされます。<br />
+そして規定されたエラー処理を行います。
+</p>
+				
+	      <h3 id="2">URLルーティング失敗時の例外</h3>
+    		<p class="exp">
+URLによって指定されたコントローラーに対応するコントローラークラス、またはアクションに対するアクションメソッドが存在しない、またはアクセス出来ない場合、専用のビューテンプレートが出力されます。<br />
+専用のビューテンプレートは、ビューテンプレートディレクトリ内の、error/not_found.php(tpl)です。<br />
+存在しないURLへアクセス時に表示したいコンテンツをカスタマイズしたい場合は、このテンプレートを編集することで可能です。
+</p>
+				
+	      <h3 id="3">通常の例外</h3>
+    		<p class="exp">
+ここで言う通常の例外とは、URLルーティング失敗の例外を除く全ての例外を指します。<br />
+この場合、Curryはビューテンプレートディレクトリ内の、error/error.php(tpl)のエラーテンプレートを出力します。このテンプレートに対しては例外の詳細情報がテンプレート変数として出力され、例外の内容を画面に表示することができます。<br />
+<br />
+ただし一般的に例外の情報をサイト閲覧者に見せるのはセキュリティ上も良いことではありません。開発時はエラーテンプレートに例外の情報を出力するようにすると便利ですが、サイト運用時は変数の出力を行わず、テンプレートには固定のエラーメッセージ、例えば「システムエラーが発生しました。」などを表示するようにするとよいでしょう。
+</p>
+				<div class="file_name">
+app/views/templates/error/error.php
+</div>
+<div class="sample_code"><div>
+<pre>
+&amp;lt;?php echo $file; ?&amp;gt;(&amp;lt;?php echo $line; ?&amp;gt;)
+&amp;lt;br /&amp;gt;
+&amp;lt;?php echo $message; ?&amp;gt;
+&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;
+&amp;lt;?php echo nl2br($trace); ?&amp;gt;
+</pre>
+</div></div>
+				<p class="exp">
+これは標準のエラーテンプレートです。このままだと例外時にサイト閲覧者に例外情報が見えてしまうので、サイト運用時は例えば以下のようにします。
+</p>
+				<div class="file_name">
+app/views/templates/error/error.php
+</div>
+<div class="sample_code"><div>
+<pre>
+システムエラーが発生しました。
+</pre>
+</div></div>
+				<p class="exp">
+これでどのような例外が発生しても閲覧者には固定のメッセージしか表示されません。
+</p>
+				<h4>エラーテンプレートを任意に指定</h4>
+<p class="exp">
+例外時に表示するテンプレートはerror/error.php(tpl)が基本ですが、これを任意に指定することも可能です。<br />
+ただし、エラーテンプレートの格納ディレクトリはerrorで固定です。ファイル名のみ指定が可能です。<br />
+<br />
+例えば開発環境用と公開環境用で例外発生時のエラー表示方法を変えたいという要望はありがちです。<br />
+開発環境ではエラーの詳細がすぐわかるような形に、公開環境ではお決まりの「システムエラーが発生しました」的なエラーを表示するのみに留めるなど。<br />
+そのような要望に答えるにはエラーテンプレートを分け、何かの判定基準によって開発環境か公開環境かを判定し、エラーテンプレートを切り分ける、という方法が考えられます。<br />
+<br />
+指定するにはViewAbstractクラスに存在するsetErrorTemplateメソッドを利用します。<br />
+指定するのはファイル名です。拡張子の指定は不要です。
+</p>
+				<div class="file_name">
+app/views/templates/error/error.tpl
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;p&gt;システムエラーが発生しました。&lt;/p&gt;
+</pre>
+</div></div>
+				<div class="file_name">
+app/views/templates/error/debug.tpl
+</div>
+<div class="sample_code"><div>
+<pre>
+&lt;?php echo $file; ?&gt;(&lt;?php echo $line; ?&gt;)
+&lt;br /&gt;
+&lt;?php echo $message; ?&gt;
+&lt;br /&gt;&lt;br /&gt;
+&lt;?php echo nl2br($trace); ?&gt;
+</pre>
+</div></div>
+				<div class="file_name">
+app/controllers/plugin.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Plugin</span> <span class="reserved">extends</span> <span class="class">PluginAbstract</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> preProcess()
+    {
+        $ini = Ini::load(<span class="reteral">'system.ini'</span>, <span class="reteral">'system'</span>);
+        <span class="reserved">if</span> ($ini[<span class="reteral">'debug_mode'</span>] == 1) {
+            $this-&gt;view-&gt;setErrorTemplate(<span class="reteral">'debug'</span>);
+        }
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+例えば上の例は公開環境用のエラーテンプレートとしてerror.tpl、<br />
+開発環境用のエラーテンプレートとしてdebug.tplを用意し、<br />
+system.iniというiniファイルを作って開発環境か公開環境かを判断するフラグを設定し、<br />
+それを参照してどちらのエラーテンプレートを利用するかを切り分ける処理を行なっています。
+</p>
+				
+	      <h3 id="4">例外処理のカスタマイズ</h3>
+    		<p class="exp">
+例外発生時の処理は、ErrorHandlerStandardクラスに規定されています。<br />
+任意の処理を定義したい場合、このErrorHandlerStandardを継承した"ErrorHandler"クラスを作成し、コントローラーディレクトリに配置します。
+</p>
+				<div class="file_name">
+app/controllers/error_handler.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">ErrorHandler</span> <span class="reserved">extends</span> <span class="class">ErrorHandlerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> error()
+    {
+
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> notFound()
+    {
+
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+例外の種類ごとにメソッドを作成します。<br />
+例えばURLルーティング失敗時には、NotFoundExceptionという例外がthrowされます。これはExceptionクラスを継承したNotFoundExceptionクラスのインスタンスですが、この場合、ErrorHandlerのnotFoundメソッドが呼び出されます。<br />
+<br />
+つまり、例外のクラス名から"Exception"を除外したものをメソッドの名前規則に変換した名前のメソッドが呼び出されるわけです。<br />
+<br />
+例えばExceptionクラスを継承したFileNotExistsExceptionという例外クラスを定義したとしましょう。この場合、ErroHandlerでfileNotExistsというメソッドを定義すれば、FileNotExistsExceptionがthrowされた場合に呼び出される事になります。<br />
+<br />
+ちなみに、例外のクラス名に対応するメソッドが存在しない場合、errorメソッドが呼び出されます。errorメソッドはデフォルトの例外処理という位置付けです。<br />
+<br />
+実際にErrorHandlerの処理を定義してみましょう。
+</p>
+				<div class="file_name">
+app/controllers/error_handler.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">ErrorHandler</span> <span class="reserved">extends</span> <span class="class">ErrorHandlerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> error()
+    {
+        die(<span class="reteral">'システムエラーが発生しました'</span>);
+    }
+
+    <span class="reserved">public</span> <span class="reserved">function</span> notFound()
+    {
+        $this-&gt;redirect(<span class="reteral">'/'</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+この場合、存在しないコントローラー・アクションへのリクエスト時は強制的にトップページを表示、それ以外は「システムエラーが発生しました。」と表示してスクリプトの強制ストップという処理になります。
+</p>
+				
+	      <h3 id="5">例外情報のログ出力</h3>
+    		<p class="exp">
+例外発生時、Loggerクラスを利用して例外の詳細情報をログファイルに出力することができます。<br />
+デフォルトでlogs/system.logに出力されるようになっています。<br />
+出力したくない場合は、Initializerなどで無効に設定します。
+</p>
+				<div class="file_name">
+htdocs/index.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="class">ErrorHandlerStandard</span>::enableLogging(<span class="reserved">false</span>);
+    }
+}
+</pre>
+</div></div>
+				<h4>例外のログだけ別ログとして出力する</h4>
+<p class="exp">
+Loggerクラスの仕組みとして用途によって出力するファイルを分けることができるようになっています。これを利用して例外だけ別ログとすることが可能です。
+</p>
+				<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">Initializer</span> <span class="reserved">extends</span> <span class="class">InitializerStandard</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> initialize()
+    {
+        <span class="comment">// 例外ログ出力用
+</span>        <span class="class">Logger</span>::setLogName(<span class="reteral">'exception.log'</span>, <span class="reteral">'exp'</span>);
+        <span class="class">ErrorHandlerStandard</span>::enableLogging(<span class="reteral">'exp'</span>);
+    }
+}
+</pre>
+</div></div>
+				<p class="exp">
+LoggerクラスのsetLogNameメソッドによって出力先のログファイル名を指定しますが、第2引数でそのログファイルに対して任意のキーを設定することで、複数のログファイルを同時に利用できる仕組みになっています。<br />
+これを利用し、ここではexcept_logというログファイルに対して"exp"というキーを割り当てました。そしてErrorHandlerStandardのenableLoggingメソッドにこのキーを指定することで、対象のログファイルへ出力が行われるようになります。
+</p>
+				<div class="file_name">
+app/controllers/index_controller.php
+</div>
+<div class="sample_code"><div>
+<pre>
+<span class="reserved">class</span> <span class="class">IndexController</span> <span class="reserved">extends</span> <span class="class">Controller</span>
+{
+    <span class="reserved">public</span> <span class="reserved">function</span> index()
+    {
+        <span class="class">Logger</span>::info(<span class="reteral">'通常のログです。'</span>);
+
+        <span class="reserved">throw</span> <span class="reserved">new</span> <span class="class">Exception</span>(<span class="reteral">'例外ログです。'</span>);
+    }
+}
+</pre>
+</div></div>
+				<div class="file_name">
+logs/log
+</div>
+<div class="sample_code"><div>
+<pre>
+[2011-08-01 01:01:01] [INFO ] 通常のログです。
+</pre>
+</div></div>
+				<div class="file_name">
+logs/except_log
+</div>
+<div class="sample_code"><div>
+<pre>
+[2011-08-01 01:01:01] [ERROR] FILE:～/site/app/controllers/index_controller.php LINE:9 例外ログです。
+#0 ～/curry/core/dispatcher.php(210): IndexController-&gt;index()
+#1 ～/site/htdocs/index.php(25): Dispatcher-&gt;dispatch()
+#2 {main}
+</pre>
+</div></div>
+				
+
+
+  </div>
+
+</div>
+<div id="footer_frame">
+Copyright(C) 2011 Curry PHP Framework developers. This software is released under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>. 
+</div>
+</body>
+</html>
